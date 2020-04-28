@@ -1,0 +1,53 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+
+  postgres:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_USER: inventarium
+      POSTGRES_DB: core
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.http
+    ports:
+      - "2300:2300"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app
+    environment:
+      RACK_ENV: production
+      HANAMI_ENV: production
+      SERVE_STATIC_ASSETS: 'true'
+      REDISTOGO_URL: redis://redis:6379/0
+      DATABASE_URL: postgres://test@postgres/core
+      WEB_SESSIONS_SECRET: 237d8ece1579f59647fe3d7c5ca2c78f02142a6392506a929d14c46424e52543
+      API_SESSIONS_SECRET: 237d8ece1579f59647fe3d7c5ca2c78f02142a6392506a929d14c46424e52543
+      INBUILT_WEBPACK_DEV_SERVER: 'false'
+      WEBPACK_DEV_SERVER: 'false'
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile.sidekiq
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app
+    environment:
+      HANAMI_ENV: production
+      REDISTOGO_URL: redis://redis:6379/0
+      DATABASE_URL: postgres://test@postgres/core
+
+volumes:
+  db-data:
+    driver: local
+    external: false

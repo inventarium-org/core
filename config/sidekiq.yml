@@ -1,0 +1,15 @@
+# :schedule:
+#   one_minute_check_sites_cycle:
+#     cron: '*/1 * * * *'   # Runs every 1 minutes
+#
+#     class: Workers
+#
+#     args: [1]
+#     description: "This job start worker every 1 minute"
+#
+#     # Enable the `metadata` argument which will pass a Hash containing the schedule metadata
+#     # as the last argument of the `perform` method. `false` by default.
+#     include_metadata: true
+#
+#     # Enable / disable a job. All jobs are enabled by default.
+#     enabled: false

@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title = title
+
+    = render partial: 'shared/meta_tags'
+
+  body
+    = yield
+
+    - if Hanami.env?(:development)
+      script src=webpack_asset_path('web')
+    - else
+      script src="/#{webpack_asset_path('web').split('/')[1]}"
