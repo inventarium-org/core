@@ -184,7 +184,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.1.4)
     public_suffix (3.1.0)
-    puma (3.11.4)
+    puma (3.12.4)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
@@ -308,7 +308,7 @@ DEPENDENCIES
   hanami-webpack!
   hiredis
   pg
-  puma (~> 3.11.0)
+  puma (~> 3.12.4)
   rake
   rspec
   rspec-hanami
