@@ -18,25 +18,8 @@ module Core
       format: /\A(\h{32}|\h{8}-\h{4}-\h{4}-\h{4}-\h{12})\z/
     )
 
-    # Vacancies
-    VacancyPositionTypes = String.constructor(proc { |value| value.to_s.downcase })
-                                 .default('full_time')
-                                 .enum('full_time', 'part_time', 'contractor', 'intern', 'temp', 'other')
-
-    VacancySalaryCurrencyTypes = String.constructor(proc { |value| value.to_s.downcase })
-                                       .default('rub')
-                                       .enum('rub', 'usd', 'eur', 'kzt')
-
-    VacancySalaryUnitTypes = String.constructor(proc { |value| value.to_s.downcase })
-                                   .default('monthly')
-                                   .enum('monthly', 'yearly', 'by hour', 'per project')
-
-    VacancyTags = Types::Array.of(Types::Coercible::String)
-
-    # analitics
-    ViewCount = Types::Int.constrained(gteq: 0)
-
-    # companies
-    CompanyRatings = Types::Hash.default({})
+    # Accounts
+    AuthIdentityProvider = String.constructor(proc { |value| value.to_s.downcase })
+                                 .enum('login', 'github', 'google', 'gitlab')
   end
 end

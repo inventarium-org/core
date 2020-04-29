@@ -19,41 +19,7 @@ class Container < Dry::System::Container
   register_folder! 'core/repositories'
   register_folder! 'core/libs'
 
-  #  Analitics
-  register_folder! 'analitics/operations'
-
-  #  Vacancies
-  register_folder! 'vacancies/mappers'
-  register_folder! 'vacancies/queries'
-  register_folder! 'vacancies/operations'
-
-  # Subscribers
-  register_folder! 'subscribers/operations'
-
-  # Companies
-  register_folder! 'companies/operations'
-
-  # Reviews
-  register_folder! 'reviews/operations'
-
-  #  Web
-  namespace 'web' do
-    register 'vacancies.generators.rss' do
-      Web::Views::RssFeed::Generator.new
-    end
-
-    register 'mappers.review_form' do
-      Web::Mappers::ReviewForm.new
-    end
-
-    register 'mappers.search_options' do
-      Web::Mappers::SearchOptions.new
-    end
-  end
-
   configure do |config|
     config.env = Hanami.env
   end
 end
-
-Container.register(:current_time) { -> { Time.now } }

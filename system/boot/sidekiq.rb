@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Container.boot(:sidekiq) do |container|
   init do
     require 'sidekiq-scheduler'
@@ -42,3 +43,4 @@ Container.boot(:sidekiq) do |container|
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

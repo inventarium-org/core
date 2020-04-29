@@ -38,89 +38,26 @@ RSpec.describe Core::Types do
     it { expect { type['anything'] }.to raise_error(Dry::Types::ConstraintError) }
   end
 
-  describe 'VacancyPositionTypes' do
-    let(:type) { Core::Types::VacancyPositionTypes }
+  describe 'AuthIdentityProvider' do
+    let(:type) { Core::Types::AuthIdentityProvider }
 
     [
-      [nil, 'full_time'],
+      [:github, 'github'],
+      %w[github github],
 
-      %w[full_time full_time],
-      %w[part_time part_time],
-      %w[contractor contractor],
-      %w[temp temp],
-      %w[other other],
+      [:google, 'google'],
+      %w[google google],
 
-      [:full_time, 'full_time'],
-      [:part_time, 'part_time'],
-      [:contractor, 'contractor'],
-      [:temp, 'temp'],
-      [:other, 'other']
+      [:gitlab, 'gitlab'],
+      %w[gitlab gitlab],
+
+      [:login, 'login'],
+      %w[login login]
     ].each do |value, result|
       it { expect(type[value]).to eq(result) }
     end
 
     it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
     it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
-  end
-
-  describe 'VacancySalaryCurrencyTypes' do
-    let(:type) { Core::Types::VacancySalaryCurrencyTypes }
-
-    [
-      [nil, 'rub'],
-
-      %w[rub rub],
-      %w[usd usd],
-      %w[eur eur],
-
-      [:rub, 'rub'],
-      [:usd, 'usd'],
-      [:eur, 'eur']
-    ].each do |value, result|
-      it { expect(type[value]).to eq(result) }
-    end
-
-    it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
-    it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
-  end
-
-  describe 'VacancySalaryUnitTypes' do
-    let(:type) { Core::Types::VacancySalaryUnitTypes }
-
-    [
-      [nil, 'monthly'],
-
-      %w[monthly monthly],
-      %w[yearly yearly],
-      ['by hour', 'by hour'],
-      ['per project', 'per project'],
-
-      [:monthly, 'monthly'],
-      [:yearly, 'yearly']
-    ].each do |value, result|
-      it { expect(type[value]).to eq(result) }
-    end
-
-    it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
-    it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
-  end
-
-  describe 'ViewCount' do
-    let(:type) { Core::Types::ViewCount }
-
-    [
-      [0, 0],
-
-      [1, 1],
-      [10_000, 10_000]
-    ].each do |value, result|
-      it { expect(type[value]).to eq(result) }
-    end
-
-    it { expect { type['1'] }.to raise_error(ArgumentError) }
-    it { expect { type['asd'] }.to raise_error(ArgumentError) }
-
-    it { expect { type[-1] }.to raise_error(Dry::Types::ConstraintError) }
-    it { expect { type[-10_000] }.to raise_error(Dry::Types::ConstraintError) }
   end
 end

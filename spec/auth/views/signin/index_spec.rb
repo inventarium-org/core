@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Auth::Views::Signin::Index, type: :view do
   let(:exposures) { Hash[format: :html] }
   let(:template)  { Hanami::View::Template.new('apps/auth/templates/signin/index.html.slim') }
