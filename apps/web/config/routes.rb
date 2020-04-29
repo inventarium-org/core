@@ -1,3 +1,4 @@
 # frozen_string_literal: true
 
-# root to: 'static#index'
+get '/', to: 'dashboard#index'
+# root to: 'dashboard#new'

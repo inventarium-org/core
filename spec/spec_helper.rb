@@ -34,8 +34,7 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
 end
 
-require_relative '../config/environment'
-Hanami.boot
+require_relative '../config/boot'
 Hanami::Utils.require!("#{__dir__}/support")
 
 require 'sidekiq/testing'

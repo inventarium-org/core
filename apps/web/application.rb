@@ -267,13 +267,13 @@ module Web
         #
         # # include MyAuthentication # included in all the actions
         # before :authenticate! # run an authentication before callback
-        handle_exception Exception => :error_handler
+        # handle_exception Exception => :error_handler
 
-        private
+        # private
 
-        def error_handler(_exception)
-          status 500
-        end
+        # def error_handler(_exception)
+        #   status 500
+        # end
       end
 
       # Configure the code that will yield each time Web::View is included

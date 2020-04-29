@@ -14,14 +14,15 @@ Warning.ignore(/warning: The called method .+ is defined here/)
 require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
-require_relative '../system/import'
-require_relative './initializers/request_id'
-require_relative '../apps/web/application'
-require_relative '../apps/api/application'
 
 # Disable warnings from dry-monads library.
 # We have this warnings because use old version of validation with monad extension
 Dry::Core::Deprecations.set_logger!(StringIO.new)
+
+require_relative '../system/import'
+require_relative './initializers/request_id'
+require_relative '../apps/api/application'
+require_relative '../apps/web/application'
 
 Hanami.configure do
   middleware.use RequestId
