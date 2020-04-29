@@ -63,6 +63,9 @@ Metrics/AbcSize:
 Layout/LineLength:
   Max: 120
 
+Layout/ArgumentAlignment:
+  Enabled: false
+
 # Use UTF-8 as the source file encoding, specify when needed.
 Style/Encoding:
   StyleGuide: '#utf-8'

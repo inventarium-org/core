@@ -36,8 +36,8 @@ gem 'relative_time', github: 'davydovanton/relative_time', branch: 'master'
 gem 'slim'
 
 # auth
-# gem 'omniauth'
-# gem 'omniauth-github', github: 'intridea/omniauth-github'
+gem 'omniauth'
+gem 'omniauth-github', github: 'intridea/omniauth-github'
 
 # pagination
 # gem 'hanami-pagination', github: 'davydovanton/hanami-pagination'

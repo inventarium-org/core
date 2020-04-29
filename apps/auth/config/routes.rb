@@ -6,4 +6,4 @@
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
 get '/login', to: 'signin#index', as: 'login'
-get '/:provider', to: 'oauth#show'
+get '/:provider/callback', to: 'oauth_session#create'

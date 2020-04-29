@@ -88,6 +88,11 @@ module Auth
       # Configure Rack middleware for this application
       #
       # middleware.use Rack::Protection
+      middleware.use OmniAuth::Builder do
+        provider :github, Container[:settings].github_key, Container[:settings].github_secret,
+          callback_path: '/github/callback',
+          request_path: '/github'
+      end
 
       # Default format for the requests that don't specify an HTTP_ACCEPT header
       # Argument: A symbol representation of a mime type, defaults to :html
