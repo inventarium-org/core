@@ -2,7 +2,7 @@
 
 Container.boot(:sidekiq) do |container|
   init do
-    # require 'sidekiq-scheduler'
+    require 'sidekiq-scheduler'
     require 'sidekiq/job_logger'
 
     use :logger

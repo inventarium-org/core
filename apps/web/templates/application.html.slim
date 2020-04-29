@@ -1,14 +1,15 @@
 doctype html
 html
   head
-    title = title
+    title
+      | Inventarium
+    = favicon
+    = stylesheet 'bootstrap', 'main'
 
-    /= render partial: 'shared/meta_tags'
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
+  body.h-100
+    main
+      .container
+        = yield
 
-  body
-    = yield
-
-    - if Hanami.env?(:development)
-      script src=webpack_asset_path('web')
-    - else
-      script src="/#{webpack_asset_path('web').split('/')[1]}"
+    = javascript 'jquery', 'bootstrap', 'main'

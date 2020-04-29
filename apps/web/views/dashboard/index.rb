@@ -3,10 +3,6 @@ module Web
     module Dashboard
       class Index
         include Web::View
-
-        def title
-          'test'
-        end
       end
     end
   end

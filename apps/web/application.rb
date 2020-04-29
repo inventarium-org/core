@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 require 'hanami/helpers'
 require 'hanami/assets'
 
 module Web
   class Application < Hanami::Application
-    configure do # rubocop:disable Metrics/BlockLength
+    configure do
       ##
       # BASIC
       #
@@ -20,9 +18,9 @@ module Web
       #
       # When you add new directories, remember to add them here.
       #
-      load_paths << %w[
-        controllers
-        views
+      load_paths << [
+        'controllers',
+        'views'
       ]
 
       # Handle exceptions with HTTP statuses (true) or don't catch them (false).
@@ -48,7 +46,7 @@ module Web
       # URI host used by the routing system to generate absolute URLs
       # Defaults to "localhost"
       #
-      # host 'rubyjobs.dev'
+      # host 'example.org'
 
       # URI port used by the routing system to generate absolute URLs
       # Argument: An object coercible to integer, defaults to 80 if the scheme
@@ -83,7 +81,7 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
       #
-      sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+      # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
 
       # Configure Rack middleware for this application
       #
@@ -153,7 +151,7 @@ module Web
         # See: http://hanamirb.org/guides/assets/compressors
         #
         # In order to skip stylesheet compression comment the following line
-        stylesheet_compressor :sass
+        stylesheet_compressor :builtin
 
         # Specify sources for assets
         #
@@ -235,13 +233,13 @@ module Web
       #
       #  * https://developer.mozilla.org/en-US/docs/Web/Security/CSP/CSP_policy_directives
       #
-      security.content_security_policy %(
+      security.content_security_policy %{
         form-action 'self';
         frame-ancestors 'self';
         base-uri 'self';
         default-src 'none';
-        script-src 'self' 'unsafe-inline';
-        connect-src 'self' http://localhost:3020 ws://localhost:3020;
+        script-src 'self';
+        connect-src 'self';
         img-src 'self' https: data:;
         style-src 'self' 'unsafe-inline' https:;
         font-src 'self';
@@ -250,8 +248,7 @@ module Web
         child-src 'self';
         frame-src 'self';
         media-src 'self'
-      )
-      # rubocop:enable Metrics/LineLength
+      }
 
       ##
       # FRAMEWORKS
@@ -262,18 +259,8 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/hanami-controller#Configuration
       controller.prepare do
-        # include Auth::Authentication
-        # expose :current_account
-        #
-        # # include MyAuthentication # included in all the actions
-        # before :authenticate! # run an authentication before callback
-        # handle_exception Exception => :error_handler
-
-        # private
-
-        # def error_handler(_exception)
-        #   status 500
-        # end
+        # include MyAuthentication # included in all the actions
+        # before :authenticate!    # run an authentication before callback
       end
 
       # Configure the code that will yield each time Web::View is included
@@ -310,9 +297,6 @@ module Web
       # host   'example.org'
       # port   443
 
-      # Don't handle exceptions, render the stack trace
-      handle_exceptions false
-
       assets do
         # Don't compile static assets in production mode (eg. Sass, ES6)
         #
@@ -323,8 +307,6 @@ module Web
         #
         # See: http://hanamirb.org/guides/assets/overview
         fingerprint true
-
-        manifest 'webpack_manifest.json'
 
         # Content Delivery Network (CDN)
         #

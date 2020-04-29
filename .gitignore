@@ -1,9 +1,10 @@
 /public/assets*
-/public/web-26b73b2c3691d1cb1fa1.js
-/public/webpack_manifest.json
 /tmp
 /coverage
 .idea
 .ruby-version
-/node_modules
-.awcache
+.env.dev
+.env.development
+
+.direnv/
+.envrc

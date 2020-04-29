@@ -11,7 +11,7 @@ Container.boot(:logger) do |container|
     end
 
     SemanticLogger.default_level = container[:settings].logger_level
-    container.register(:logger, SemanticLogger['RubyJob'])
+    container.register(:logger, SemanticLogger['Inventarium'])
   end
 
   # detect default logger IO output

@@ -1,4 +1,6 @@
-# frozen_string_literal: true
-
-get '/', to: 'dashboard#index'
-# root to: 'dashboard#new'
+# Configure your routes here
+# See: http://hanamirb.org/guides/routing/overview/
+#
+# Example:
+# get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
+root to: 'dashboard#index'
