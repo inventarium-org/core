@@ -31,6 +31,7 @@ Hanami.boot
 Hanami::Utils.require!("#{__dir__}/support")
 
 require 'support/database_cleaner'
+require 'support/oauth_payload'
 require 'rspec/hanami'
 require 'sidekiq/testing'
 Sidekiq::Testing.fake!
