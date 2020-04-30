@@ -21,7 +21,7 @@ module Auth
           when Success
             # TODO: send something for new login
             session[:account] = result.value!
-            redirect_to routes.root_path
+            redirect_to '/'
           when Failure
             redirect_to routes.login_path
             # TODO: log that account has a trouble with login
