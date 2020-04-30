@@ -11,6 +11,6 @@ form.form-signin
   /    | Remember me
   /button.btn.btn-lg.btn-primary.btn-block type="submit"  Sign in
 
-  = link_to 'Sign in with Github', '/auth/github', class: 'btn btn-dark btn-lg btn-block'
+  = link_to 'Sign in with Github', "/auth/github/?origin=#{params[:origin]}", class: 'btn btn-dark btn-lg btn-block'
   p.mt-5.mb-3.text-muted &copy; Inventarium, 2020
 

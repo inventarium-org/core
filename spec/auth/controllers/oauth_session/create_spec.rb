@@ -15,6 +15,12 @@ RSpec.describe Auth::Controllers::OauthSession::Create, type: :action do
       subject
       expect(action.session[:account]).to eq(Account.new(id: 123))
     end
+
+    context 'and origin option is set' do
+      let(:params) { { provider: :github, 'omniauth.origin' => '/test' } }
+
+      it { expect(subject).to redirect_to '/test' }
+    end
   end
 
   context 'when operation returns failure result' do
