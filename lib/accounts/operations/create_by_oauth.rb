@@ -19,9 +19,9 @@ module Accounts
         Success(account)
       end
 
-    private
+      private
 
-      def persist(provider, payload)
+      def persist(provider, payload) # rubocop:disable Metrics/MethodLength
         Success(
           repo.create_with_identity(
             Core::Types::AuthIdentityProvider[provider],
@@ -40,7 +40,7 @@ module Accounts
           uuid: SecureRandom.uuid,
           name: payload['extra']['raw_info']['name'],
           email: payload['extra']['raw_info']['email'],
-          avatar_url: payload['extra']['raw_info']['avatar_url'],
+          avatar_url: payload['extra']['raw_info']['avatar_url']
         }
       end
 
@@ -49,7 +49,7 @@ module Accounts
           uid: payload['uid'],
           login: payload['extra']['raw_info']['login'],
           token: payload['credentials']['token'],
-          email: payload['extra']['raw_info']['email'],
+          email: payload['extra']['raw_info']['email']
         }
       end
     end

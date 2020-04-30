@@ -1,17 +1,15 @@
+# frozen_string_literal: true
+
 RSpec.describe Auth::Controllers::OauthSession::Create, type: :action do
   subject { action.call(params) }
 
   let(:action) { described_class.new(operation: operation) }
-  let(:params) { Hash[] }
-
-  subject { action.call(params) }
-
   let(:params) { { provider: :github, 'omniauth.auth' => OAUTH_PAYLOAD } }
 
   context 'when operation returns success result' do
     let(:operation) { ->(*) { Success(Account.new(id: 123)) } }
 
-    it { expect(subject).to redirect_to '/auth/login' }
+    it { expect(subject).to redirect_to '/' }
 
     it 'stores finding account in session' do
       subject
@@ -35,6 +33,6 @@ RSpec.describe Auth::Controllers::OauthSession::Create, type: :action do
 
     let(:action) { described_class.new }
 
-    it { expect(subject).to redirect_to '/auth/login' }
+    it { expect(subject).to redirect_to '/' }
   end
 end

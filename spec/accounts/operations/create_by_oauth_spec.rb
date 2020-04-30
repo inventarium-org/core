@@ -2,6 +2,7 @@
 
 RSpec.describe Accounts::Operations::CreateByOauth, type: :operation do
   subject { operation.call(provider: provider, payload: payload) }
+
   let(:payload) { OAUTH_PAYLOAD }
   let(:provider) { 'github' }
 

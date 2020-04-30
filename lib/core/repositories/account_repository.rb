@@ -6,7 +6,8 @@ class AccountRepository < Hanami::Repository
   end
 
   def find_by_auth_identity(provider, auth_identity)
-    # TODO: here is an issue when one user created account with github, but when he tried to use google as a auth_identity he will create one more account
+    # TODO: here is an issue when one user created account with github,
+    #       but when he tried to use google as a auth_identity he will create one more account
     root
       .join(auth_identities)
       .where(auth_identities[:provider] => provider)
