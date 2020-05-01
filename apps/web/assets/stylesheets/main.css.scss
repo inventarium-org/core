@@ -1,0 +1,59 @@
+html {
+    height: 100%;
+}
+
+.main-container {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  min-height: 100%;
+}
+
+.left-bar {
+  width: 15% !important;
+  border-right: 2px solid #192f48;
+  background: #192f48;
+
+  a {
+    color: #fff;
+
+    &:hover {
+      background: #111b27;
+    }
+  }
+
+  .dropdown-item {
+    color: #000;
+  }
+
+  .seporator {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      border-top: 1px solid #949494;
+      background: #949494;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
+
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .top-bar__items {
+    justify-content: flex-end;
+  }
+}
+
+.container-content {
+  margin-top: 2%;
+}
