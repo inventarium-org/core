@@ -3,6 +3,10 @@
 class AccountRepository < Hanami::Repository
   associations do
     has_many :auth_identities
+    has_many :auth_identities
+
+    has_many :account_organisations
+    has_many :organisations, through: :account_organisations
   end
 
   def find_by_auth_identity(provider, auth_identity)

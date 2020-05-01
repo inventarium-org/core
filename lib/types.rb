@@ -21,5 +21,8 @@ module Core
     # Accounts
     AuthIdentityProvider = String.constructor(proc { |value| value.to_s.downcase })
                                  .enum('login', 'github', 'google', 'gitlab')
+
+    AccountOrganisationRole = String.constructor(proc { |value| value.to_s.downcase })
+                                    .enum('owner', 'participator')
   end
 end

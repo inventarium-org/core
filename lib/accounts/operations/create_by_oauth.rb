@@ -8,6 +8,7 @@ module Accounts
       ]
 
       def call(provider:, payload:)
+        provider = yield validate_provider(provider)
         account = repo.find_by_auth_identity(provider, auth_identity_params(payload))
 
         if account.nil?
@@ -29,10 +30,14 @@ module Accounts
             auth_identity_params(payload)
           )
         )
-      rescue Dry::Types::ConstraintError
-        Failure(:invalid_provider)
       rescue Hanami::Model::UniqueConstraintViolationError, Hanami::Model::NotNullConstraintViolationError
         Failure(:invalid_payload)
+      end
+
+      def validate_provider(provider)
+        Success(Core::Types::AuthIdentityProvider[provider])
+      rescue Dry::Types::ConstraintError
+        Failure(:invalid_provider)
       end
 
       def account_params(payload)

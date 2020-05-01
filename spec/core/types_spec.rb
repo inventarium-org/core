@@ -60,4 +60,22 @@ RSpec.describe Core::Types do
     it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
     it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
   end
+
+  describe 'AccountOrganisationRole' do
+    let(:type) { Core::Types::AccountOrganisationRole }
+
+    [
+      [:owner, 'owner'],
+      %w[owner owner],
+
+      [:participator, 'participator'],
+      %w[participator participator],
+
+    ].each do |value, result|
+      it { expect(type[value]).to eq(result) }
+    end
+
+    it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
+    it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
+  end
 end

@@ -11,7 +11,7 @@ Hanami::Model.migration do
       foreign_key :account_id, :accounts, on_delete: :cascade
 
       column :uid,                 String
-      column :provider,            String, null: false
+      column :provider,            'auth_identity_providers', null: false
       column :login,               String, null: false
       column :token,               String
       column :password_hash,       String
