@@ -1,10 +1,10 @@
 module Web
   module Views
-    module Organisations
-      class Show
+    module Services
+      class Index
         include Web::View
 
-        def dashboard_active_class
+        def services_active_class
           'active'
         end
       end

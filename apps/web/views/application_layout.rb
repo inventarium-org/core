@@ -6,7 +6,7 @@ module Web
       include Web::Layout
 
       def dashboard_active_class
-        'active'
+        ''
       end
 
       def services_active_class
