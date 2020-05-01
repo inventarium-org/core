@@ -24,6 +24,7 @@ class Container < Dry::System::Container
 
   # Organisations
   register_folder! 'organisations/operations'
+  register_folder! 'organisations/libs'
 
   configure do |config|
     config.env = Hanami.env

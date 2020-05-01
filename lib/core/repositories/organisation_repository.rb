@@ -18,4 +18,8 @@ class OrganisationRepository < Hanami::Repository
       .where(slug: slug)
       .map_to(Organisation).one
   end
+
+  def find_by_token(token)
+    root.where(token: token).map_to(Organisation).one
+  end
 end

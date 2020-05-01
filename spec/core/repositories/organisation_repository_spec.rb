@@ -50,4 +50,24 @@ RSpec.describe OrganisationRepository, type: :repository do
       it { expect(subject).to eq(nil) }
     end
   end
+
+  describe '#find_by_token' do
+    subject { repo.find_by_token(token) }
+
+    let(:organisation) { Fabricate(:organisation) }
+
+    before { Fabricate(:organisation, token: 'inventarium') }
+
+    context 'when user have organisations' do
+      let(:token) { 'inventarium' }
+
+      it { expect(subject).to be_a(Organisation) }
+    end
+
+    context 'when user does not have organisations' do
+      let(:token) { 'not_exist' }
+
+      it { expect(subject).to eq(nil) }
+    end
+  end
 end
