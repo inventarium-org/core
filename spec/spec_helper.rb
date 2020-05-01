@@ -2,6 +2,7 @@
 
 # Require this file for unit tests
 ENV['HANAMI_ENV'] ||= 'test'
+ENV['RACK_ENV'] ||= 'test'
 
 require 'simplecov'
 require 'simplecov-json'

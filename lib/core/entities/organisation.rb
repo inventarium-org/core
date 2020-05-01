@@ -5,6 +5,8 @@ class Organisation < Hanami::Entity
     attribute :name, Types::String
     attribute :slug, Types::String
 
+    attribute :token, Types::String
+
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time
   end
