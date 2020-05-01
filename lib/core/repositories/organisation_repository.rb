@@ -22,4 +22,12 @@ class OrganisationRepository < Hanami::Repository
   def find_by_token(token)
     root.where(token: token).map_to(Organisation).one
   end
+
+  # TODO: add tests
+  def create_for_account(account_id, name, slug, token)
+    assoc(:account_organisations).create(
+      name: name, slug: slug, token: token,
+      account_organisations: [{ account_id: account_id }]
+    )
+  end
 end
