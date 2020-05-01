@@ -33,19 +33,19 @@ RSpec.describe OrganisationRepository, type: :repository do
     end
 
     context 'when user have organisations' do
-      subject { repo.find_for_account(organisation.id, account.id) }
+      subject { repo.find_for_account(organisation.slug, account.id) }
 
       it { expect(subject).to eq(organisation) }
     end
 
     context 'when user does not have organisations' do
-      subject { repo.find_for_account(0, account.id) }
+      subject { repo.find_for_account('invalid', account.id) }
 
       it { expect(subject).to eq(nil) }
     end
 
     context 'when organisation is not exist' do
-      subject { repo.find_for_account(organisation.id, empty_account.id) }
+      subject { repo.find_for_account(organisation.slug, empty_account.id) }
 
       it { expect(subject).to eq(nil) }
     end

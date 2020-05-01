@@ -11,11 +11,11 @@ class OrganisationRepository < Hanami::Repository
       .map_to(Organisation).to_a
   end
 
-  def find_for_account(id, account_id)
+  def find_for_account(slug, account_id)
     root
       .join(account_organisations)
       .where(account_organisations[:account_id] => account_id)
-      .by_pk(id)
+      .where(slug: slug)
       .map_to(Organisation).one
   end
 end
