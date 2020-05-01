@@ -3,7 +3,7 @@
     ul.navbar-nav
       li.nav-item.dropdown
         a#leftNavbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-          | Project name
+          | #{organisation.name || 'Default'}
         .dropdown-menu aria-labelledby="leftNavbarDropdownMenuLink" 
           a.dropdown-item href="#"  Other project
           a.dropdown-item href="#"  One more project
@@ -11,13 +11,16 @@
           a.dropdown-item.disabled href="#"  Create new project
 
   ul.nav.flex-column
-    li.nav-item
-      a.nav-link.active href="#"  Services
-    li.nav-item
-      a.nav-link href="#"  Quality attributes
+    li.nav-item class=dashboard_active_class
+      a.nav-link href="/#{organisation.slug}" Dashboard
+
+    li.nav-item class=services_active_class
+      a.nav-link href="/#{organisation.slug}/services"  Services
+    li.nav-item class=quality_attributes_active_class
+      a.nav-link href="/#{organisation.slug}/quality-attributes"  Quality attributes
 
     li.nav-item.seporator
 
-    li.nav-item
-      a.nav-link href="#"  Settings
+    li.nav-item class=settings_active_class
+      a.nav-link href="/#{organisation.slug}/settings"  Settings
 
