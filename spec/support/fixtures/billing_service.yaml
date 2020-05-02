@@ -1,0 +1,52 @@
+config_version: V0
+
+name: Billing Service for testing
+key: billing-service
+description: Billing and accounting service
+repository_link: https://github.com/company/billing
+tags:
+  - business
+  - billing
+
+owner:
+  team_or_developer_name: '@billing/core'
+  slack_channel: '#billing-core'
+
+service:
+  classification: critical
+  status: adopt
+
+docs:
+  api: https://swagger.company.net/billing/v1
+  maintenance: https://company.confluence.com/billing/maintenance
+  domain: https://company.confluence.com/financial
+
+environments:
+  production:
+    url: https://billing.company.com
+    healthcheck_url: https://billing.company.com/health
+    logs_url: https://elk.company.net/billing
+    error_traker_url: https://rollbar.com/company/billing
+    tags:
+      - test
+      - specific gateway
+    monitoring:
+      grafana: https://grafana.company.net/billing
+      new_relic: https://newrelic.com/company/billing
+
+  staging:
+    url: https://billing.stage-company.com
+    healthcheck_url: https://billing.stage-company.com/health
+    logs_url: https://elk.stage-company.net/billing
+    error_traker_url: https://rollbar.com/company/billing
+    monitoring:
+      grafana: https://grafana.stage-company.net/billing
+
+  demo:
+    url: https://billing.demo-company.com
+    healthcheck_url: https://billing.demo-company.com/health
+    tags:
+      - only for testing
+
+operations:
+  ci_build_url: https://circleci.com/compamy/billing

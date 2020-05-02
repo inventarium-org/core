@@ -5,6 +5,8 @@ module Api
         include Api::Action
 
         def call(params)
+          params[:token]
+          params[:service]
           self.body = 'OK'
         end
       end
