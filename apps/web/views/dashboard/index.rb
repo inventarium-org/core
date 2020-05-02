@@ -7,7 +7,7 @@ module Web
         include Web::View
 
         def organisation
-          Organisation.new(name: 'Will be removed', slug: 'inventarium-mvp')
+          Organisation.new
         end
       end
     end

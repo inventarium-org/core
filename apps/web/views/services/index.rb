@@ -4,6 +4,10 @@ module Web
       class Index
         include Web::View
 
+        def breadcrumb
+          'Services'
+        end
+
         def services_active_class
           'active'
         end

@@ -5,6 +5,10 @@ module Web
     class ApplicationLayout
       include Web::Layout
 
+      def breadcrumb
+        ''
+      end
+
       def dashboard_active_class
         ''
       end

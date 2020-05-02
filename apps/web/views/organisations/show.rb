@@ -7,6 +7,10 @@ module Web
         def dashboard_active_class
           'active'
         end
+
+        def breadcrumb
+          'Dashboard'
+        end
       end
     end
   end

@@ -1,8 +1,9 @@
-.container-fluid
-  nav.navbar.navbar-expand-lg.top-bar
+nav.navbar.navbar-expand-lg.top-bar
+  .container-fluid
+    .navbar-header
+      span.navbar-brand = breadcrumb
+
     ul.navbar-nav.top-bar__items
-      li.nav-item
-        div breadcrumbs HERE on the left side
       li.nav-item.dropdown
         a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
           | Anton (username)
