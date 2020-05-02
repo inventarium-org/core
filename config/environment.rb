@@ -21,13 +21,15 @@ Dry::Core::Deprecations.set_logger!(StringIO.new)
 
 require_relative '../system/import'
 require_relative './initializers/request_id'
-require_relative '../apps/web/application'
+require_relative '../apps/api/application'
 require_relative '../apps/auth/application'
+require_relative '../apps/web/application'
 
 Hanami.configure do
   middleware.use RequestId
   middleware.use Rack::Session::Cookie, secret: Container[:settings].web_sessions_secret
 
+  mount Api::Application, at: '/api'
   mount Auth::Application, at: '/auth'
   mount Web::Application, at: '/'
 
