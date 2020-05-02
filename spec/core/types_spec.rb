@@ -78,4 +78,51 @@ RSpec.describe Core::Types do
     it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
     it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
   end
+
+  describe 'ServiceClassification' do
+    let(:type) { Core::Types::ServiceClassification }
+
+    [
+      [:critical, 'critical'],
+      %w[critical critical],
+
+      [:normal, 'normal'],
+      %w[normal normal],
+
+      [:internal, 'internal'],
+      %w[internal internal],
+
+      [:expiriment, 'expiriment'],
+      %w[expiriment expiriment],
+
+    ].each do |value, result|
+      it { expect(type[value]).to eq(result) }
+    end
+
+    it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
+    it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
+  end
+
+  describe 'ServiceStatus' do
+    let(:type) { Core::Types::ServiceStatus }
+
+    [
+      [:adopt, 'adopt'],
+      %w[adopt adopt],
+
+      [:hold, 'hold'],
+      %w[hold hold],
+
+      [:trial, 'trial'],
+      %w[trial trial],
+
+      [:in_development, 'in_development'],
+      %w[in_development in_development],
+    ].each do |value, result|
+      it { expect(type[value]).to eq(result) }
+    end
+
+    it { expect { type['invalid'] }.to raise_error(Dry::Types::ConstraintError) }
+    it { expect { type[:invalid] }.to raise_error(Dry::Types::ConstraintError) }
+  end
 end

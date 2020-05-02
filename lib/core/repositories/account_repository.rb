@@ -3,7 +3,6 @@
 class AccountRepository < Hanami::Repository
   associations do
     has_many :auth_identities
-    has_many :auth_identities
 
     has_many :account_organisations
     has_many :organisations, through: :account_organisations
