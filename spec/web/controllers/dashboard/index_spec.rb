@@ -7,8 +7,6 @@ RSpec.describe Web::Controllers::Dashboard::Index, type: :action do
   let(:account) { Account.new(id: 1) }
   let(:params) { { slug: 'inventarium', 'rack.session' => session } }
 
-  subject { action.call(params) }
-
   context 'when user authenticated' do
     let(:session) { { account: Account.new(id: 1) } }
 
@@ -16,6 +14,7 @@ RSpec.describe Web::Controllers::Dashboard::Index, type: :action do
       let(:operation) { ->(*) { Success([Organisation.new(id: 123)]) } }
 
       it { expect(subject).to be_success }
+
       it do
         subject
         expect(action.organisations).to eq([Organisation.new(id: 123)])

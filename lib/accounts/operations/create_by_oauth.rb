@@ -22,7 +22,7 @@ module Accounts
 
       private
 
-      def persist(provider, payload) # rubocop:disable Metrics/MethodLength
+      def persist(provider, payload)
         Success(
           repo.create_with_identity(
             Core::Types::AuthIdentityProvider[provider],

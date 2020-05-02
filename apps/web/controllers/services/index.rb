@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Web
   module Controllers
     module Services
@@ -11,7 +13,7 @@ module Web
 
         expose :organisation
 
-        def call(params) # rubocop:disable Metrics/MethodLength
+        def call(params)
           current_account.id
           result = operation.call(account_id: current_account.id, slug: params[:slug])
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organisation < Hanami::Entity
 end
 
@@ -19,7 +21,7 @@ class Service < Hanami::Entity
     attribute :owner_slack_channel, Types::String
 
     attribute :classification, ::Core::Types::ServiceClassification
-      attribute :status, ::Core::Types::ServiceStatus
+    attribute :status, ::Core::Types::ServiceStatus
 
     attribute :ci_build_url, Types::String
 

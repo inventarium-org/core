@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ServiceRepository < Hanami::Repository
   associations do
     has_many :environments

@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe Web::Controllers::Services::Show, type: :action do
   subject { action.call(params) }
 
   let(:action) { described_class.new(operation: operation) }
   let(:account) { Account.new(id: 1) }
   let(:params) { { slug: 'inventarium', 'rack.session' => session } }
-
-  subject { action.call(params) }
 
   context 'when user authenticated' do
     let(:session) { { account: Account.new(id: 1) } }
@@ -14,6 +14,7 @@ RSpec.describe Web::Controllers::Services::Show, type: :action do
       let(:operation) { ->(*) { Success(Organisation.new(id: 123)) } }
 
       it { expect(subject).to be_success }
+
       it do
         subject
         expect(action.organisation).to eq(Organisation.new(id: 123))

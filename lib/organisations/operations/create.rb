@@ -17,7 +17,7 @@ module Organisations
         persist(account_id, name, slug, token)
       end
 
-    private
+      private
 
       def persist(account_id, name, slug, token)
         Success(

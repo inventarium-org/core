@@ -109,6 +109,9 @@ Lint/AmbiguousBlockAssociation:
 Lint/Loop:
   Enabled: false
 
+Lint/EmptyWhen:
+  Enabled: false
+
 # Rubocop Rspec rules
 RSpec/AnyInstance:
   Enabled: false # Should be turned ON eventually

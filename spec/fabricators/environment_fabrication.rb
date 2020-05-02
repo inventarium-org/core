@@ -5,7 +5,7 @@ Fabricator(:environment) do
 
   name 'production'
   description 'Some description about production environment'
-  tags ['test', 'business']
+  tags %w[test business]
 
   url 'https://orders.company.com'
   healthcheck_url 'https://orders.company.com/health'

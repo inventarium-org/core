@@ -8,7 +8,7 @@ Fabricator(:service) do
   description 'Some description about orders service'
   repository_link 'https://github.com/company/orders-service'
 
-  tags ['something', 'business']
+  tags %w[something business]
 
   owner_name '@company/orders-eng'
   owner_slack_channel '#orders-core'

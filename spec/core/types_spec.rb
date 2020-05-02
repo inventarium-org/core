@@ -69,7 +69,7 @@ RSpec.describe Core::Types do
       %w[owner owner],
 
       [:participator, 'participator'],
-      %w[participator participator],
+      %w[participator participator]
 
     ].each do |value, result|
       it { expect(type[value]).to eq(result) }
@@ -93,7 +93,7 @@ RSpec.describe Core::Types do
       %w[internal internal],
 
       [:expiriment, 'expiriment'],
-      %w[expiriment expiriment],
+      %w[expiriment expiriment]
 
     ].each do |value, result|
       it { expect(type[value]).to eq(result) }
@@ -117,7 +117,7 @@ RSpec.describe Core::Types do
       %w[trial trial],
 
       [:in_development, 'in_development'],
-      %w[in_development in_development],
+      %w[in_development in_development]
     ].each do |value, result|
       it { expect(type[value]).to eq(result) }
     end

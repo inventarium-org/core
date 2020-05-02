@@ -13,7 +13,7 @@ module Web
 
         expose :organisations
 
-        def call(params) # rubocop:disable Metrics/MethodLength
+        def call(_params)
           current_account.id
           result = operation.call(account_id: current_account.id)
 
