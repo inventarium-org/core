@@ -5,8 +5,26 @@ module Web
     module Dashboard
       class Index
         include Web::Action
+        include Dry::Monads::Result::Mixin
 
-        def call(params); end
+        include Import[
+          operation: 'organisations.operations.list'
+        ]
+
+        expose :organisations
+
+        def call(params) # rubocop:disable Metrics/MethodLength
+          current_account.id
+          result = operation.call(account_id: current_account.id)
+
+          case result
+          when Success
+            @organisations = result.value!
+          when Failure
+            # TODO: have no idea what to do here
+            # redirect_to routes.root_path
+          end
+        end
       end
     end
   end

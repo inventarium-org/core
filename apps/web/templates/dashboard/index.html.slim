@@ -1,3 +1,11 @@
 h1 Hello
 
 = session[:account].to_h
+
+
+div
+  - organisations.each do |organisation|
+    div
+      = link_to organisation.name, routes.organisation_dashboard_path(organisation.slug)
+
+
