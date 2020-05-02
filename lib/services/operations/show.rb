@@ -6,8 +6,8 @@ module Services
       include Import[
       ]
 
-      def call
-        Success(true)
+      def call(organisation_id:)
+        Success(Service.new(id: 1))
       end
     end
   end

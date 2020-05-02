@@ -4,6 +4,7 @@ require 'dry/monads/result'
 require 'dry/monads/try'
 require 'dry/monads/do'
 require 'dry/monads/do/all'
+require 'dry/monads/list'
 
 module Libs
   # Base operation class. Provides dry-monads do notation and Result monads.
