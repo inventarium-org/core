@@ -13,6 +13,8 @@ class ServiceRepository < Hanami::Repository
 
       if service
         payload[:environments].each { |env_paylaod| create_or_upate_env(service, env_paylaod) }
+        envs_for_delete = service.environments.map(&:name) - payload[:environments].map { |e| e[:name] }
+        mark_deleted_enviroments(envs_for_delete)
         update(service.id, payload)
       else
         assoc(:environments).create(payload)
@@ -30,6 +32,12 @@ private
     else
       environment_repo.create(service_id: service.id, **env_payload)
     end
+  end
+
+  def mark_deleted_enviroments(list)
+    return if list.empty?
+
+    environments.where(name: list).update(deleted: true)
   end
 
   def environment_repo

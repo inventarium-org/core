@@ -65,6 +65,7 @@ RSpec.describe ServiceRepository, type: :repository do
       let(:service) { Fabricate(:service, organisation_id: organisation.id, key: 'billing-service', description: 'empty') }
 
       before do
+        Fabricate(:environment, service_id: service.id, name: 'qa')
         Fabricate(:environment, service_id: service.id, name: 'production')
         Fabricate(:environment, service_id: service.id, name: 'stage')
       end
@@ -75,19 +76,24 @@ RSpec.describe ServiceRepository, type: :repository do
       it { expect(subject.organisation_id).to eq(organisation.id) }
 
       it 'updates or create new environments' do
-        expect(env_repo.all.count).to be(2)
+        expect(env_repo.all.count).to be(3)
         service = subject
 
         envs = env_repo.all
-        expect(envs.count).to be(3)
-        expect(envs.map(&:name)).to eq(%w[production stage demo])
-        expect(envs.map(&:service_id)).to eq([service.id, service.id, service.id])
+        expect(envs.count).to be(4)
+        expect(envs.map(&:name)).to eq(%w[qa production stage demo])
+        expect(envs.map(&:service_id)).to all(eq(service.id))
 
         prod_env = envs.find { |e| e.name == 'production' }
         expect(prod_env.description).to eq('Real production env for service')
+        expect(prod_env.deleted).to eq(false)
 
         stage_env = envs.find { |e| e.name == 'stage' }
         expect(stage_env.tags).to eq(['specific gateway'])
+        expect(stage_env.deleted).to eq(false)
+
+        qa_env = envs.find { |e| e.name == 'qa' }
+        expect(qa_env.deleted).to eq(true)
       end
     end
 
