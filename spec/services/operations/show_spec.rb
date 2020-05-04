@@ -18,12 +18,11 @@ RSpec.describe Services::Operations::Show, type: :operation do
     it { expect(subject.value!).to eq(service) }
   end
 
-  context "when service does not exist" do
+  context 'when service does not exist' do
     let(:service) { nil }
 
     it { expect(subject).to be_failure }
     it { expect(subject.failure).to eq(:not_found) }
-    
   end
 
   context 'with real dependencies' do

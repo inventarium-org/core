@@ -4,7 +4,7 @@ RSpec.describe ServiceRepository, type: :repository do
   let(:repo) { described_class.new }
   let(:env_repo) { EnvironmentRepository.new }
 
-  let(:organisation) { Fabricate(:organisation) }
+  let(:organisation) { Fabricate(:organisation, name: 'service repository test', slug: 'service-repo') }
 
   describe '#all_for_organisation' do
     subject { repo.all_for_organisation(organisation.id) }
@@ -16,8 +16,10 @@ RSpec.describe ServiceRepository, type: :repository do
         end
       end
 
-      it { expect(subject).to all(be_a(Service)) }
-      it { expect(subject.map(&:organisation_id)).to all(eq(organisation.id)) }
+      it do
+        expect(subject).to all(be_a(Service))
+        expect(subject.map(&:organisation_id)).to all(eq(organisation.id))
+      end
     end
 
     context 'when organisation does not have any services' do
@@ -29,11 +31,19 @@ RSpec.describe ServiceRepository, type: :repository do
     subject { repo.find_for_organisation(organisation.id, 'test-service') }
 
     context 'when organisation has services' do
-      let(:service) { Fabricate(:service, organisation_id: organisation.id, key: 'test-service' ) }
+      let(:service) { Fabricate(:service, organisation_id: organisation.id, key: 'test-service') }
 
-      before { service }
+      before do
+        3.times { |i| Fabricate(:environment, service_id: service.id, name: "Test env #{i}") }
 
-      it { expect(subject).to eq(service) }
+        Fabricate(:environment, name: "Test env {i}")
+      end
+
+      it do
+        expect(subject).to eq(service)
+        expect(subject.environments.count).to eq(3)
+        expect(subject.environments).to all(be_a(Environment))
+      end
     end
 
     context 'when organisation does not have any services' do
@@ -105,10 +115,13 @@ RSpec.describe ServiceRepository, type: :repository do
         Fabricate(:environment, service_id: service.id, name: 'stage')
       end
 
-      it { expect(subject).to be_a(Service) }
       it { expect { subject }.to change { repo.all.count }.by(0) }
-      it { expect(subject.description).to eq('Billing and accounting service') }
-      it { expect(subject.organisation_id).to eq(organisation.id) }
+
+      it do
+        expect(subject).to be_a(Service)
+        expect(subject.description).to eq('Billing and accounting service')
+        expect(subject.organisation_id).to eq(organisation.id)
+      end
 
       it 'updates or create new environments' do
         expect(env_repo.all.count).to be(3)
@@ -133,10 +146,13 @@ RSpec.describe ServiceRepository, type: :repository do
     end
 
     context 'when service does not exist in db' do
-      it { expect(subject).to be_a(Service) }
       it { expect { subject }.to change { repo.all.count }.by(1) }
-      it { expect(subject.key).to eq('billing-service') }
-      it { expect(subject.organisation_id).to eq(organisation.id) }
+
+      it do
+        expect(subject).to be_a(Service)
+        expect(subject.key).to eq('billing-service')
+        expect(subject.organisation_id).to eq(organisation.id)
+      end
 
       it 'creates new env objects related to service object' do
         service = subject

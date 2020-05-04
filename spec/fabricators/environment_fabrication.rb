@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Fabricator(:environment) do
-  service_id { Fabrication(:service).id }
+  service_id { Fabricate(:service).id }
 
   name 'production'
   description 'Some description about production environment'

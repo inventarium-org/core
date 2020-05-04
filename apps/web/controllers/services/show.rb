@@ -9,7 +9,7 @@ module Web
         include Dry::Monads::Do.for(:logic_pipe)
 
         include Import[
-          operation: 'services.operations.list',
+          operation: 'services.operations.show',
           organisation_operation: 'organisations.operations.show'
         ]
 
@@ -31,7 +31,7 @@ module Web
 
         def logic_pipe(params)
           organisation = yield organisation_operation.call(account_id: current_account.id, slug: params[:slug])
-          service = yield operation.call(organisation_id: organisation.id)
+          service = yield operation.call(organisation_id: organisation.id, key: params[:id])
 
           Success({
                     organisation: organisation,

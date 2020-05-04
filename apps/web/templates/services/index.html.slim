@@ -1,2 +1,6 @@
-div
-  = link_to_service('test')
+- services.each do |service|
+  div
+    = link_to_service(service.key)
+
+
+
