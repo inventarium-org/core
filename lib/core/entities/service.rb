@@ -36,6 +36,8 @@ class Service < Hanami::Entity
     attribute :docs_maintenance, Types::String
     attribute :docs_domain, Types::String
 
+    attribute :deleted, Types::Bool
+
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time
   end

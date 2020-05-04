@@ -31,6 +31,8 @@ Hanami::Model.migration do
       column :docs_maintenance, String
       column :docs_domain, String
 
+      column :deleted, TrueClass, default: false
+
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false
     end

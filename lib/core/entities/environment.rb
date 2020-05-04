@@ -22,5 +22,7 @@ class Environment < Hanami::Entity
 
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time
+
+    attribute :deleted, Types::Bool
   end
 end

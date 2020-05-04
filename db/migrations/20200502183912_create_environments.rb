@@ -16,6 +16,8 @@ Hanami::Model.migration do
       column :error_traker_url, String
       column :monitoring, :jsonb, default: '{}'
 
+      column :deleted, TrueClass, default: false
+
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false
     end
