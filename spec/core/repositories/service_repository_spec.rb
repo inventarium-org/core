@@ -37,12 +37,14 @@ RSpec.describe ServiceRepository, type: :repository do
         3.times { |i| Fabricate(:environment, service_id: service.id, name: "Test env #{i}") }
 
         Fabricate(:environment, name: "Test env {i}")
+        Fabricate(:readiness, service_id: service.id)
       end
 
       it do
         expect(subject).to eq(service)
         expect(subject.environments.count).to eq(3)
         expect(subject.environments).to all(be_a(Environment))
+        expect(subject.readiness).to be_a(Readiness)
       end
     end
 

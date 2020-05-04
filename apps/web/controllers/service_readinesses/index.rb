@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 module Web
   module Controllers
-    module Services
-      class Show
+    module ServiceReadinesses
+      class Index
         include Web::Action
         include Dry::Monads::Result::Mixin
         include Dry::Monads::Do.for(:logic_pipe)
@@ -23,7 +21,7 @@ module Web
             @organisation = result.value![:organisation]
             @service = result.value![:service]
           when Failure
-            redirect_to routes.path(':slug_services'.to_sym, params[:slug])
+            redirect_to routes.path(':slug_service'.to_sym, params[:slug], params[:service_id])
           end
         end
 
@@ -31,7 +29,7 @@ module Web
 
         def logic_pipe(params)
           organisation = yield organisation_operation.call(account_id: current_account.id, slug: params[:slug])
-          service = yield operation.call(organisation_id: organisation.id, key: params[:id])
+          service = yield operation.call(organisation_id: organisation.id, key: params[:service_id])
 
           Success({
                     organisation: organisation,

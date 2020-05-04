@@ -10,7 +10,9 @@ root to: 'dashboard#index'
 namespace '/:slug' do
   get '/', to: 'organisations#show', as: :organisation_dashboard
 
-  resources :services, only: %i[index show]
+  resources :services, only: %i[index show] do
+    resources :readiness, only: %i[index], controller: 'service_readinesses'
+  end
 
   get '/quality-attributes', to: 'organisations#show'
   get '/settings', to: 'organisations#show'

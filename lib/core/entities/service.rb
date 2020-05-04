@@ -11,6 +11,7 @@ class Service < Hanami::Entity
     attribute :id, Types::Int
 
     attribute :environments, Types::Collection(Environment)
+    attribute :readiness, Types::Entity(Readiness)
 
     attribute :organisation_id, Types::Int
     attribute :organisation, Types::Entity(Organisation)

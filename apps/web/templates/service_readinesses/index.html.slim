@@ -1,0 +1,48 @@
+.row
+  .col
+    h1
+      | #{service.name} (#{link_to 'GitHub', service.repository_link})
+
+
+.row
+  .col
+    .description
+      = service.description
+  .col
+    .owners
+      | Owner: #{service.owner_name} (#{service.owner_slack_channel})
+
+br
+br
+
+.row
+  .col
+    ul.nav.nav-pills.nav-fill
+      li.nav-item
+        a.nav-link href="/#{organisation.slug}/services/#{service.key}"  Owerflow
+      li.nav-item
+        a.nav-link.active href="/#{organisation.slug}/services/#{service.key}/readiness"  Production Checklist
+      li.nav-item
+        a.nav-link href="#"  Quality Attributes
+
+br
+br
+
+.row
+  | Owner: #{service.readiness.owner}
+.row
+  | Slack: #{service.readiness.slack}
+.row
+  | Healthcheck: #{service.readiness.healthcheck}
+.row
+  | Logs: #{service.readiness.logs}
+.row
+  | Error tracker: #{service.readiness.error_traker}
+.row
+  | Continuous integration: #{service.readiness.continuous_integration}
+.row
+  | API documentation: #{service.readiness.api_documentation}
+.row
+  | Maintenance documentation: #{service.readiness.maintenance_documentation}
+.row
+  | Monitoring: #{service.readiness.monitoring}

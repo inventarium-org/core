@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Web::Controllers::Services::Show, type: :action do
+RSpec.describe Web::Controllers::ServiceReadinesses::Index, type: :action do
   subject { action.call(params) }
 
   let(:action) do
@@ -10,7 +10,7 @@ RSpec.describe Web::Controllers::Services::Show, type: :action do
     )
   end
   let(:account) { Account.new(id: 1) }
-  let(:params) { { slug: 'inventarium', 'rack.session' => session } }
+  let(:params) { { slug: 'inventarium', service_id: 'order-service', 'rack.session' => session } }
   let(:operation) { ->(*) { Success(Service.new(id: 123)) } }
 
   context 'when user authenticated' do
@@ -34,14 +34,14 @@ RSpec.describe Web::Controllers::Services::Show, type: :action do
       context 'and service operation returns failure result' do
         let(:operation) { ->(*) { Failure(:something) } }
 
-        it { expect(subject).to redirect_to '/inventarium/services' }
+        it { expect(subject).to redirect_to '/inventarium/services/order-service' }
       end
     end
 
     context 'and organisation_operation returns failure result' do
       let(:organisation_operation) { ->(*) { Failure(:error) } }
 
-      it { expect(subject).to redirect_to '/inventarium/services' }
+      it { expect(subject).to redirect_to '/inventarium/services/order-service' }
     end
   end
 
@@ -57,12 +57,13 @@ RSpec.describe Web::Controllers::Services::Show, type: :action do
 
     let(:account) { Fabricate(:account) }
     let(:session) { { account: account } }
-    let(:params) { { slug: 'inventarium', 'rack.session' => session } }
+    let(:params) { { slug: 'inventarium', service_id: service.key, 'rack.session' => session } }
+    let(:organisation) { Fabricate(:organisation) }
+    let(:service) { Fabricate(:service, organisation_id: organisation.id) }
 
     let(:action) { described_class.new }
 
     before do
-      organisation = Fabricate(:organisation)
       Fabricate(:account_organisation, account_id: account.id, organisation_id: organisation.id)
     end
 

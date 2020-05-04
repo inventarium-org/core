@@ -9,11 +9,11 @@ class ServiceRepository < Hanami::Repository
   end
 
   def all_for_organisation(organisation_id)
-    root.where(organisation_id: organisation_id).map_to(Service).to_a
+    aggregate(:readiness).where(organisation_id: organisation_id).map_to(Service).to_a
   end
 
   def find_for_organisation(organisation_id, key)
-    aggregate(:environments).where(organisation_id: organisation_id, key: key).limit(1).map_to(Service).one
+    aggregate(:environments, :readiness).where(organisation_id: organisation_id, key: key).limit(1).map_to(Service).one
   end
 
   def find_with_environments(id)
