@@ -1,4 +1,4 @@
-config_version: V0
+version: V0
 
 name: Billing Service for testing
 key: billing-service

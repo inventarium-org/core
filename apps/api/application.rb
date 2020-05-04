@@ -5,7 +5,7 @@ require 'hanami/assets'
 
 module Api
   class Application < Hanami::Application
-    configure do
+    configure do # rubocop:disable Metrics/BlockLength
       ##
       # BASIC
       #
