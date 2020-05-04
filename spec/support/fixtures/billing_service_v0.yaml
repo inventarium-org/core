@@ -23,6 +23,7 @@ docs:
 
 environments:
   production:
+    description: Real production env for service
     url: https://billing.company.com
     healthcheck_url: https://billing.company.com/health
     logs_url: https://elk.company.net/billing
@@ -43,6 +44,7 @@ environments:
       grafana: https://grafana.stage-company.net/billing
 
   demo:
+    description: We use it only for our clients
     url: https://billing.demo-company.com
     healthcheck_url: https://billing.demo-company.com/health
     tags:
