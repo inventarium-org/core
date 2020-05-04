@@ -28,6 +28,7 @@ class Container < Dry::System::Container
 
   # Services
   register_folder! 'services/operations'
+  register_folder! 'services/mappers'
 
   configure do |config|
     config.env = Hanami.env
