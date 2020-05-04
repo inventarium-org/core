@@ -1,6 +1,7 @@
 .row
   .col
-    h1 = service.name
+    h1
+      | #{service.name} (#{link_to 'GitHub', service.repository_link})
 
 
 .row
