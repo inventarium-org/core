@@ -22,7 +22,7 @@ class ServiceRepository < Hanami::Repository
     end
   end
 
-private
+  private
 
   def create_or_upate_env(service, env_payload)
     existed_env = service.environments.find { |e| e.name == env_payload[:name] }

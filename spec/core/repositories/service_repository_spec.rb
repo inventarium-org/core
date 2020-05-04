@@ -71,7 +71,7 @@ RSpec.describe ServiceRepository, type: :repository do
       end
 
       it { expect(subject).to be_a(Service) }
-      it { expect{ subject }.to change { repo.all.count }.by(0) }
+      it { expect { subject }.to change { repo.all.count }.by(0) }
       it { expect(subject.description).to eq('Billing and accounting service') }
       it { expect(subject.organisation_id).to eq(organisation.id) }
 
@@ -99,7 +99,7 @@ RSpec.describe ServiceRepository, type: :repository do
 
     context 'when service does not exist in db' do
       it { expect(subject).to be_a(Service) }
-      it { expect{ subject }.to change { repo.all.count }.by(1) }
+      it { expect { subject }.to change { repo.all.count }.by(1) }
       it { expect(subject.key).to eq('billing-service') }
       it { expect(subject.organisation_id).to eq(organisation.id) }
 
@@ -116,13 +116,13 @@ RSpec.describe ServiceRepository, type: :repository do
       before { subject }
 
       it { expect(subject).to be_a(Service) }
-      it { expect{ subject }.to change { repo.all.count }.by(0) }
+      it { expect { subject }.to change { repo.all.count }.by(0) }
     end
 
     context 'when data is absolutly empty' do
       let(:payload) { {} }
 
-      it { expect{ subject }.to raise_error(Hanami::Model::NotNullConstraintViolationError) }
+      it { expect { subject }.to raise_error(Hanami::Model::NotNullConstraintViolationError) }
     end
   end
 end

@@ -16,7 +16,7 @@ module Services
         persist(organisation, payload)
       end
 
-    private
+      private
 
       def persist(organisation, payload)
         Success(repo.create_or_upate(organisation.id, payload))

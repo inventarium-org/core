@@ -29,7 +29,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
       context 'and service.yaml data is invalid' do
         let(:operation) { ->(*) { Failure(:invalid_data) } }
 
-        it { expect(subject).to have_http_status(422) }
+        it { expect(subject).to have_http_status(:unprocessable_entity) }
         it { expect(subject.last).to eq(['Invalid data in service.yaml file']) }
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     context 'and auth token is invalid' do
       let(:authenticate_operation) { ->(*) { Failure(:failure_authenticate) } }
 
-      it { expect(subject).to have_http_status(422) }
+      it { expect(subject).to have_http_status(:unprocessable_entity) }
       it { expect(subject.last).to eq(['Authenticate failure']) }
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     let(:params) { { service: service } }
     let(:service) { { **Testing::ServiceYamlPayload.generate, version: 'v2' } }
 
-    it { expect(subject).to have_http_status(422) }
+    it { expect(subject).to have_http_status(:unprocessable_entity) }
     it { expect(subject.last).to eq(['Invalid service.yaml file. Please use allowed versions: v0 (Req version: "v2")']) }
   end
 
@@ -54,7 +54,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     let(:params) { { service: service } }
     let(:service) { {} }
 
-    it { expect(subject).to have_http_status(422) }
+    it { expect(subject).to have_http_status(:unprocessable_entity) }
     it { expect(subject.last).to eq(['Invalid service.yaml file. Please use allowed versions: v0 (Req version: "")']) }
   end
 

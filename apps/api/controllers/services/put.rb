@@ -11,12 +11,11 @@ module Api
           # TIPS: for next vesrions use specific operation naming like this:
           #   v1_operation: 'services.v1.operations.put',
           #   v2_operation: 'services.v2.operations.put',
-
           operation: 'services.operations.put',
           authenticate_operation: 'organisations.operations.authenticate'
         ]
 
-        ALLOWED_VERSIONS = %w[v0]
+        ALLOWED_VERSIONS = %w[v0].freeze
 
         before :validate_version!
 
@@ -35,7 +34,7 @@ module Api
           end
         end
 
-      private
+        private
 
         def token
           request.env['HTTP_X_INVENTARIUM_TOKEN']
