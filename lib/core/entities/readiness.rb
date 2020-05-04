@@ -23,4 +23,13 @@ class Readiness < Hanami::Entity
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time
   end
+
+  CHECK_NAMES = %i[
+    owner slack healthcheck logs error_traker continuous_integration
+    api_documentation maintenance_documentation monitoring
+  ]
+
+  def completed_checks_count
+    to_h.slice(*CHECK_NAMES).values.count(true)
+  end
 end
