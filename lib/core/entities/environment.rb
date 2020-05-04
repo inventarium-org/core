@@ -20,9 +20,9 @@ class Environment < Hanami::Entity
     attribute :error_traker_url, Types::String
     attribute :monitoring, Types::Hash
 
+    attribute :deleted, Types::Bool
+
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time
-
-    attribute :deleted, Types::Bool
   end
 end

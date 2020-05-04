@@ -3,6 +3,7 @@
 class ServiceRepository < Hanami::Repository
   associations do
     has_many :environments
+    has_one :readiness
 
     belongs_to :organisation
   end
