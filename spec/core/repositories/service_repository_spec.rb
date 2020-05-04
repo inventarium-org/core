@@ -51,6 +51,32 @@ RSpec.describe ServiceRepository, type: :repository do
     end
   end
 
+  describe '#find_with_environments' do
+    subject { repo.find_with_environments(service.id) }
+
+    context 'when organisation has services' do
+      let(:service) { Fabricate(:service, organisation_id: organisation.id) }
+
+      before do
+        3.times { |i| Fabricate(:environment, service_id: service.id, name: "Test env #{i}") }
+
+        Fabricate(:environment, name: "Test env {i}")
+      end
+
+      it do
+        expect(subject).to eq(service)
+        expect(subject.environments.count).to eq(3)
+        expect(subject.environments).to all(be_a(Environment))
+      end
+    end
+
+    context 'when organisation does not have any services' do
+      let(:service) { Service.new(id: nil) }
+
+      it { expect(subject).to eq(nil) }
+    end
+  end
+
   describe '#create_or_upate' do
     subject { repo.create_or_upate(organisation.id, payload) }
 

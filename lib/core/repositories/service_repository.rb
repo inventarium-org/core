@@ -16,6 +16,10 @@ class ServiceRepository < Hanami::Repository
     aggregate(:environments).where(organisation_id: organisation_id, key: key).limit(1).map_to(Service).one
   end
 
+  def find_with_environments(id)
+    aggregate(:environments).by_pk(id).limit(1).map_to(Service).one
+  end
+
   def create_or_upate(organisation_id, payload)
     transaction do
       service = aggregate(:environments).where(organisation_id: organisation_id, key: payload[:key]).limit(1).map_to(Service).one
