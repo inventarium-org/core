@@ -13,7 +13,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
   let(:authenticate_operation) { ->(*) { Success(Organisation.new(id: 123)) } }
 
   context 'when service.yaml has valid version' do
-    let(:params) { { service: service, 'X-INVENTORY-TOKEN' => 'token' } }
+    let(:params) { { service: service, 'HTTP_X_INVENTARIUM_TOKEN' => 'token' } }
     let(:service) { Testing::ServiceYamlPayload.generate }
 
     context 'and auth token is valid' do
@@ -47,7 +47,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     let(:service) { { **Testing::ServiceYamlPayload.generate, version: 'v2' } }
 
     it { expect(subject).to have_http_status(422) }
-    it { expect(subject.last).to eq(['Invalid service.yaml file. Please use allowed versions: v0']) }
+    it { expect(subject.last).to eq(['Invalid service.yaml file. Please use allowed versions: v0 (Req version: "v2")']) }
   end
 
   context 'when service.yaml is empty' do
@@ -55,7 +55,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     let(:service) { {} }
 
     it { expect(subject).to have_http_status(422) }
-    it { expect(subject.last).to eq(['Invalid service.yaml file. Please use allowed versions: v0']) }
+    it { expect(subject.last).to eq(['Invalid service.yaml file. Please use allowed versions: v0 (Req version: "")']) }
   end
 
   context 'with real dependencies' do
@@ -63,7 +63,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
 
     let(:action) { described_class.new }
 
-    let(:params) { { service: payload, 'X-INVENTORY-TOKEN' => 'test_token_here' } }
+    let(:params) { { service: payload, 'HTTP_X_INVENTARIUM_TOKEN' => 'test_token_here' } }
     let(:payload) { Testing::ServiceYamlPayload.generate }
 
     before { Fabricate(:organisation, token: 'test_token_here') }

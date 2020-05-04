@@ -21,8 +21,6 @@ module Api
         before :validate_version!
 
         def call(params)
-          token = request.env['X-INVENTORY-TOKEN']
-
           result = authenticate_operation.call(token: token).bind do |organisation|
             operation.call(organisation: organisation, params: params[:service])
           end
@@ -39,10 +37,15 @@ module Api
 
       private
 
+        def token
+          request.env['HTTP_X_INVENTARIUM_TOKEN']
+        end
+
         def validate_version!(params)
-          unless ALLOWED_VERSIONS.include?(params.dig(:service, :version).to_s.downcase)
+          version = params.dig(:service, :version).to_s.downcase
+          unless ALLOWED_VERSIONS.include?(version)
             # TODO: add link to readme about config file
-            halt 422, "Invalid service.yaml file. Please use allowed versions: #{ALLOWED_VERSIONS.join(', ')}"
+            halt 422, "Invalid service.yaml file. Please use allowed versions: #{ALLOWED_VERSIONS.join(', ')} (Req version: #{version.inspect})"
           end
         end
       end
