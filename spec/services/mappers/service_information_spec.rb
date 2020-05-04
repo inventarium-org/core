@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
-  subject { operation.call(payload) }
+  subject { mapper.call(payload) }
 
-  let(:operation) { described_class.new }
+  let(:mapper) { described_class.new }
 
   context 'when data is valid' do
     let(:payload) { Testing::ServiceYamlPayload.generate }
