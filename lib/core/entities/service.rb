@@ -3,9 +3,14 @@
 class Organisation < Hanami::Entity
 end
 
+class Environment < Hanami::Entity
+end
+
 class Service < Hanami::Entity
   attributes do
     attribute :id, Types::Int
+
+    attribute :environments, Types::Collection(Environment)
 
     attribute :organisation_id, Types::Int
     attribute :organisation, Types::Entity(Organisation)

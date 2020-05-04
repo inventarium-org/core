@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Fabricator(:service) do
-  organisation_id { Fabrication(:organisation).id }
+  organisation_id { Fabricate(:organisation).id }
 
   version 'v0'
 
