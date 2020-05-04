@@ -10,6 +10,8 @@ class Service < Hanami::Entity
     attribute :organisation_id, Types::Int
     attribute :organisation, Types::Entity(Organisation)
 
+    attribute :version, Types::String
+
     attribute :key, Types::String
     attribute :name, Types::String
     attribute :description, Types::String

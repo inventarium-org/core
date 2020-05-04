@@ -11,6 +11,8 @@ Hanami::Model.migration do
       primary_key :id
       foreign_key :organisation_id, :organisations, on_delete: :cascade
 
+      column :version, String, null: false
+
       column :key,  String, null: false
       column :name, String, null: false
       column :description, String

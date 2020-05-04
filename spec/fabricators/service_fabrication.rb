@@ -3,6 +3,8 @@
 Fabricator(:service) do
   organisation_id { Fabrication(:organisation).id }
 
+  version 'v0'
+
   key 'orders-service'
   name 'Orders service'
   description 'Some description about orders service'
