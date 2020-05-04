@@ -16,6 +16,10 @@ RSpec.describe Services::Operations::Put, type: :operation do
   context 'when data is valid' do
     it { expect(subject).to be_success }
     it { expect(subject.value!).to eq(Service.new(id: 123)) }
+
+    it 'spawns sidekiq worker' do
+      expect { subject }.to change(Services::Workers::ReadinessCalculator.jobs, :size).by(1)
+    end
   end
 
   context 'when data is invalid' do
@@ -26,8 +30,6 @@ RSpec.describe Services::Operations::Put, type: :operation do
     it { expect(subject).to be_failure }
     it { expect(subject.failure).to eq(:invalid_data) }
   end
-
-  it { expect(subject).to be_success }
 
   context 'with real dependencies' do
     subject { operation.call(organisation: organisation, params: params) }

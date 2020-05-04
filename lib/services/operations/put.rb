@@ -13,7 +13,10 @@ module Services
         payload = mapper.call(params)
         payload[:organisation_id] = organisation.id
 
-        persist(organisation, payload)
+        service = yield persist(organisation, payload)
+        spawn_event(service)
+
+        Success(service)
       end
 
       private
@@ -22,6 +25,10 @@ module Services
         Success(repo.create_or_upate(organisation.id, payload))
       rescue Hanami::Model::UniqueConstraintViolationError, Hanami::Model::NotNullConstraintViolationError
         Failure(:invalid_data)
+      end
+
+      def spawn_event(service)
+        Services::Workers::ReadinessCalculator.perform_async(service.id)
       end
     end
   end
