@@ -13,7 +13,7 @@ module Api
           #   v2_operation: 'services.v2.operations.put',
 
           operation: 'services.operations.put',
-          # authenticate_operation: 'organisations.operations.authenticate'
+          authenticate_operation: 'organisations.operations.authenticate'
         ]
 
         ALLOWED_VERSIONS = %w[v0]
@@ -21,17 +21,17 @@ module Api
         before :validate_version!
 
         def call(params)
-          params[:token]
-          params[:service]
+          token = request.env['X-INVENTORY-TOKEN']
+          result = authenticate_operation.call(token: token)
+          # params[:token]
+          # params[:service]
 
-          # result = v0_operation.call()
-          #
-          # case result
-          # when Success
-          # when Failure
-          # end
-
-          self.body = 'OK'
+          case result
+          when Success
+            self.body = 'OK'
+          when Failure(:failure_authenticate)
+            halt 422, 'Authenticate failure'
+          end
         end
 
       private
