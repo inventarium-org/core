@@ -10,6 +10,8 @@ RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
 
     it 'maps information for specific schema' do
       expect(subject).to eq({
+                              version: 'v0',
+
                               key: 'billing-service',
                               name: 'Billing Service for testing',
 

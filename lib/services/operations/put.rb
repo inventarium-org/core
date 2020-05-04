@@ -4,10 +4,23 @@ module Services
   module Operations
     class Put < ::Libs::Operation
       include Import[
+        mapper: 'services.mappers.service_information',
+        repo: 'repositories.service'
       ]
 
-      def call
-        Success(true)
+      def call(organisation:, params:)
+        payload = mapper.call(params)
+        payload[:organisation_id] = organisation.id
+
+        persist(organisation, payload)
+      end
+
+    private
+
+      def persist(organisation, payload)
+        Success(repo.create_or_upate(organisation.id, payload))
+      rescue Hanami::Model::UniqueConstraintViolationError, Hanami::Model::NotNullConstraintViolationError
+        Failure(:invalid_data)
       end
     end
   end

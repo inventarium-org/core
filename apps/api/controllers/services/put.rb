@@ -22,9 +22,10 @@ module Api
 
         def call(params)
           token = request.env['X-INVENTORY-TOKEN']
-          result = authenticate_operation.call(token: token)
-          # params[:token]
-          # params[:service]
+
+          result = authenticate_operation.call(token: token).bind do |organisation|
+            operation.call(organisation: organisation, params: params[:service])
+          end
 
           case result
           when Success

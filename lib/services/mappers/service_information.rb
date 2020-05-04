@@ -10,6 +10,8 @@ module Services
 
         payload = symbolize_keys(params)
         {
+          version: payload[:version].downcase,
+
           key: payload[:key],
           name: payload[:name],
 
