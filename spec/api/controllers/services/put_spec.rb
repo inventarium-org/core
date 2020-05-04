@@ -19,14 +19,26 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     context 'and auth token is valid' do
       let(:authenticate_operation) { ->(*) { Success(Organisation.new(id: 123)) } }
 
-      it { expect(subject).to be_success }
+      context 'and service.yaml data is valid' do
+        let(:operation) { ->(*) { Success(Service.new(id: 321)) } }
+
+        it { expect(subject).to be_success }
+        it { expect(subject.last).to eq(['OK']) }
+      end
+
+      context 'and service.yaml data is invalid' do
+        let(:operation) { ->(*) { Failure(:invalid_data) } }
+
+        it { expect(subject).to have_http_status(422) }
+        it { expect(subject.last).to eq(['Invalid data in service.yaml file']) }
+      end
     end
 
     context 'and auth token is invalid' do
       let(:authenticate_operation) { ->(*) { Failure(:failure_authenticate) } }
 
-    it { expect(subject).to have_http_status(422) }
-    it { expect(subject.last).to eq(['Authenticate failure']) }
+      it { expect(subject).to have_http_status(422) }
+      it { expect(subject.last).to eq(['Authenticate failure']) }
     end
   end
 

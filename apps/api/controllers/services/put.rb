@@ -30,6 +30,8 @@ module Api
           case result
           when Success
             self.body = 'OK'
+          when Failure(:invalid_data)
+            halt 422, 'Invalid data in service.yaml file'
           when Failure(:failure_authenticate)
             halt 422, 'Authenticate failure'
           end
