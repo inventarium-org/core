@@ -13,7 +13,7 @@ module Services
         service = yield find_service(service_id)
 
         payload = mapper.call(service)
-        Success(readiness_repo.create(payload))
+        Success(readiness_repo.create_or_update(service_id, payload))
       end
 
     private

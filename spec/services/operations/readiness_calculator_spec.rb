@@ -15,7 +15,7 @@ RSpec.describe Services::Operations::ReadinessCalculator, type: :operation do
   end
 
   let(:readiness_repo) do
-    instance_double('ReadinesRepository', create: Readiness.new(id: 123))
+    instance_double('ReadinesRepository', create_or_update: Readiness.new(id: 123))
   end
 
   let(:params) { Testing::ServiceYamlPayload.generate }
