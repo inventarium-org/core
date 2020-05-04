@@ -6,6 +6,7 @@ table.table
       th scope="col"  Classification
       th scope="col"  Status
       th scope="col"  Tags
+      th scope="col"  Score
 
   tbody
     - services.each do |service|
@@ -18,3 +19,4 @@ table.table
         td = service.classification
         td = service.status
         td = service.tags
+        td A
