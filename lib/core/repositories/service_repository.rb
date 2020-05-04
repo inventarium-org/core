@@ -7,6 +7,14 @@ class ServiceRepository < Hanami::Repository
     belongs_to :organisation
   end
 
+  def all_for_organisation(organisation_id)
+    root.where(organisation_id: organisation_id).map_to(Service).to_a
+  end
+
+  def find_for_organisation(organisation_id, key)
+    root.where(organisation_id: organisation_id, key: key).limit(1).map_to(Service).one
+  end
+
   def create_or_upate(organisation_id, payload)
     transaction do
       service = aggregate(:environments).where(organisation_id: organisation_id, key: payload[:key]).limit(1).map_to(Service).one

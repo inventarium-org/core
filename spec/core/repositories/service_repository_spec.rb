@@ -4,10 +4,45 @@ RSpec.describe ServiceRepository, type: :repository do
   let(:repo) { described_class.new }
   let(:env_repo) { EnvironmentRepository.new }
 
+  let(:organisation) { Fabricate(:organisation) }
+
+  describe '#all_for_organisation' do
+    subject { repo.all_for_organisation(organisation.id) }
+
+    context 'when organisation has services' do
+      before do
+        3.times do
+          Fabricate(:service, organisation_id: organisation.id)
+        end
+      end
+
+      it { expect(subject).to all(be_a(Service)) }
+      it { expect(subject.map(&:organisation_id)).to all(eq(organisation.id)) }
+    end
+
+    context 'when organisation does not have any services' do
+      it { expect(subject).to eq([]) }
+    end
+  end
+
+  describe '#find_for_organisation' do
+    subject { repo.find_for_organisation(organisation.id, 'test-service') }
+
+    context 'when organisation has services' do
+      let(:service) { Fabricate(:service, organisation_id: organisation.id, key: 'test-service' ) }
+
+      before { service }
+
+      it { expect(subject).to eq(service) }
+    end
+
+    context 'when organisation does not have any services' do
+      it { expect(subject).to eq(nil) }
+    end
+  end
+
   describe '#create_or_upate' do
     subject { repo.create_or_upate(organisation.id, payload) }
-
-    let(:organisation) { Fabricate(:organisation) }
 
     let(:payload) do
       {
