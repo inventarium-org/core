@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 RSpec.describe Readiness, type: :entity do
   describe '#completed_checks_count' do
     subject { entity.completed_checks_count }
 
     context 'when all checks are completed' do
       let(:entity) do
-        Readiness.new(
+        described_class.new(
           service_id: 1,
           owner: true,
           slack: true,
@@ -23,7 +25,7 @@ RSpec.describe Readiness, type: :entity do
 
     context 'when half of checks are completed' do
       let(:entity) do
-        Readiness.new(
+        described_class.new(
           service_id: 1,
           owner: true,
           slack: false,
@@ -41,7 +43,7 @@ RSpec.describe Readiness, type: :entity do
     end
 
     context 'when zero checks are completed' do
-      let(:entity) { Readiness.new }
+      let(:entity) { described_class.new }
 
       it { expect(subject).to eq(0) }
     end

@@ -23,9 +23,9 @@ module Services
         }
       end
 
-    private
+      private
 
-      PRODUCTION_ENV_NAMES = %w[production prod]
+      PRODUCTION_ENV_NAMES = %w[production prod].freeze
 
       def production_checks(service)
         production_env = Array(service.environments).find { |e| PRODUCTION_ENV_NAMES.include?(e.name.to_s) }

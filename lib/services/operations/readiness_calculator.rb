@@ -16,7 +16,7 @@ module Services
         Success(readiness_repo.create_or_update(service_id, payload))
       end
 
-    private
+      private
 
       def find_service(id)
         service = service_repo.find_with_environments(id)

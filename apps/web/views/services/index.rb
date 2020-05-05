@@ -9,9 +9,9 @@ module Web
         READINESS_CHECKS_COUNT = Readiness::CHECK_NAMES.count
 
         def breadcrumb
-          html.nav('aria-label' => "breadcrumb") do
-            ol(class: "breadcrumb") do
-              li(class: "breadcrumb-item", 'aria-current' => "page") { 'Services' }
+          html.nav('aria-label' => 'breadcrumb') do
+            ol(class: 'breadcrumb') do
+              li(class: 'breadcrumb-item', 'aria-current' => 'page') { 'Services' }
             end
           end
         end
@@ -33,10 +33,10 @@ module Web
               div(class: 'progress') do
                 div(
                   class: 'progress-bar bg-success',
-                  'aria-valuemax': "100",
-                  'aria-valuemin': "0",
-                  'aria-valuenow': "100",
-                  role: "progressbar",
+                  'aria-valuemax': '100',
+                  'aria-valuemin': '0',
+                  'aria-valuenow': '100',
+                  role: 'progressbar',
                   style: "width: #{percent}%"
                 )
               end

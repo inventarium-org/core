@@ -36,7 +36,7 @@ RSpec.describe ServiceRepository, type: :repository do
       before do
         3.times { |i| Fabricate(:environment, service_id: service.id, name: "Test env #{i}") }
 
-        Fabricate(:environment, name: "Test env {i}")
+        Fabricate(:environment, name: 'Test env {i}')
         Fabricate(:readiness, service_id: service.id)
       end
 
@@ -62,7 +62,7 @@ RSpec.describe ServiceRepository, type: :repository do
       before do
         3.times { |i| Fabricate(:environment, service_id: service.id, name: "Test env #{i}") }
 
-        Fabricate(:environment, name: "Test env {i}")
+        Fabricate(:environment, name: 'Test env {i}')
       end
 
       it do

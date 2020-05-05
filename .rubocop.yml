@@ -37,6 +37,7 @@ Metrics/ClassLength:
   - apps/**/http/*.rb
 
 Metrics/MethodLength:
+  Max: 20
   Exclude:
   # Rake DSL
   - rakelib/**/*.rake
@@ -52,6 +53,8 @@ Metrics/ModuleLength:
   - spec/**/*.rb
 
 Metrics/AbcSize:
+  Max: 20
+
   Exclude:
   # Rake DSL
   - rakelib/**/*.rake

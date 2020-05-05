@@ -27,7 +27,7 @@ class Readiness < Hanami::Entity
   CHECK_NAMES = %i[
     owner slack healthcheck logs error_traker continuous_integration
     api_documentation maintenance_documentation monitoring
-  ]
+  ].freeze
 
   def completed_checks_count
     to_h.slice(*CHECK_NAMES).values.count(true)

@@ -11,7 +11,7 @@ module Auth
           operation: 'accounts.operations.create_by_oauth'
         ]
 
-        def call(params) # rubocop:disable Metrics/MethodLength
+        def call(params)
           result = operation.call(
             provider: params[:provider].to_s,
             payload: request.env['omniauth.auth']

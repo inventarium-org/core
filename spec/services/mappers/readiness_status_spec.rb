@@ -116,7 +116,7 @@ RSpec.describe Services::Mappers::ReadinessStatus, type: :mapper do
 
           continuous_integration: true,
           api_documentation: false,
-          maintenance_documentation: true,
+          maintenance_documentation: true
         }
       )
     end
@@ -135,7 +135,7 @@ RSpec.describe Services::Mappers::ReadinessStatus, type: :mapper do
 
           continuous_integration: false,
           api_documentation: false,
-          maintenance_documentation: false,
+          maintenance_documentation: false
         }
       )
     end

@@ -5,7 +5,7 @@ require 'json'
 module Services
   module Mappers
     class ServiceInformation
-      def call(params) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      def call(params) # rubocop:disable Metrics/AbcSize
         return {} if params.empty?
 
         payload = symbolize_keys(params)

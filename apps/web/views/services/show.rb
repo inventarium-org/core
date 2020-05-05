@@ -7,12 +7,12 @@ module Web
         include Web::View
 
         def breadcrumb
-          html.nav('aria-label' => "breadcrumb") do
-            ol(class: "breadcrumb") do
-              li(class: "breadcrumb-item") do
+          html.nav('aria-label' => 'breadcrumb') do
+            ol(class: 'breadcrumb') do
+              li(class: 'breadcrumb-item') do
                 a('Services', href: "/#{organisation.slug}/services")
               end
-              li(class: "breadcrumb-item", 'aria-current' => "page") { service.name }
+              li(class: 'breadcrumb-item', 'aria-current' => 'page') { service.name }
             end
           end
         end
