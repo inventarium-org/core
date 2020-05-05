@@ -5,12 +5,16 @@ module Web
         include Web::View
 
         def breadcrumb
-          html do
-            a('Services', href: "/#{organisation.slug}/services")
-            text('>')
-            a(service.name, href: "/#{organisation.slug}/services/#{service.key}")
-            text('>')
-            span('Production Checklist')
+          html.nav('aria-label' => "breadcrumb") do
+            ol(class: "breadcrumb") do
+              li(class: "breadcrumb-item") do
+                a('Services', href: "/#{organisation.slug}/services")
+              end
+              li(class: "breadcrumb-item") do
+                a(service.name, href: "/#{organisation.slug}/services/#{service.key}")
+              end
+              li(class: "breadcrumb-item", 'aria-current' => "page") { 'Production Checklist' }
+            end
           end
         end
 

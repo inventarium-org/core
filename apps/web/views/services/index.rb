@@ -9,7 +9,11 @@ module Web
         READINESS_CHECKS_COUNT = Readiness::CHECK_NAMES.count
 
         def breadcrumb
-          'Services'
+          html.nav('aria-label' => "breadcrumb") do
+            ol(class: "breadcrumb") do
+              li(class: "breadcrumb-item", 'aria-current' => "page") { 'Services' }
+            end
+          end
         end
 
         def services_active_class

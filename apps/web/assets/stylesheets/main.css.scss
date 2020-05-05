@@ -33,6 +33,12 @@ html {
   .navbar-email {
     margin: 0 7px!important;
   }
+
+  .breadcrumb {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .main-container {
@@ -43,3 +49,4 @@ html {
 .container-content {
   margin-top: 2%;
 }
+

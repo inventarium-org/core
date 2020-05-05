@@ -11,7 +11,11 @@ module Web
         end
 
         def breadcrumb
-          'Dashboard'
+          html.nav('aria-label' => "breadcrumb") do
+            ol(class: "breadcrumb") do
+              li(class: "breadcrumb-item", 'aria-current' => "page") { 'Dashboard' }
+            end
+          end
         end
       end
     end
