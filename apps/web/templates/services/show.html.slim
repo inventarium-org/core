@@ -1,93 +1,90 @@
 .row
-  .col-md-12
-    .card 
-      .row
-        .col
-          h1
-            | #{service.name} (#{link_to 'GitHub', service.repository_link})
+  .col
+    h1
+      | #{service.name} (#{link_to 'GitHub', service.repository_link})
 
 
-      .row
-        .col
-          .description
-            = service.description
-        .col
-          .owners
-            | Owner: #{service.owner_name} (#{service.owner_slack_channel})
+.row
+  .col
+    .description
+      = service.description
+  .col
+    .owners
+      | Owner: #{service.owner_name} (#{service.owner_slack_channel})
 
+br
+br
+
+.row
+  .col
+    ul.nav.nav-pills.nav-fill
+      li.nav-item
+        a.nav-link.active href="/#{organisation.slug}/services/#{service.key}"  Owerflow
+      li.nav-item
+        a.nav-link href="/#{organisation.slug}/services/#{service.key}/readiness"  Production Checklist
+      li.nav-item
+        a.nav-link href="#"  Quality Attributes
+
+br
+br
+
+.card
+  .card-body
+    .row
+      .col
+        .base
+          h2 Base
+
+          = service_information('Classification', service.classification)
+            /| (?) <- tooltip with information about specific classification
+          = service_information('Status', service.status)
+            /| (?) <- tooltip with information about specific status
+          = service_information('Tags', service.tags)
+
+      .col
+        .operations
+          h2 Operations
+
+          = service_information_link('CI status URL', service.ci_build_url)
+
+    br
+    br
+
+    .row
+      .col
+        .docs
+          h2 Documentation
+
+          = service_information_link('API documentation', service.docs_api)
+          = service_information_link('Maintenance documentation', service.docs_maintenance)
+          = service_information_link('Domain documentation', service.docs_domain)
+
+      .col
+        .empty
+
+
+br
+.row
+  .col
+
+    h2 Environment information
+
+    - service.environments.each do |environment|
+      .card
+        .card-body
+          .card-title
+            h3
+              | #{environment.name} #{environment.deleted ? '(Deleted)' : ''}
+          .row
+            .col-6
+              = service_information_link('URL', environment.url)
+              = service_information_link('Healthcheck', environment.healthcheck_url)
+              = service_information_link('Logs', environment.logs_url)
+              = service_information_link('Error traker', environment.error_traker_url)
+
+            .col-6
+              h4 Monitoring
+
+              - environment.monitoring do |name, link|
+                = service_information(name, link)
       br
-      br
-
-      .row
-        .col
-          ul.nav.nav-pills.nav-fill
-            li.nav-item
-              a.nav-link.active href="/#{organisation.slug}/services/#{service.key}"  Owerflow
-            li.nav-item
-              a.nav-link href="/#{organisation.slug}/services/#{service.key}/readiness"  Production Checklist
-            li.nav-item
-              a.nav-link href="#"  Quality Attributes
-
-      br
-      br
-
-      .row
-        .col
-          .base
-            h2 Base
-
-            = service_information('Classification', service.classification)
-              /| (?) <- tooltip with information about specific classification
-            = service_information('Status', service.status)
-              /| (?) <- tooltip with information about specific status
-            = service_information('Tags', service.tags)
-
-        .col
-          .operations
-            h2 Operations
-
-            = service_information_link('CI status URL', service.ci_build_url)
-
-      br
-      br
-
-      .row
-        .col
-          .docs
-            h2 Documentation
-
-            = service_information_link('API documentation', service.docs_api)
-            = service_information_link('Maintenance documentation', service.docs_maintenance)
-            = service_information_link('Domain documentation', service.docs_domain)
-
-        .col
-          .empty
-
-      br
-      br
-
-      .row
-        .col
-          h2 Environment information
-
-          br
-
-          - service.environments.each do |environment|
-            .row
-              .col
-                h3
-                  | #{environment.name} #{environment.deleted ? '(Deleted)' : ''}
-
-                .row
-                  .col
-                    = service_information_link('URL', environment.url)
-                    = service_information_link('Healthcheck', environment.healthcheck_url)
-                    = service_information_link('Logs', environment.logs_url)
-                    = service_information_link('Error traker', environment.error_traker_url)
-
-                  .col
-                    h4 Monitoring
-
-                    - environment.monitoring do |name, link|
-                      = service_information(name, link)
-            br

@@ -6,6 +6,11 @@ html {
   .simple-text {
     text-align: center;
   }
+  .sidebar-wrapper {
+    .active {
+      a { color: #000; }
+    }
+  }
 }
 
 .navbar {
@@ -50,3 +55,21 @@ html {
   margin-top: 2%;
 }
 
+.quality-attribute {
+  .card-header {
+    font-size: 22px;
+    background-color: transparent;
+    border-bottom: transparent;
+
+    i {
+      margin-right: 5px;
+      font-size: 23px;
+      font-weight: 900;
+    }
+
+
+    .text-success {
+      a { color: #6bd098 !important; }
+    }
+  }
+}

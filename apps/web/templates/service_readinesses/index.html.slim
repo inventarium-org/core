@@ -28,63 +28,36 @@ br
 br
 br
 
-.card
-  .card-body class=card_style(service.readiness.owner)
-    h5.card-title Owner
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Owner', service.readiness.owner, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.slack)
-    h5.card-title Slack
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Slack', service.readiness.slack, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.healthcheck)
-    h5.card-title Healthcheck
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Healthcheck', service.readiness.healthcheck, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.logs)
-    h5.card-title Logs
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Logs', service.readiness.logs, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.error_traker)
-    h5.card-title Error tracker
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Error tracker', service.readiness.error_traker, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.continuous_integration)
-    h5.card-title Continuous integration
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Continuous integration', service.readiness.continuous_integration, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.api_documentation)
-    h5.card-title API documentation
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('API documentation', service.readiness.api_documentation, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.maintenance_documentation)
-    h5.card-title Maintenance documentation
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Maintenance documentation', service.readiness.maintenance_documentation, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-.card
-  .card-body class=card_style(service.readiness.monitoring)
-    h5.card-title Monitoring
-    p.card-text With supporting text below as a natural lead-in to additional content.
+= readiness_card('Monitoring', service.readiness.monitoring, 'With supporting text below as a natural lead-in to additional content.')
