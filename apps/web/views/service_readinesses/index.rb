@@ -13,6 +13,14 @@ module Web
             span('Production Checklist')
           end
         end
+
+        def services_active_class
+          'active'
+        end
+
+        def card_style(status)
+          status ? 'text-success' : 'text-danger'
+        end
       end
     end
   end

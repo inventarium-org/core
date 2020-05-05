@@ -1,26 +1,37 @@
-.container.left-bar
-  nav.navbar.navbar-expand-lg
-    ul.navbar-nav
-      li.nav-item.dropdown
-        a#leftNavbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-          | #{organisation.name || 'Default'}
-        .dropdown-menu aria-labelledby="leftNavbarDropdownMenuLink" 
-          a.dropdown-item href="#"  Other project
-          a.dropdown-item href="#"  One more project
-          div.dropdown-divider
-          a.dropdown-item.disabled href="#"  Create new project
+.sidebar data-active-color="danger" data-color="white" 
+  - if organisation.name
+    .sidebar-wrapper
+      .logo
+        a.simple-text href="" = organisation.name
 
-  ul.nav.flex-column
-    li.nav-item class=dashboard_active_class
-      a.nav-link href="/#{organisation.slug}" Dashboard
+      ul.nav
+        li class=dashboard_active_class
+          a href="/#{organisation.slug}" 
+            i.nc-icon.nc-bookmark-2
+            p Dashboard
 
-    li.nav-item class=services_active_class
-      a.nav-link href="/#{organisation.slug}/services"  Services
-    li.nav-item class=quality_attributes_active_class
-      a.nav-link href="/#{organisation.slug}/quality-attributes"  Quality attributes
+        li class=services_active_class
+          a href="/#{organisation.slug}/services" 
+            i.nc-icon.nc-bullet-list-67
+            p Services
 
-    li.nav-item.seporator
+        li class=quality_attributes_active_class
+          a href="/#{organisation.slug}/quality-attributes" 
+            i.nc-icon.nc-chart-bar-32
+            p Quality attributes
 
-    li.nav-item class=settings_active_class
-      a.nav-link href="/#{organisation.slug}/settings"  Settings
+        li class=settings_active_class
+          a href="/#{organisation.slug}/settings" 
+            i.nc-icon.nc-settings
+            p Settings
 
+  - else
+    .sidebar-wrapper
+      .logo
+        a.simple-text href="" Inventarium.io
+
+      ul.nav
+        li.active
+          a href="/#{organisation.slug}" 
+            i.nc-icon.nc-bookmark-2
+            p Create new organisation

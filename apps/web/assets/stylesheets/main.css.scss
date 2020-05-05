@@ -2,60 +2,42 @@ html {
     height: 100%;
 }
 
-.main-container {
-  display: flex;
-  align-items: stretch;
-  height: 100%;
-  min-height: 100%;
-}
-
-.left-bar {
-  width: 15% !important;
-  border-right: 2px solid #192f48;
-  background: #192f48;
-
-  a {
-    color: #fff;
-
-    &:hover {
-      background: #111b27;
-    }
-  }
-
-  .dropdown-item {
-    color: #000;
-  }
-
-  .active {
-    background: #111b27;
-  }
-
-  .seporator {
+.sidebar {
+  .simple-text {
     text-align: center;
-    margin: 20px 0;
-    position: relative;
+  }
+}
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      border-top: 1px solid #949494;
-      background: #949494;
-      width: 100%;
-      transform: translateY(-50%);
+.navbar {
+  background-color: #f3f8fe;
+  border-bottom: 1px solid #DDDDDD;
+
+  .navbar-header {
+    .navbar-brand {
+      a {
+        color: #000!important;
+        vertical-align: initial;
+      }
     }
   }
 
+  .dropdown {
+    cursor: pointer!important;
+
+    .nc-icon {
+      top: 4px;
+      font-size: 20px!important;
+    }
+  }
+
+  .navbar-email {
+    margin: 0 7px!important;
+  }
 }
 
-.top-bar {
-  display: flex;
-  flex-direction: row-reverse;
-
-  .top-bar__items {
-    justify-content: flex-end;
-  }
+.main-container {
+  align-items: stretch;
+  min-height: 100%;
 }
 
 .container-content {

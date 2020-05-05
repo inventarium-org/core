@@ -14,6 +14,10 @@ module Web
           end
         end
 
+        def services_active_class
+          'active'
+        end
+
         def service_information(key, value)
           html.div(class: 'row') do
             div(class: 'col') { key }

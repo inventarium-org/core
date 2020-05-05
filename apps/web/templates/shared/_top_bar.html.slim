@@ -1,13 +1,16 @@
-nav.navbar.navbar-expand-lg.top-bar
+
+nav.navbar.navbar-expand-lg.navbar-absolute.fixed-top.navbar-transparent
   .container-fluid
     .navbar-header
-      span.navbar-brand = breadcrumb
-
-    ul.navbar-nav.top-bar__items
-      li.nav-item.dropdown
-        a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-          | Anton (username)
-        .dropdown-menu aria-labelledby="navbarDropdownMenuLink" 
-          a.dropdown-item.disabled href="#" Settings
-          div.dropdown-divider
-          a.dropdown-item href="/auth/logout" Logout
+      .navbar-brand
+        = breadcrumb
+    #navigation.collapse.navbar-collapse.justify-content-end
+      ul.navbar-nav
+        li.nav-item.btn-rotate.dropdown
+          a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+            i.nc-icon.nc-circle-10
+            p.navbar-email = current_account.email
+          .dropdown-menu.dropdown-menu-right aria-labelledby="navbarDropdownMenuLink" 
+            a.dropdown-item href="#"  Settings
+            div.dropdown-divider
+            a.dropdown-item href="/auth/logout" Logout

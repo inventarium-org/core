@@ -4,18 +4,19 @@ html
     title
       | Inventarium
     = favicon
-    = stylesheet 'bootstrap', 'main'
+    = stylesheet 'bootstrap', 'paper_dashboard', 'main'
 
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
   body.h-100
-    .main-container
-      - if organisation.name
-        = render partial: 'shared/letf_bar'
+    .wrapper
+      = render partial: 'shared/letf_bar'
 
-      .container-fluid
+      .main-panel.main-container
         = render partial: 'shared/top_bar'
+        .content
+          /= render partial: 'shared/icons_list'
+          .container.container-content
+            = yield
+        /= render partial: 'shared/footer'
 
-        .container.container-content
-          = yield
-
-    = javascript 'jquery', 'bootstrap', 'main'
+    = javascript 'jquery', 'bootstrap', 'bootstrap_notify', 'chartjs', 'paper_dashboard', 'perfect_scrollbar', 'popper', 'main'
