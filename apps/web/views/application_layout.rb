@@ -9,6 +9,14 @@ module Web
         ''
       end
 
+      def organisations_active_class
+        ''
+      end
+
+      def new_organisation_active_class
+        ''
+      end
+
       def dashboard_active_class
         ''
       end

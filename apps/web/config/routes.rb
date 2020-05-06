@@ -17,3 +17,5 @@ namespace '/:slug' do
   get '/quality-attributes', to: 'organisations#show'
   get '/settings', to: 'organisations#show'
 end
+
+resources :organisations, only: %i[new create]

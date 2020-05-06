@@ -36,12 +36,12 @@
         a.simple-text href="" Inventarium.io
 
       ul.nav
-        li.active
+        li class=organisations_active_class
           a href="/#{organisation.slug}" 
             i.nc-icon.nc-globe
             p Organisations
 
-        li
-          a href="/#{organisation.slug}" 
+        li class=new_organisation_active_class
+          a href=routes.new_organisation_path
             i.nc-icon.nc-simple-add
             p Create new organisation
