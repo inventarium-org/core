@@ -24,6 +24,12 @@ module Web
       def settings_active_class
         ''
       end
+
+      def tags_html(tags)
+        html.div do
+          tags.map { |tag| span(tag, class: "badge badge-primary") }
+        end
+      end
     end
   end
 end

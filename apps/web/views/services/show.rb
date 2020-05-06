@@ -22,16 +22,22 @@ module Web
         end
 
         def service_information(key, value)
-          html.div(class: 'row') do
-            div(class: 'col') { key }
-            div(class: 'col') { value || 'Empty' }
+          html.div(class: 'row service-information') do
+            div(class: 'col title') { key }
+            div(class: 'col value') do
+              if key == 'Tags'
+                value.map { |tag| span(tag, class: "badge badge-primary") }
+              else
+                value || 'Empty'
+              end
+            end
           end
         end
 
         def service_information_link(key, value)
-          html.div(class: 'row') do
-            div(class: 'col') { key }
-            div(class: 'col') do
+          html.div(class: 'row service-information') do
+            div(class: 'col title') { key }
+            div(class: 'col value') do
               if value
                 link_to URI(value).host, value
               else

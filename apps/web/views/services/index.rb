@@ -21,18 +21,20 @@ module Web
         end
 
         def link_to_service(service)
-          link_to service, "/#{organisation.slug}/services/#{service}"
+          link_to service, "/#{organisation.slug}/services/#{service}", class: 'service-title'
         end
 
         def readinessbar(service)
           completed_checks_count = service.readiness.completed_checks_count
           percent = (completed_checks_count / READINESS_CHECKS_COUNT.to_f) * 100.0
 
+          progress_bar_color = percent == 100 ? 'bg-success' : ''
+
           html.div(class: 'row') do
             div(class: 'col-8') do
               div(class: 'progress') do
                 div(
-                  class: 'progress-bar bg-success',
+                  class: "progress-bar #{progress_bar_color}",
                   'aria-valuemax': '100',
                   'aria-valuemin': '0',
                   'aria-valuenow': '100',
@@ -43,7 +45,7 @@ module Web
             end
 
             div(class: 'col-4') do
-              span { "#{completed_checks_count} / #{READINESS_CHECKS_COUNT}" }
+              link_to "#{completed_checks_count} / #{READINESS_CHECKS_COUNT} (?)", "/#{organisation.slug}/services/#{service.key}/readiness"
             end
           end
         end

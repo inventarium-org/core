@@ -1,25 +1,59 @@
-table.table
-  thead
-    tr
-      th scope="col"  Service name
-      th scope="col"  Checks passed
-      th scope="col"  Classification
-      th scope="col"  Status
-      th scope="col"  Tags
-      th scope="col"  Score
-
-  tbody
-    - services.each do |service|
-      tr
-        th scope="row"
+.services
+  - (services + services + services).each do |service|
+    .row.service
+      .col-3.service-base
+        .row
           = link_to_service(service.key)
-        td
-          = readinessbar(service)
-            /| (?) <- tooltip with information about checks which you need to fix
+        .row.service-tags
+          - service.tags.each do |tag|
+            span.badge.badge-primary = tag
+      .col-2.service-owner.align-self-center
+        = service.owner_name
+        br
+        | Slack: #{service.owner_slack_channel}
 
-        td = service.classification
+      .col-3.service-readiness.align-self-center
+        = readinessbar(service)
+          /| (?) <- tooltip with information about checks which you need to fix
+
+      .col-2.service-classification.align-self-center.text-center
+        = service.classification
           /| (?) <- tooltip with information about specific classification
-        td = service.status
+        br
+        = service.status
           /| (?) <- tooltip with information about specific status
-        td = service.tags
-        td A (?)
+
+      .col-2.service-score.align-self-center.text-center
+        | A (?)
+
+
+
+
+
+    /table.table
+    /  /thead
+    /    tr
+    /      th scope="col"  Service name
+    /      th scope="col"  Checks passed
+    /      th scope="col"  Classification
+    /      th scope="col"  Status
+    /      th scope="col"  Tags
+    /      th scope="col"  Score
+    /
+    /  tbody
+    /    - services.each do |service|
+    /      tr
+    /        th scope="row"
+    /          = link_to_service(service.key)
+    /        td
+    /          = readinessbar(service)
+    /            /| (?) <- tooltip with information about checks which you need to fix
+    /
+    /        td = service.classification
+    /          /| (?) <- tooltip with information about specific classification
+    /        td = service.status
+    /          /| (?) <- tooltip with information about specific status
+    /        td
+    /          - service.tags.each do |tag|
+    /            span.badge.badge-primary = tag
+    /        td A (?)

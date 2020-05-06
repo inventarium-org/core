@@ -7,7 +7,7 @@
 .row
   .col
     .description
-      = service.description
+      | | #{service.description}
   .col
     .owners
       | Owner: #{service.owner_name} (#{service.owner_slack_channel})
@@ -17,7 +17,7 @@ br
 
 .row
   .col
-    ul.nav.nav-pills.nav-fill
+    ul.nav.nav-pills.nav-fill.service-nav
       li.nav-item
         a.nav-link.active href="/#{organisation.slug}/services/#{service.key}"  Owerflow
       li.nav-item
