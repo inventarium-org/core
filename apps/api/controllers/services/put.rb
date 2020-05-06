@@ -40,13 +40,15 @@ module Api
           request.env['HTTP_X_INVENTARIUM_TOKEN']
         end
 
+        # rubocop:disable Layout/LineLength
         def validate_version!(params)
           version = params.dig(:service, :version).to_s.downcase
-          unless ALLOWED_VERSIONS.include?(version)
-            # TODO: add link to readme about config file
-            halt 422, "Invalid service.yaml file. Please use allowed versions: #{ALLOWED_VERSIONS.join(', ')} (Req version: #{version.inspect})"
-          end
+          return if ALLOWED_VERSIONS.include?(version)
+
+          # TODO: add link to readme about config file
+          halt 422, "Invalid service.yaml file. Please use allowed versions: #{ALLOWED_VERSIONS.join(', ')} (Req version: #{version.inspect})"
         end
+        # rubocop:enable Layout/LineLength
       end
     end
   end

@@ -13,7 +13,7 @@ module Services
       ]
 
       def perform(service_id)
-        case result = operation.call(service_id: service_id)
+        case operation.call(service_id: service_id)
         when Success
           logger.info("Readiness information was recalculated (service ##{service_id}")
         when Failure

@@ -26,7 +26,7 @@ module Web
             div(class: 'col title') { key }
             div(class: 'col value') do
               if key == 'Tags'
-                value.map { |tag| span(tag, class: "badge badge-primary") }
+                value.map { |tag| span(tag, class: 'badge badge-primary') }
               else
                 value || 'Empty'
               end

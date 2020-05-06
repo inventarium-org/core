@@ -135,7 +135,9 @@ RSpec.describe ServiceRepository, type: :repository do
     end
 
     context 'when service exists in db' do
-      let(:service) { Fabricate(:service, organisation_id: organisation.id, key: 'billing-service', description: 'empty') }
+      let(:service) do
+        Fabricate(:service, organisation_id: organisation.id, key: 'billing-service', description: 'empty')
+      end
 
       before do
         Fabricate(:environment, service_id: service.id, name: 'qa')

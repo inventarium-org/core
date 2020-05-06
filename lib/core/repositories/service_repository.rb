@@ -22,7 +22,7 @@ class ServiceRepository < Hanami::Repository
 
   def create_or_upate(organisation_id, payload)
     transaction do
-      service = aggregate(:environments).where(organisation_id: organisation_id, key: payload[:key]).limit(1).map_to(Service).one
+      service = find_for_organisation(organisation_id, payload[:key])
 
       if service
         payload[:environments].each { |env_paylaod| create_or_upate_env(service, env_paylaod) }

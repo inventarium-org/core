@@ -28,7 +28,7 @@ module Services
       PRODUCTION_ENV_NAMES = %w[production prod].freeze
 
       def production_checks(service)
-        production_env = Array(service.environments).find { |e| PRODUCTION_ENV_NAMES.include?(e.name.to_s) }
+        production_env = find_prod_env(service.environments)
 
         return {} if production_env.nil?
 
@@ -38,6 +38,10 @@ module Services
           error_traker: !!production_env.error_traker_url,
           monitoring: !!production_env.monitoring.any?
         }
+      end
+
+      def find_prod_env(envs)
+        Array(envs).find { |e| PRODUCTION_ENV_NAMES.include?(e.name.to_s) }
       end
     end
   end

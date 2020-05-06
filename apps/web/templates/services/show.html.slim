@@ -12,6 +12,10 @@
     .owners
       | Owner: #{service.owner_name} (#{service.owner_slack_channel})
 
+
+.row
+  .col
+    | Last update: #{service.updated_at}
 br
 br
 
@@ -22,7 +26,7 @@ br
         a.nav-link.active href="/#{organisation.slug}/services/#{service.key}"  Owerflow
       li.nav-item
         a.nav-link href="/#{organisation.slug}/services/#{service.key}/readiness"  Production Checklist
-      li.nav-item
+      /li.nav-item
         a.nav-link href="#"  Quality Attributes
 
 br

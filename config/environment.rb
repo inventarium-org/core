@@ -25,7 +25,7 @@ require_relative '../apps/api/application'
 require_relative '../apps/auth/application'
 require_relative '../apps/web/application'
 
-Hanami.configure do
+Hanami.configure do # rubocop:disable Metrics/BlockLength
   middleware.use RequestId
   middleware.use Rack::Session::Cookie, secret: Container[:settings].web_sessions_secret
 

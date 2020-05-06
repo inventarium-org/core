@@ -9,7 +9,7 @@ nav.navbar.navbar-expand-lg.navbar-absolute.fixed-top.navbar-transparent
         li.nav-item.btn-rotate.dropdown
           a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
             i.nc-icon.nc-circle-10
-            p.navbar-email = current_account.email
+            p.navbar-email = current_account.email || current_account.login
           .dropdown-menu.dropdown-menu-right aria-labelledby="navbarDropdownMenuLink" 
             a.dropdown-item href="#"  Settings
             div.dropdown-divider

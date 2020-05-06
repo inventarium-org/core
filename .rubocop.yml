@@ -65,6 +65,9 @@ Metrics/AbcSize:
 
 Layout/LineLength:
   Max: 120
+  Exclude:
+    # View objects
+    - apps/*/views/**/*.rb
 
 Layout/ArgumentAlignment:
   Enabled: false
