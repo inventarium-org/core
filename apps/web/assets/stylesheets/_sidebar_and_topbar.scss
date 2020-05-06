@@ -1,0 +1,50 @@
+.sidebar {
+  .simple-text {
+    text-align: center;
+  }
+  .sidebar-wrapper {
+    .active {
+      a { color: #000; }
+    }
+  }
+}
+
+.navbar {
+  background-color: #f3f8fe;
+  border-bottom: 1px solid #DDDDDD;
+
+  .navbar-header {
+    .navbar-brand {
+      a {
+        color: #000!important;
+        vertical-align: initial;
+      }
+    }
+  }
+
+  .dropdown {
+    cursor: pointer!important;
+
+    .nc-icon {
+      top: 4px;
+      font-size: 20px!important;
+    }
+  }
+
+  .navbar-email {
+    margin: 0 7px!important;
+  }
+
+  .breadcrumb {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+
+    .breadcrumb-item {
+      color: #999;
+
+      a { color: #192f48 !important; }
+    }
+  }
+}
+

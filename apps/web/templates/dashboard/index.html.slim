@@ -1,11 +1,15 @@
-h1 Hello
 
-= current_account
-
-
-div
-  - organisations.each do |organisation|
-    div
-      = link_to organisation.name, routes.organisation_dashboard_path(organisation.slug)
-
-
+.organisations
+  - if organisations.empty?
+    .row.organisation
+      .col.organisation-base
+        .row
+          a.organisation-title href='#'
+            i.nc-icon.nc-simple-add
+            | Create new organisation
+  - else
+    - organisations.each do |organisation|
+      .row.organisation
+        .col.organisation-base
+          .row
+            = link_to organisation.name, routes.organisation_dashboard_path(organisation.slug), class: 'organisation-title'
