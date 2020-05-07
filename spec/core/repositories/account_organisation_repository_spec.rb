@@ -24,4 +24,39 @@ RSpec.describe AccountOrganisationRepository, type: :repository do
       it { expect(subject).to eq([]) }
     end
   end
+
+  describe '#member?' do
+    subject { repo.member?(organisation_id, account_id) }
+
+    let(:organisation) { Fabricate(:organisation) }
+    let(:account_organisation) { Fabricate(:account_organisation, organisation_id: organisation.id) }
+
+    context 'when account is a member of organisation' do
+      let(:organisation_id) { organisation.id }
+      let(:account_id) { account_organisation.account_id }
+
+      it { expect(subject).to be true }
+    end
+
+    context 'when account is not a member of organisation' do
+      let(:organisation_id) { organisation.id }
+      let(:account_id) { 0 }
+
+      it { expect(subject).to be false }
+    end
+
+    context 'when organisation does not exist' do
+      let(:organisation_id) { 0 }
+      let(:account_id) { account_organisation.account_id }
+
+      it { expect(subject).to be false }
+    end
+
+    context 'when account is not a member of organisation and organisation does not exist' do
+      let(:organisation_id) { 0 }
+      let(:account_id) { 0 }
+
+      it { expect(subject).to be false }
+    end
+  end
 end
