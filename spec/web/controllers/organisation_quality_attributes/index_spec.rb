@@ -3,26 +3,49 @@
 RSpec.describe Web::Controllers::OrganisationQualityAttributes::Index, type: :action do
   subject { action.call(params) }
 
-  let(:action) { described_class.new(operation: operation) }
+  let(:action) do
+    described_class.new(
+      operation: operation,
+      organisation_operation: organisation_operation
+    )
+  end
   let(:account) { Account.new(id: 1) }
   let(:params) { { slug: 'inventarium', 'rack.session' => session } }
+  let(:operation) { ->(*) { Success([Service.new(id: 123)]) } }
 
   context 'when user authenticated' do
     let(:session) { { account: Account.new(id: 1) } }
 
-    context 'and operation returns success result' do
-      let(:operation) { ->(*) { Success(Organisation.new(id: 123)) } }
+    context 'and organisation_operation returns success result' do
+      let(:organisation_operation) { ->(*) { Success(Organisation.new(id: 123)) } }
 
-      it { expect(subject).to be_success }
+      context 'and service operation returns success result' do
+        let(:operation) { ->(*) { Success([Service.new(id: 321)]) } }
 
-      it do
-        subject
-        expect(action.organisation).to eq(Organisation.new(id: 123))
+        it { expect(subject).to be_success }
+
+        it do
+          subject
+          expect(action.organisation).to eq(Organisation.new(id: 123))
+          expect(action.services).to eq([Service.new(id: 321)])
+        end
+      end
+
+      context 'and service operation returns failure result' do
+        let(:operation) { ->(*) { Failure(:something) } }
+
+        it { expect(subject).to be_success }
+
+        it do
+          subject
+          expect(action.organisation).to eq(Organisation.new(id: 123))
+          expect(action.services).to eq([])
+        end
       end
     end
 
-    context 'and operation returns failure result' do
-      let(:operation) { ->(*) { Failure(:error) } }
+    context 'and organisation_operation returns failure result' do
+      let(:organisation_operation) { ->(*) { Failure(:error) } }
 
       it { expect(subject).to redirect_to '/' }
     end
@@ -30,7 +53,7 @@ RSpec.describe Web::Controllers::OrganisationQualityAttributes::Index, type: :ac
 
   context 'when user not authenticated' do
     let(:session) { {} }
-    let(:operation) { ->(*) { Success(Organisation.new(id: 123)) } }
+    let(:organisation_operation) { ->(*) { Success(Organisation.new(id: 123)) } }
 
     it { expect(subject).to redirect_to '/auth/login' }
   end

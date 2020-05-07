@@ -17,6 +17,22 @@ module Web
             end
           end
         end
+
+        def service_map(services)
+          map = {}
+
+          services.each do |service|
+            map[service.classification] ||= {}
+            map[service.classification][service.status] ||= []
+            map[service.classification][service.status] << service
+          end
+
+          map
+        end
+
+        def link_to_service(service)
+          link_to service.name, "/#{organisation.slug}/services/#{service.key}"
+        end
       end
     end
   end

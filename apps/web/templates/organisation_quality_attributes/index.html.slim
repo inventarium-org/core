@@ -1,2 +1,34 @@
-h2 
+h2
   | #{organisation.name} quality attributes
+
+.card.settings
+  .card-body
+    h3 Services map
+    table.table.table-bordered.table-hover
+      thead
+        tr
+          th scope="col"
+          th scope="col"  In development
+          th scope="col"  Trial
+          th scope="col"  Hold
+          th scope="col"  Adopt
+      tbody
+        - service_map(services).each do |classification, list|
+          tr
+            th scope="row" = classification.capitalize
+            td
+              - list['in_development'].to_a.each do |service|
+                = link_to_service(service)
+                br
+            td
+              - list['trial'].to_a.each do |service|
+                = link_to_service(service)
+                br
+            td
+              - list['hold'].to_a.each do |service|
+                = link_to_service(service)
+                br
+            td
+              - list['adopt'].to_a.each do |service|
+                = link_to_service(service)
+                br

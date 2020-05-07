@@ -24,8 +24,11 @@ module Web
         def service_show_active
           'active'
         end
+
         def service_readiness_active; end
+
         def service_quality_active; end
+
         def service_audit_active; end
 
         def service_information(key, value)
