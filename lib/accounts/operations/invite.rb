@@ -25,13 +25,17 @@ module Accounts
       end
 
       def persist(organisation_id, payload)
-        Success(
-          repo.create(
-            organisation_id: organisation_id,
-            inviter_id: payload[:inviter_id],
-            github_or_email: payload[:github_or_email]
+        if account_organisation_repo.invite_account(organisation_id, payload[:github_or_email])
+          Success(:existed_member_invited)
+        else
+          Success(
+            repo.create(
+              organisation_id: organisation_id,
+              inviter_id: payload[:inviter_id],
+              github_or_email: payload[:github_or_email]
+            )
           )
-        )
+        end
       rescue Hanami::Model::UniqueConstraintViolationError, Hanami::Model::NotNullConstraintViolationError
         Failure(:invalid_data)
       end

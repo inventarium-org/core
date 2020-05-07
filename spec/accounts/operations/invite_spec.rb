@@ -13,24 +13,38 @@ RSpec.describe Accounts::Operations::Invite, type: :operation do
   let(:repo) do
     instance_double('OrganisationInviteRepository', create: OrganisationInvite.new(id: 123))
   end
-  let(:account_organisation_repo) { instance_double('AccountOrganisationRepository', member?: is_member) }
+  let(:account_organisation_repo) do
+    instance_double('AccountOrganisationRepository', member?: is_member, invite_account: invite_account)
+  end
   let(:payload) { { inviter_id: 1, github_or_email: 'davydovanton' } }
+  let(:invite_account) { AccountOrganisation.new(id: 1) }
 
   context 'when account is a member of organisation' do
     let(:is_member) { true }
 
     context 'when data is valid' do
-      it { expect(subject).to be_success }
-      it { expect(subject.value!).to be_a(OrganisationInvite) }
-    end
+      context 'and member exists' do
+        let(:invite_account) { AccountOrganisation.new(id: 1) }
 
-    context 'when data is invalid' do
-      before do
-        allow(repo).to receive(:create).and_raise(Hanami::Model::UniqueConstraintViolationError)
+        it { expect(subject).to be_success }
+        it { expect(subject.value!).to eq(:existed_member_invited) }
       end
 
-      it { expect(subject).to be_failure }
-      it { expect(subject.failure).to eq(:invalid_data) }
+      context 'and member does not exist' do
+        let(:invite_account) { nil }
+
+        it { expect(subject).to be_success }
+        it { expect(subject.value!).to be_a(OrganisationInvite) }
+
+        context 'when data is invalid' do
+          before do
+            allow(repo).to receive(:create).and_raise(Hanami::Model::UniqueConstraintViolationError)
+          end
+
+          it { expect(subject).to be_failure }
+          it { expect(subject.failure).to eq(:invalid_data) }
+        end
+      end
     end
   end
 

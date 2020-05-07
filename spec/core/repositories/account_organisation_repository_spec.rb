@@ -59,4 +59,34 @@ RSpec.describe AccountOrganisationRepository, type: :repository do
       it { expect(subject).to be false }
     end
   end
+
+  describe '#invite_account' do
+    subject { repo.invite_account(organisation.id, 'davydovanton') }
+
+    let(:organisation) { Fabricate(:organisation) }
+
+    context 'when account exists with same github' do
+      subject { repo.invite_account(organisation.id, 'davydovanton') }
+
+      before { Fabricate(:auth_identity, login: 'davydovanton') }
+
+      it { expect(subject).to be_a(AccountOrganisation) }
+      it { expect { subject }.to change { repo.all.count }.by(1) }
+    end
+
+    context 'when account exists with same email' do
+      subject { repo.invite_account(organisation.id, 'anton@test.com') }
+
+      before { Fabricate(:account, email: 'anton@test.com') }
+
+      it { expect(subject).to be_a(AccountOrganisation) }
+      it { expect { subject }.to change { repo.all.count }.by(1) }
+    end
+
+    context 'when account does not exist with same github or email' do
+      it { expect(subject).to be nil }
+
+      it { expect { subject }.to change { repo.all.count }.by(0) }
+    end
+  end
 end
