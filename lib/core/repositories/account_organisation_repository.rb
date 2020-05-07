@@ -5,4 +5,10 @@ class AccountOrganisationRepository < Hanami::Repository
     belongs_to :account
     belongs_to :organisation
   end
+
+  relations :auth_identities
+
+  def all_for_organisation(organisation_id)
+    aggregate(account: :auth_identities).where(organisation_id: organisation_id).map_to(AccountOrganisation).to_a
+  end
 end

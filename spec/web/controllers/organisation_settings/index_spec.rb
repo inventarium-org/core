@@ -3,7 +3,11 @@
 RSpec.describe Web::Controllers::OrganisationSettings::Index, type: :action do
   subject { action.call(params) }
 
-  let(:action) { described_class.new(operation: operation) }
+  let(:action) do
+    described_class.new(operation: operation, account_operation: account_operation)
+  end
+  let(:account_operation) { ->(*) { Success([]) } }
+
   let(:account) { Account.new(id: 1) }
   let(:params) { { slug: 'inventarium', 'rack.session' => session } }
 
@@ -13,11 +17,28 @@ RSpec.describe Web::Controllers::OrganisationSettings::Index, type: :action do
     context 'and operation returns success result' do
       let(:operation) { ->(*) { Success(Organisation.new(id: 123)) } }
 
-      it { expect(subject).to be_success }
+      context 'and account organisation operation returns success result' do
+        let(:account_operation) { ->(*) { Success([AccountOrganisation.new(id: 0)]) } }
 
-      it do
-        subject
-        expect(action.organisation).to eq(Organisation.new(id: 123))
+        it { expect(subject).to be_success }
+
+        it do
+          subject
+          expect(action.organisation).to eq(Organisation.new(id: 123))
+          expect(action.organisation_accounts).to eq([AccountOrganisation.new(id: 0)])
+        end
+      end
+
+      context 'and account organisation operation returns failure result' do
+        let(:account_operation) { ->(*) { Failure(:something) } }
+
+        it { expect(subject).to be_success }
+
+        it do
+          subject
+          expect(action.organisation).to eq(Organisation.new(id: 123))
+          expect(action.organisation_accounts).to eq([])
+        end
       end
     end
 

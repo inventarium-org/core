@@ -14,10 +14,10 @@ h2
         .col
           table.table.table-hover
             tbody
-              - [current_account].each do |member|
+              - organisation_accounts.each do |org_member|
                 tr
-                  th = member.name
-                  td Github
-                  td = member.email
-                  td Owner | member
+                  th = org_member.account.name
+                  td = link_to org_member.account.auth_identities.first.login, "https://github.com/#{org_member.account.auth_identities.first.login}"
+                  td = org_member.account.email
+                  td = org_member.role
                   td = link_to 'Remove from organisation', '#'
