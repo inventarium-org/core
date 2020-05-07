@@ -6,7 +6,7 @@ class AccountOrganisationRepository < Hanami::Repository
     belongs_to :organisation
   end
 
-  relations :auth_identities
+  relations :auth_identities, :organisation_invites
 
   def all_for_organisation(organisation_id)
     aggregate(account: :auth_identities).where(organisation_id: organisation_id).map_to(AccountOrganisation).to_a
@@ -23,12 +23,22 @@ class AccountOrganisationRepository < Hanami::Repository
     accounts_email = accounts[:email].qualified
     auth_identities_login = auth_identities[:login].qualified
 
-    account = accounts.left_join(auth_identities).where do
-      accounts_email.is(github_or_email) | auth_identities_login.is(github_or_email)
-    end.limit(1).one
+    transaction do
+      account = accounts.left_join(auth_identities).where do
+        accounts_email.is(github_or_email) | auth_identities_login.is(github_or_email)
+      end.limit(1).one
 
-    return unless account
+      return unless account
 
-    create(account_id: account.id, organisation_id: organisation_id, role: 'participator')
+      create(account_id: account.id, organisation_id: organisation_id, role: 'participator')
+    end
+  end
+
+  def inite_new_account(account_id, email, login)
+    transaction do
+      organisation_invites
+        .where(github_or_email: [email, login])
+        .each { |invite| create(account_id: account_id, organisation_id: invite.organisation_id) }
+    end
   end
 end
