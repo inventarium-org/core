@@ -21,6 +21,13 @@ module Web
           'active'
         end
 
+        def service_show_active
+          'active'
+        end
+        def service_readiness_active; end
+        def service_quality_active; end
+        def service_audit_active; end
+
         def service_information(key, value)
           html.div(class: 'row service-information') do
             div(class: 'col title') { key }

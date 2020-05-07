@@ -23,11 +23,13 @@ br
   .col
     ul.nav.nav-pills.nav-fill.service-nav
       li.nav-item
-        a.nav-link.active href="/#{organisation.slug}/services/#{service.key}"  Owerflow
+        a.nav-link class=service_show_active href="/#{organisation.slug}/services/#{service.key}"  Owerflow
       li.nav-item
-        a.nav-link href="/#{organisation.slug}/services/#{service.key}/readiness"  Production Checklist
+        a.nav-link class=service_readiness_active href="/#{organisation.slug}/services/#{service.key}/readiness"  Production Checklist
       /li.nav-item
-        a.nav-link href="#"  Quality Attributes
+        a.nav-link class=service_quality_active href="#"  Quality Attributes
+      /li.nav-item
+        a.nav-link class=service_audit_active href="/#{organisation.slug}/services/#{service.key}/audit" Audit log
 
 br
 br

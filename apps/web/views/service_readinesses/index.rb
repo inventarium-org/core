@@ -24,6 +24,13 @@ module Web
           'active'
         end
 
+        def service_show_active; end
+        def service_readiness_active
+          'active'
+        end
+        def service_quality_active; end
+        def service_audit_active; end
+
         def card_style(status)
           status ? 'text-success' : 'text-danger'
         end
