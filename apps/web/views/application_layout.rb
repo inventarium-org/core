@@ -26,6 +26,22 @@ module Web
           tags.map { |tag| span(tag, class: 'badge badge-primary') }
         end
       end
+
+      def link_to_repository(service)
+        if service.repository_link
+          raw "(#{link_to 'Repository', service.repository_link})"
+        end
+      end
+
+      def owner_information(service)
+        if service.owner_name && service.owner_slack_channel
+          "Owner: #{service.owner_name} (##{service.owner_slack_channel})"
+        elsif service.owner_name
+          "Owner: #{service.owner_name}"
+        elsif service.owner_slack_channel
+          "Owner: ##{service.owner_slack_channel}"
+        end
+      end
     end
   end
 end

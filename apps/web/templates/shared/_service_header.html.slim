@@ -1,7 +1,7 @@
 .row
   .col
     h1
-      | #{service.name} (#{link_to 'Repository', service.repository_link})
+      | #{service.name} #{link_to_repository(service)}
 
 
 .row
@@ -10,7 +10,7 @@
       | | #{service.description}
   .col
     .owners
-      | Owner: #{service.owner_name} (#{service.owner_slack_channel})
+      = owner_information(service)
 
 
 .row
