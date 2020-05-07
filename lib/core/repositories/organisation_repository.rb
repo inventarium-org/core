@@ -3,6 +3,7 @@
 class OrganisationRepository < Hanami::Repository
   associations do
     has_many :services
+    has_many :organisation_invites
 
     has_many :account_organisations
     has_many :accounts, through: :account_organisations
