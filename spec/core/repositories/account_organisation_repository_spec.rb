@@ -99,7 +99,7 @@ RSpec.describe AccountOrganisationRepository, type: :repository do
     let(:account) { Fabricate(:account, email: 'anton@test.com') }
     let(:organisation) { Fabricate(:organisation) }
 
-    before { Fabricate(:auth_identity, account_id: account.id, login: 'anton')  }
+    before { Fabricate(:auth_identity, account_id: account.id, login: 'anton') }
 
     context 'when account has zero invites' do
       it { expect { subject }.to change { repo.all.count }.by(0) }
@@ -112,7 +112,7 @@ RSpec.describe AccountOrganisationRepository, type: :repository do
 
       it { expect { subject }.to change { repo.all.count }.by(1) }
     end
-    
+
     context 'when account has two invites' do
       before do
         Fabricate(:organisation_invite, organisation_id: organisation.id, github_or_email: 'anton')
