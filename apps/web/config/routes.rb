@@ -18,6 +18,9 @@ namespace '/:slug' do
   end
 
   get '/quality-attributes', to: 'organisation_quality_attributes#index', as: :organisation_quality_attributes
+
   get '/settings', to: 'organisation_settings#index', as: :organisation_settings
+  post '/settings/invites', to: 'organisation_invites#create'
+
   get '/integrations', to: 'organisation_integrations#index', as: :organisation_integrations
 end
