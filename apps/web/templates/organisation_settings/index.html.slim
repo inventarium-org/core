@@ -1,2 +1,23 @@
+h2 
+  | #{organisation.name} settings
 
-h1 Settings here
+.card.settings
+  .card-body
+    .settings_members
+      h3 Organisation members
+
+      .row
+        .col
+          = invite_form
+
+      .row
+        .col
+          table.table.table-hover
+            tbody
+              - [current_account].each do |member|
+                tr
+                  th = member.name
+                  td Github
+                  td = member.email
+                  td Owner | member
+                  td = link_to 'Remove from organisation', '#'

@@ -1,0 +1,15 @@
+.settings {
+  .settings_members {
+    .member {
+      padding: 2em 2em;
+      background: #FFFFFF;
+      box-shadow: 0 0 1px 0 rgba(43, 59, 124, 0.18), 0 1px 3px 0 rgba(43, 59, 125, 0.14);
+      border-radius: 2px;
+      margin: 0;
+
+      &:hover {
+        background: #f8f9fb;
+      }
+    }
+  }
+}

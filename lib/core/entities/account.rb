@@ -11,7 +11,6 @@ class Account < Hanami::Entity
 
     attribute :uuid, ::Core::Types::UUID
     attribute :name, Types::String
-    attribute :login, Types::String
     attribute :email, Types::String
     attribute :avatar_url, Types::String
 
