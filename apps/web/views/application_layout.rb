@@ -5,33 +5,21 @@ module Web
     class ApplicationLayout
       include Web::Layout
 
-      def breadcrumb
-        ''
-      end
+      def breadcrumb; end
 
-      def organisations_active_class
-        ''
-      end
+      def organisations_active_class; end
 
-      def new_organisation_active_class
-        ''
-      end
+      def new_organisation_active_class; end
 
-      def dashboard_active_class
-        ''
-      end
+      def dashboard_active_class; end
 
-      def services_active_class
-        ''
-      end
+      def services_active_class; end
 
-      def quality_attributes_active_class
-        ''
-      end
+      def quality_attributes_active_class; end
 
-      def settings_active_class
-        ''
-      end
+      def integratin_active_class; end
+
+      def settings_active_class; end
 
       def tags_html(tags)
         html.div do
