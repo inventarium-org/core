@@ -25,7 +25,7 @@ module Web
         end
 
         def readinessbar(service)
-          completed_checks_count = service.readiness.completed_checks_count
+          completed_checks_count = service.readiness ? service.readiness.completed_checks_count : 0
           percent = (completed_checks_count / READINESS_CHECKS_COUNT.to_f) * 100.0
 
           progress_bar_color = percent == 100 ? 'bg-success' : ''

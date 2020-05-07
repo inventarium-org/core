@@ -184,12 +184,33 @@ RSpec.describe ServiceRepository, type: :repository do
         expect(subject.organisation_id).to eq(organisation.id)
       end
 
-      it 'creates new env objects related to service object' do
-        service = subject
+      context 'and environments present' do
+        it 'creates new env objects related to service object' do
+          service = subject
 
-        envs = env_repo.all
-        expect(envs.count).to eq(3)
-        expect(envs.map(&:service_id)).to all(eq(service.id))
+          envs = env_repo.all
+          expect(envs.count).to eq(3)
+          expect(envs.map(&:service_id)).to all(eq(service.id))
+        end
+      end
+
+      context 'and environments are empty' do
+        let(:payload) do
+          {
+            organisation_id: organisation.id,
+            version: 'v0',
+            key: 'billing-service',
+            name: 'Billing Service for testing',
+            description: 'Billing and accounting service',
+          }
+        end
+
+        it 'creates new env objects related to service object' do
+          expect(subject).to be_a(Service)
+          expect(subject.key).to eq('billing-service')
+
+          expect(env_repo.all).to eq []
+        end
       end
     end
 

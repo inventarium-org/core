@@ -20,14 +20,19 @@ module Web
 
         def service_map(services)
           map = {}
+          empty = []
 
           services.each do |service|
-            map[service.classification] ||= {}
-            map[service.classification][service.status] ||= []
-            map[service.classification][service.status] << service
+            if service.classification && service.status
+              map[service.classification] ||= {}
+              map[service.classification][service.status] ||= []
+              map[service.classification][service.status] << service
+            else
+              empty << service
+            end
           end
 
-          map
+          [map, empty]
         end
 
         def link_to_service(service)

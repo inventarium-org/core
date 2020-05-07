@@ -1,36 +1,36 @@
 = render partial: 'shared/service_header'
 
 
-= readiness_card('Owner', service.readiness.owner, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Owner', service.readiness&.owner, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Slack', service.readiness.slack, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Slack', service.readiness&.slack, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Healthcheck', service.readiness.healthcheck, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Healthcheck', service.readiness&.healthcheck, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Logs', service.readiness.logs, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Logs', service.readiness&.logs, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Error tracker', service.readiness.error_traker, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Error tracker', service.readiness&.error_traker, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Continuous integration', service.readiness.continuous_integration, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Continuous integration', service.readiness&.continuous_integration, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('API documentation', service.readiness.api_documentation, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('API documentation', service.readiness&.api_documentation, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Maintenance documentation', service.readiness.maintenance_documentation, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Maintenance documentation', service.readiness&.maintenance_documentation, 'With supporting text below as a natural lead-in to additional content.')
 
 br
 
-= readiness_card('Monitoring', service.readiness.monitoring, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Monitoring', service.readiness&.monitoring, 'With supporting text below as a natural lead-in to additional content.')

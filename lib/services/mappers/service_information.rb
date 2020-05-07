@@ -32,7 +32,7 @@ module Services
           docs_maintenance: payload.dig(:docs, :maintenance),
           docs_domain: payload.dig(:docs, :domain),
 
-          environments: payload[:environments].map { |name, data| { name: name.to_s, **data } }
+          environments: payload[:environments].to_a.map { |name, data| { name: name.to_s, **data } }
         }
       end
 

@@ -8,7 +8,7 @@ h2
         .row
           = link_to_service(service.key)
         .row.service-tags
-          - service.tags.each do |tag|
+          - Array(service.tags).each do |tag|
             span.badge.badge-primary = tag
       .col-2.service-owner.align-self-center
         = service.owner_name

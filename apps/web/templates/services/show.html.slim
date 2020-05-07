@@ -35,28 +35,28 @@
         .empty
 
 
-br
-.row
-  .col
+- if service.environments.any?
+  br
+  .row
+    .col
+      h2 Environment information
 
-    h2 Environment information
+      - service.environments.each do |environment|
+        .card
+          .card-body
+            .card-title
+              h3
+                | #{environment.name} #{environment.deleted ? '(Deleted)' : ''}
+            .row
+              .col-6
+                = service_information_link('URL', environment.url)
+                = service_information_link('Healthcheck', environment.healthcheck_url)
+                = service_information_link('Logs', environment.logs_url)
+                = service_information_link('Error traker', environment.error_traker_url)
 
-    - service.environments.each do |environment|
-      .card
-        .card-body
-          .card-title
-            h3
-              | #{environment.name} #{environment.deleted ? '(Deleted)' : ''}
-          .row
-            .col-6
-              = service_information_link('URL', environment.url)
-              = service_information_link('Healthcheck', environment.healthcheck_url)
-              = service_information_link('Logs', environment.logs_url)
-              = service_information_link('Error traker', environment.error_traker_url)
+              .col-6
+                h4 Monitoring
 
-            .col-6
-              h4 Monitoring
-
-              - environment.monitoring do |name, link|
-                = service_information(name, link)
-      br
+                - environment.monitoring do |name, link|
+                  = service_information(name, link)
+        br

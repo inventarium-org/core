@@ -13,7 +13,8 @@ h2
           th scope="col"  Hold
           th scope="col"  Adopt
       tbody
-        - service_map(services).each do |classification, list|
+        - map, empty_list = *service_map(services)
+        - map.each do |classification, list|
           tr
             th scope="row" = classification.capitalize
             td
@@ -32,3 +33,10 @@ h2
               - list['adopt'].to_a.each do |service|
                 = link_to_service(service)
                 br
+        - if empty_list.any?
+          tr.table-danger
+            th scope="row" Untraceable
+            td colspan="4"
+              - empty_list.each do |service|
+                = link_to_service(service)
+

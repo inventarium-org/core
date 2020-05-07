@@ -26,10 +26,10 @@ module Core
                                     .enum('owner', 'participator')
 
     # Services
-    ServiceClassification = String.constructor(proc { |value| value.to_s.downcase })
-                                  .enum('critical', 'normal', 'internal', 'expiriment')
+    ServiceClassification = String.optional.constructor(proc { |value| value.nil? ? nil : value.to_s.downcase })
+                                  .enum('critical', 'normal', 'internal', 'expiriment', nil)
 
-    ServiceStatus = String.constructor(proc { |value| value.to_s.downcase })
-                          .enum('adopt', 'hold', 'trial', 'in_development')
+    ServiceStatus = String.optional.constructor(proc { |value| value.nil? ? nil : value.to_s.downcase })
+                          .enum('adopt', 'hold', 'trial', 'in_development', nil)
   end
 end

@@ -72,6 +72,16 @@ RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
     end
   end
 
+  context 'when params object does not have any environments' do
+    let(:payload) do
+      params = Testing::ServiceYamlPayload.generate
+      params.delete(:environments)
+      params
+    end
+
+    it { expect(subject).to be_a(Hash) }
+  end
+
   context 'when params object is empty' do
     let(:payload) { {} }
 

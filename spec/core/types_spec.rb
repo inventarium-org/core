@@ -93,8 +93,9 @@ RSpec.describe Core::Types do
       %w[internal internal],
 
       [:expiriment, 'expiriment'],
-      %w[expiriment expiriment]
+      %w[expiriment expiriment],
 
+      [nil, nil]
     ].each do |value, result|
       it { expect(type[value]).to eq(result) }
     end
@@ -117,7 +118,9 @@ RSpec.describe Core::Types do
       %w[trial trial],
 
       [:in_development, 'in_development'],
-      %w[in_development in_development]
+      %w[in_development in_development],
+
+      [nil, nil]
     ].each do |value, result|
       it { expect(type[value]).to eq(result) }
     end

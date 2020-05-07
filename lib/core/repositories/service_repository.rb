@@ -32,7 +32,11 @@ class ServiceRepository < Hanami::Repository
         mark_deleted_enviroments(envs_for_delete)
         update(service.id, payload)
       else
-        assoc(:environments).create(payload)
+        if Array(payload[:environments]).empty?
+          create(payload)
+        else
+          assoc(:environments).create(payload)
+        end
       end
     end
   end
