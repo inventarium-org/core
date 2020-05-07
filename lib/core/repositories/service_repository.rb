@@ -5,6 +5,8 @@ class ServiceRepository < Hanami::Repository
     has_many :environments
     has_one :readiness
 
+    has_many :organisation_audit_items
+
     belongs_to :organisation
   end
 

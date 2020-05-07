@@ -5,6 +5,7 @@ Hanami::Model.migration do
     create_table :organisation_audit_items do
       primary_key :id
       foreign_key :organisation_id, :organisations, on_delete: :cascade
+      foreign_key :service_id, :services, on_delete: :cascade
 
       column :service_key, String
       column :payload, :jsonb, default: '{}'
