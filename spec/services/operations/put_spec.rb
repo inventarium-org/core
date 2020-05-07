@@ -4,11 +4,15 @@ RSpec.describe Services::Operations::Put, type: :operation do
   subject { operation.call(organisation: Organisation.new, params: params) }
 
   let(:operation) do
-    described_class.new(repo: service_repo)
+    described_class.new(repo: service_repo, audit_repo: audit_repo)
   end
 
   let(:service_repo) do
     instance_double('ServiceRepository', create_or_upate: Service.new(id: 123))
+  end
+
+  let(:audit_repo) do
+    instance_double('OrganisationAuditItemRepository', create: OrganisationAuditItem.new(id: 123))
   end
 
   let(:params) { Testing::ServiceYamlPayload.generate }
@@ -34,10 +38,11 @@ RSpec.describe Services::Operations::Put, type: :operation do
   context 'with real dependencies' do
     subject { operation.call(organisation: organisation, params: params) }
 
-    let(:organisation) { Fabricate(:organisation) }
-
     let(:operation) { described_class.new }
+    let(:organisation) { Fabricate(:organisation) }
+    let(:audit_repo) { OrganisationAuditItemRepository.new }
 
     it { expect(subject).to be_success }
+    it { expect { subject }.to change { audit_repo.all.count }.by(1) }
   end
 end
