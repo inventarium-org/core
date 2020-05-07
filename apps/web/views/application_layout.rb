@@ -17,7 +17,7 @@ module Web
 
       def quality_attributes_active_class; end
 
-      def integratin_active_class; end
+      def integratins_active_class; end
 
       def settings_active_class; end
 
