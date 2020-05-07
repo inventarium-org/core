@@ -4,7 +4,8 @@ module Accounts
   module Operations
     class CreateByOauth < ::Libs::Operation
       include Import[
-        repo: 'repositories.account'
+        repo: 'repositories.account',
+        account_organisation_repo: 'repositories.account_organisation'
       ]
 
       def call(provider:, payload:)
@@ -13,6 +14,10 @@ module Accounts
 
         if account.nil?
           account = yield persist(provider, payload)
+
+          account_organisation_repo.invite_new_account(
+            account.id, account.email, account.auth_identities&.first&.login
+          )
 
           # TODO: send something for new created account
         end

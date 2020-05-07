@@ -34,7 +34,7 @@ class AccountOrganisationRepository < Hanami::Repository
     end
   end
 
-  def inite_new_account(account_id, email, login)
+  def invite_new_account(account_id, email, login)
     transaction do
       organisation_invites
         .where(github_or_email: [email, login])

@@ -7,11 +7,18 @@ RSpec.describe Accounts::Operations::CreateByOauth, type: :operation do
   let(:provider) { 'github' }
 
   let(:operation) do
-    described_class.new(repo: account_repo)
+    described_class.new(
+      repo: account_repo,
+      account_organisation_repo: account_organisation_repo
+    )
   end
 
   let(:account_repo) do
     instance_double('AccountRepository', find_by_auth_identity: existed_account, create_with_identity: account)
+  end
+
+  let(:account_organisation_repo) do
+    instance_double('AccountOrganisationRepository', invite_new_account: true)
   end
 
   let(:account) { Account.new(id: 2, name: 'Anton Other') }
