@@ -89,6 +89,7 @@ RSpec.describe ServiceRepository, type: :repository do
         key: 'billing-service',
         name: 'Billing Service for testing',
         description: 'Billing and accounting service',
+        languages: ['ruby', 'js'],
         repository_link: 'https://github.com/company/billing',
         tags: %w[business billing],
         owner_name: '@billing/core',
@@ -150,6 +151,7 @@ RSpec.describe ServiceRepository, type: :repository do
       it do
         expect(subject).to be_a(Service)
         expect(subject.description).to eq('Billing and accounting service')
+        expect(subject.languages).to eq(['ruby', 'js'])
         expect(subject.organisation_id).to eq(organisation.id)
       end
 

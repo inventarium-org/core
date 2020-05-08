@@ -37,6 +37,8 @@ module Web
             div(class: 'col value') do
               if key == 'Tags'
                 Array(value).map { |tag| span(tag, class: 'badge badge-primary') }
+              elsif key == 'Languages'
+                Array(value).map { |tag| span(tag, class: 'badge badge-secondary') }
               else
                 value || 'Empty'
               end

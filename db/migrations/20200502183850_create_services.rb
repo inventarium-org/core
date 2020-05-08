@@ -16,6 +16,7 @@ Hanami::Model.migration do
       column :key,  String, null: false
       column :name, String, null: false
       column :description, String
+      column :languages, :jsonb, default: '[]'
       column :repository_link, String
       column :tags, :jsonb, default: '[]'
 

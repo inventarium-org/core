@@ -16,6 +16,7 @@ RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
                               name: 'Billing Service for testing',
 
                               description: 'Billing and accounting service',
+                              languages: ['ruby', 'js'],
                               repository_link: 'https://github.com/company/billing',
 
                               tags: %w[business billing],

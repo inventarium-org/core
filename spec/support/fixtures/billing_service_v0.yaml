@@ -3,6 +3,9 @@ version: V0
 name: Billing Service for testing
 key: billing-service
 description: Billing and accounting service
+languages:
+  - ruby
+  - js
 repository_link: https://github.com/company/billing
 tags:
   - business

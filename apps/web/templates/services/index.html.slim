@@ -26,5 +26,7 @@ h2
         = service.status
           /| (?) <- tooltip with information about specific status
 
-      .col-2.service-score.align-self-center.text-center
-        | Score will be soon
+      .col-2.service-languages.align-self-center.text-center
+        - service.languages.each do |lang|
+          span.badge.badge-secondary = lang
+          br

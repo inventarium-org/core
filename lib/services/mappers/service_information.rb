@@ -16,9 +16,10 @@ module Services
           name: payload[:name],
 
           description: payload[:description],
+          languages: Array(payload[:languages]),
           repository_link: payload[:repository_link],
 
-          tags: payload[:tags],
+          tags: Array(payload[:tags]),
 
           owner_name: payload.dig(:owner, :team_or_developer_name),
           owner_slack_channel: payload.dig(:owner, :slack_channel),

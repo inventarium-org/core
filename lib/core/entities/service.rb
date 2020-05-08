@@ -21,6 +21,7 @@ class Service < Hanami::Entity
     attribute :key, Types::String
     attribute :name, Types::String
     attribute :description, Types::String
+    attribute :languages, Types::Array
     attribute :repository_link, Types::String
 
     attribute :tags, Types::Array
