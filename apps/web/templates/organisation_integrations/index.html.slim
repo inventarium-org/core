@@ -1,2 +1,40 @@
 h2 
   | #{organisation.name} integrations
+
+.card.integraion
+  .card-body
+    h3 CLI integration
+
+    .row
+      .col
+        | Your inventarium token for CLI application:
+        span.token = organisation.token
+    br
+
+    .row
+      .col
+        h5 Install CLI application
+
+        code
+          | $ gem install inventarium
+        br
+        br
+
+    .row
+      .col
+        h5 Generate and fill new service.yaml for specific service
+
+        code
+          | $ cd path/to/your/service
+        br
+        code
+          | $ inventarium init
+        br
+        br
+
+    .row
+      .col
+        h5 Push your service.yaml to inventarium.io
+
+        code
+          | $ INVENTARIUM_TOKEN=#{organisation.token} inventarium push service.yaml
