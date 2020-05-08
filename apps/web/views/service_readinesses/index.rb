@@ -39,25 +39,17 @@ module Web
         end
 
         def readiness_card(title, status, description)
-          collapse_id = "#{title.tr(' ', '').downcase}Collapse"
           icon_class = status ? 'nc-icon nc-check-2' : 'nc-icon nc-simple-remove'
 
           html.div(class: 'quality-attribute card') do
             div(class: 'card-header') do
-              a(class: "#{card_style(status)} attribute-content", 'aria-controls' => collapse_id, 'aria-expanded' => 'false', 'data-toggle' => 'collapse', :href => "##{collapse_id}", role: 'button') do
-                div do
+              div(class: 'row') do
+                div(class: "col-3 #{card_style(status)}") do
                   i(class: icon_class)
                   text(title)
                 end
-                div(class: 'down-icon') do
-                  i(class: 'nc-icon nc-minimal-down')
-                end
-              end
-            end
 
-            div(id: collapse_id, class: 'collapse') do
-              div(class: 'card-body') do
-                p(class: 'card-text') { description }
+                div(class: 'col-9 card-header-description') { description }
               end
             end
           end

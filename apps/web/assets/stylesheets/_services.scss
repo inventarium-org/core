@@ -21,6 +21,7 @@
     font-size: 22px;
     background-color: transparent;
     border-bottom: transparent;
+    font-weight: 700;
 
     i {
       margin-right: 5px;
@@ -31,6 +32,12 @@
 
     .text-success {
       a { color: #6bd098 !important; }
+    }
+
+    .card-header-description {
+      color: #999;
+      font-size: 18px;
+      font-weight: 400;
     }
   }
 

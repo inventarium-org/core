@@ -1,36 +1,36 @@
 = render partial: 'shared/service_header'
 
 
-= readiness_card('Owner', service.readiness&.owner, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Ownership', service.readiness&.owner, 'Owner information declared in service.yaml file')
 
 br
 
-= readiness_card('Slack', service.readiness&.slack, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Slack', service.readiness&.slack, 'The slack channel of the owner team declared in service.yaml file')
 
 br
 
-= readiness_card('Healthcheck', service.readiness&.healthcheck, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Healthcheck', service.readiness&.healthcheck, 'Healthcheck URL declared in service.yaml file')
 
 br
 
-= readiness_card('Logs', service.readiness&.logs, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Logs', service.readiness&.logs, 'Link to logs aggregation declared in service.yaml file')
 
 br
 
-= readiness_card('Error tracker', service.readiness&.error_traker, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Error tracker', service.readiness&.error_traker, 'Link to error tracker declared in service.yaml file')
 
 br
 
-= readiness_card('Continuous integration', service.readiness&.continuous_integration, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Continuous integration', service.readiness&.continuous_integration, 'Link to CI declared in service.yaml file')
 
 br
 
-= readiness_card('API documentation', service.readiness&.api_documentation, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('API documentation', service.readiness&.api_documentation, 'Link to API documentation declared in service.yaml file')
 
 br
 
-= readiness_card('Maintenance documentation', service.readiness&.maintenance_documentation, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Maintenance documentation', service.readiness&.maintenance_documentation, 'Link to maintenance documentation declared in service.yaml file')
 
 br
 
-= readiness_card('Monitoring', service.readiness&.monitoring, 'With supporting text below as a natural lead-in to additional content.')
+= readiness_card('Monitoring', service.readiness&.monitoring, 'Declaration in service.yaml file contains one or more links to monitoring')
