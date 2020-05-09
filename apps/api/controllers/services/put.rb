@@ -6,6 +6,7 @@ module Api
       class Put
         include Api::Action
         include Dry::Monads::Result::Mixin
+        include Dry::Monads::Do.for(:handle)
 
         include Import[
           # TIPS: for next vesrions use specific operation naming like this:
@@ -20,9 +21,7 @@ module Api
         before :validate_version!
 
         def call(params)
-          result = authenticate_operation.call(token: token).bind do |organisation|
-            operation.call(organisation: organisation, params: params[:service])
-          end
+          result = handle(env_token, params[:service])
 
           case result
           when Success
@@ -31,12 +30,37 @@ module Api
             halt 422, 'Invalid data in service.yaml file'
           when Failure(:failure_authenticate)
             halt 422, 'Authenticate failure'
+          when Failure(:demo_plan_max_service)
+            halt 422, "Organisation has max value of services on 'demo' plan"
           end
         end
 
         private
 
-        def token
+        def handle(token, service_params)
+          organisation = yield authenticate_operation.call(token: token)
+          yield check_plan_abilities(service_params[:key], organisation)
+
+          operation.call(organisation: organisation, params: service_params)
+        end
+
+        # TODO: move to kan
+        def check_plan_abilities(service_key, organisation)
+          case organisation.plan
+          when 'demo'
+            existed_services = organisation.services.map(&:name)
+
+            if existed_services.push(service_key).uniq.count > 30
+              Failure(:demo_plan_max_service)
+            else
+              Success(organisation)
+            end
+          else
+            Success(organisation)
+          end
+        end
+
+        def env_token
           request.env['HTTP_X_INVENTARIUM_TOKEN']
         end
 

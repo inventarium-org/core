@@ -26,7 +26,7 @@ class OrganisationRepository < Hanami::Repository
   end
 
   def find_by_token(token)
-    root.where(token: token).map_to(Organisation).one
+    aggregate(:services).where(token: token).map_to(Organisation).one
   end
 
   # TODO: add tests

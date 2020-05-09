@@ -56,14 +56,19 @@ RSpec.describe OrganisationRepository, type: :repository do
   describe '#find_by_token' do
     subject { repo.find_by_token(token) }
 
-    let(:organisation) { Fabricate(:organisation) }
-
-    before { Fabricate(:organisation, token: 'inventarium') }
+    before do
+      organisation = Fabricate(:organisation, token: 'inventarium')
+      Fabricate(:service, organisation_id: organisation.id)
+    end
 
     context 'when user have organisations' do
       let(:token) { 'inventarium' }
 
-      it { expect(subject).to be_a(Organisation) }
+      it do
+        expect(subject).to be_a(Organisation)
+        expect(subject.services).to all(be_a(Service))
+        expect(subject.services.count).to eq(1)
+      end
     end
 
     context 'when user does not have organisations' do

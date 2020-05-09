@@ -17,20 +17,42 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     let(:service) { Testing::ServiceYamlPayload.generate }
 
     context 'and auth token is valid' do
-      let(:authenticate_operation) { ->(*) { Success(Organisation.new(id: 123)) } }
+      let(:authenticate_operation) do
+        ->(*) { Success(Organisation.new(id: 123, name: 'inventarium_test', plan: 'demo', services: services)) }
+      end
 
-      context 'and service.yaml data is valid' do
-        let(:operation) { ->(*) { Success(Service.new(id: 321)) } }
+      context 'and organisation in demo plan has less than 30 services' do
+        let(:services) { 4.times.map { |id| Service.new(id: id, name: "test_#{id}") } }
+
+        context 'and service.yaml data is valid' do
+          let(:operation) { ->(*) { Success(Service.new(id: 321)) } }
+
+          it { expect(subject).to be_success }
+          it { expect(subject.last).to eq(['OK']) }
+        end
+
+        context 'and service.yaml data is invalid' do
+          let(:operation) { ->(*) { Failure(:invalid_data) } }
+
+          it { expect(subject).to have_http_status(:unprocessable_entity) }
+          it { expect(subject.last).to eq(['Invalid data in service.yaml file']) }
+        end
+      end
+
+      context 'and organisation in demo plan has more than 30 services' do
+        let(:services) { 34.times.map { |id| Service.new(id: id, name: "test_#{id}") } }
+
+        it { expect(subject).to have_http_status(:unprocessable_entity) }
+        it { expect(subject.last).to eq(["Organisation has max value of services on 'demo' plan"]) }
+      end
+
+      context 'and organisation in demo plan has less than 30 services uniq' do
+        let(:services) do
+          29.times.map { |i| Service.new(id: i, name: "test_#{i}") } + [Service.new(id: 100, name: 'billing-service')]
+        end
 
         it { expect(subject).to be_success }
         it { expect(subject.last).to eq(['OK']) }
-      end
-
-      context 'and service.yaml data is invalid' do
-        let(:operation) { ->(*) { Failure(:invalid_data) } }
-
-        it { expect(subject).to have_http_status(:unprocessable_entity) }
-        it { expect(subject.last).to eq(['Invalid data in service.yaml file']) }
       end
     end
 
