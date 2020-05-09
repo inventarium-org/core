@@ -28,9 +28,9 @@ module Web
       end
 
       def link_to_repository(service)
-        if service.repository_link
-          raw "(#{link_to 'Repository', service.repository_link})"
-        end
+        return unless service.repository_link
+
+        raw "(#{link_to 'Repository', service.repository_link})"
       end
 
       def owner_information(service)

@@ -22,7 +22,7 @@ class ServiceRepository < Hanami::Repository
     aggregate(:environments).by_pk(id).limit(1).map_to(Service).one
   end
 
-  def create_or_upate(organisation_id, payload)
+  def create_or_upate(organisation_id, payload) # rubocop:disable Metrics/AbcSize
     transaction do
       service = find_for_organisation(organisation_id, payload[:key])
 
@@ -31,12 +31,10 @@ class ServiceRepository < Hanami::Repository
         envs_for_delete = service.environments.map(&:name) - payload[:environments].map { |e| e[:name] }
         mark_deleted_enviroments(envs_for_delete)
         update(service.id, payload)
+      elsif Array(payload[:environments]).empty?
+        create(payload)
       else
-        if Array(payload[:environments]).empty?
-          create(payload)
-        else
-          assoc(:environments).create(payload)
-        end
+        assoc(:environments).create(payload)
       end
     end
   end

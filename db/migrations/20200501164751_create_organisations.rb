@@ -2,6 +2,10 @@
 
 Hanami::Model.migration do
   change do
+    extension :pg_enum
+
+    create_enum(:organisation_plans, %w[demo free pro ent])
+
     create_table :organisations do
       primary_key :id
 
@@ -9,6 +13,7 @@ Hanami::Model.migration do
       column :slug, String, null: false, unique: true
 
       column :token, String, null: false, unique: true
+      column :plan, 'organisation_plans', null: false
 
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false

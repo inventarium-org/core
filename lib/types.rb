@@ -25,6 +25,10 @@ module Core
     AccountOrganisationRole = String.constructor(proc { |value| value.to_s.downcase })
                                     .enum('owner', 'participator')
 
+    # Organisations
+    OrganisationPlans = String.constructor(proc { |value| value.to_s.downcase })
+                              .enum('demo', 'free', 'pro', 'ent')
+
     # Services
     ServiceClassification = String.optional.constructor(proc { |value| value.nil? ? nil : value.to_s.downcase })
                                   .enum('critical', 'normal', 'internal', 'expiriment', nil)

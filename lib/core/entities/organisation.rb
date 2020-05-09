@@ -13,6 +13,7 @@ class Organisation < Hanami::Entity
     attribute :slug, Types::String
 
     attribute :token, Types::String
+    attribute :plan,  ::Core::Types::OrganisationPlans
 
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time

@@ -32,7 +32,7 @@ class OrganisationRepository < Hanami::Repository
   # TODO: add tests
   def create_for_account(account_id, name, slug, token)
     assoc(:account_organisations).create(
-      name: name, slug: slug, token: token,
+      name: name, slug: slug, token: token, plan: 'demo',
       account_organisations: [{ account_id: account_id }]
     )
   end
