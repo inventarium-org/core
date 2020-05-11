@@ -1,0 +1,55 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+    sysctls:
+      net.core.somaxconn: 1024
+
+  postgres:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_USER: inventarium
+      POSTGRES_PASSWORD: bAoirPbdvCDVPWNJ2a
+      POSTGRES_DB: core
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2300:2300"
+    depends_on:
+      - postgres
+      - redis
+    command: bash -c "bundle exec hanami db migrate ; bundle exec hanami s"
+    env_file:
+      - .env.development
+    environment:
+      HANAMI_ENV: development
+      REDISTOGO_URL: redis://redis:6379/0
+      DATABASE_URL: postgres://inventarium:bAoirPbdvCDVPWNJ2a@postgres/core
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "bundle exec sidekiq -r ./config/boot.rb -c 5"
+    depends_on:
+      - postgres
+      - redis
+      - web
+    env_file:
+      - .env.development
+    environment:
+      HANAMI_ENV: development
+      REDISTOGO_URL: redis://redis:6379/0
+      DATABASE_URL: postgres://inventarium:bAoirPbdvCDVPWNJ2a@postgres/core
+
+volumes:
+  db-data:
+    driver: local
+    external: false
