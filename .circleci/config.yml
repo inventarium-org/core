@@ -11,9 +11,6 @@ workflows:
       - build_docker_container:
           requires:
             - build
-      # - deliver_docker_compose:
-      #     requires:
-      #       - build
       # - deploy:
       #     requires:
       #       - build_docker_container
@@ -29,7 +26,7 @@ jobs:
       REDISTOGO_URL: "redis://localhost:6379"
 
     docker:
-      - image: circleci/ruby:2.5.0-node-browsers
+      - image: circleci/ruby:2.7.0-node-browsers
         environment:
             BUNDLER_VERSION: 2.0.2
       - image: circleci/postgres:9.6.2
@@ -100,14 +97,14 @@ jobs:
           path: /tmp/test-results
           destination: test-results
 
-  # build_docker_container:
-  #   machine: true
-  #
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Build Docker container and push to docker hub
-  #         command: |
-  #           docker login -u ${DOCKERHUB_LOGIN} -p ${DOCKERHUB_PASSWORD}
-  #           docker build --rm -f "Dockerfile" -t davydovanton/inventarium:$CIRCLE_SHA1 .
-  #           docker push davydovanton/inventarium:$CIRCLE_SHA1
+  build_docker_container:
+    machine: true
+
+    steps:
+      - checkout
+      - run:
+          name: Build Docker container and push to docker hub
+          command: |
+            docker login -u ${DOCKERHUB_LOGIN} -p ${DOCKERHUB_PASSWORD}
+            docker build --rm -f "Dockerfile" -t davydovanton/inventarium:$CIRCLE_SHA1 .
+            docker push davydovanton/inventarium:$CIRCLE_SHA1
