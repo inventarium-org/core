@@ -19,11 +19,12 @@ SimpleCov.start do
   add_filter '/db/'
   add_filter '/system/'
 
-  %w[web].each do |app|
+  %w[web api auth].each do |app|
     add_filter "/apps/#{app}/application"
     add_filter "/apps/#{app}/templates"
     add_filter "/apps/#{app}/config"
     add_filter "/apps/#{app}/asserts"
+    # add_filter "/apps/#{app}/views"
   end
 end
 
