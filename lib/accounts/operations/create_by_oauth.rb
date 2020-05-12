@@ -8,6 +8,9 @@ module Accounts
         account_organisation_repo: 'repositories.account_organisation'
       ]
 
+      DEFAULT_NAME = 'Anonymous'
+      DEFAULT_EMAIL = 'anonymous@inventarium.io'
+
       def call(provider:, payload:)
         provider = yield validate_provider(provider)
         account = repo.find_by_auth_identity(provider, auth_identity_params(payload))
@@ -48,8 +51,8 @@ module Accounts
       def account_params(payload)
         {
           uuid: SecureRandom.uuid,
-          name: payload['extra']['raw_info']['name'],
-          email: payload['extra']['raw_info']['email'],
+          name: payload['extra']['raw_info']['name'] || DEFAULT_NAME,
+          email: payload['extra']['raw_info']['email'] || DEFAULT_EMAIL,
           avatar_url: payload['extra']['raw_info']['avatar_url']
         }
       end

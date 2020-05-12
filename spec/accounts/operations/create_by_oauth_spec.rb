@@ -37,6 +37,27 @@ RSpec.describe Accounts::Operations::CreateByOauth, type: :operation do
       it { expect(subject).to be_success }
       it { expect(subject.value!).to eq(account) }
     end
+
+    context 'and data miss some information' do
+      let(:payload) { EMPTY_OAUTH_PAYLOAD }
+
+      it { expect(subject).to be_success }
+
+      it do
+        expect(account_repo).to receive(:create_with_identity).with(
+          'github',
+          {
+            uuid: kind_of(String),
+            name: 'Anonymous',
+            email: 'anonymous@inventarium.io',
+            avatar_url: kind_of(String)
+          },
+          kind_of(Hash)
+        )
+
+        subject
+      end
+    end
   end
 
   context 'with real dependencies' do
