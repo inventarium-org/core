@@ -11,8 +11,7 @@ root to: 'dashboard#index'
 resources :organisations, only: %i[new create]
 
 namespace '/:slug' do
-  # get '/', to: 'organisations#show', as: :organisation_dashboard
-  get '/', to: 'services#index'
+  get '/', to: 'organisations#show', as: :organisation_dashboard
 
   resources :services, only: %i[index show] do
     resources :readiness, only: %i[index], controller: 'service_readinesses'

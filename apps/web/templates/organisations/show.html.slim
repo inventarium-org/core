@@ -1,0 +1,13 @@
+.row
+  .col
+    .services
+      - not_completed_services.each do |service|
+        .row.service
+          .col.service-base
+            = link_to_service(service.key)
+          .col.service-readiness.align-self-center
+            = readinessbar(service)
+
+  .col
+    .card
+      .card-body

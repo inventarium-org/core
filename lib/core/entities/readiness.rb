@@ -32,4 +32,8 @@ class Readiness < Hanami::Entity
   def completed_checks_count
     to_h.slice(*CHECK_NAMES).values.count(true)
   end
+
+  def all_checks_completed?
+    CHECK_NAMES.count == completed_checks_count
+  end
 end

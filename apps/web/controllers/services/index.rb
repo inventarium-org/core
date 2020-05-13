@@ -16,7 +16,6 @@ module Web
         expose :services
 
         def call(params)
-          current_account.id
           result = organisation_operation.call(account_id: current_account.id, slug: params[:slug])
 
           case result
