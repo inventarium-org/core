@@ -26,12 +26,12 @@ module Api
           case result
           when Success
             self.body = 'OK'
-          when Failure(:invalid_data)
-            halt 422, 'Invalid data in service.yaml file'
           when Failure(:failure_authenticate)
-            halt 422, 'Authenticate failure'
+            halt 401, 'Authenticate failure, please check your INVENTARIUM_TOKEN EVN value'
           when Failure(:demo_plan_max_service)
-            halt 422, "Organisation has max value of services on 'demo' plan"
+            halt 403, "Organisation has max value of services on 'demo' plan"
+          when Failure
+            halt 422, result.failure.to_json
           end
         end
 
