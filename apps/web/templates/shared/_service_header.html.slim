@@ -15,7 +15,7 @@
 
 .row
   .col
-    | Last update: #{service.updated_at}
+    | Last update: #{RelativeTime.in_words(service.updated_at)}
 br
 br
 

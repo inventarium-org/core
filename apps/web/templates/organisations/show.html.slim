@@ -11,5 +11,11 @@
 
   .col
     h3 Last updates
-    .card
-      .card-body
+    .services
+      - last_changes.each do |change|
+        .row.service
+          .col.service-base
+            = link_to_service(change.service_key)
+          .col.service-readiness.align-self-center
+            = RelativeTime.in_words(change.created_at)
+
