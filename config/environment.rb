@@ -18,6 +18,7 @@ require 'hanami/model'
 # Disable warnings from dry-monads library.
 # We have this warnings because use old version of validation with monad extension
 Dry::Core::Deprecations.set_logger!(StringIO.new)
+Dry::Validation.load_extensions(:monads)
 
 require_relative '../system/import'
 require_relative './initializers/request_id'

@@ -32,17 +32,17 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
         end
 
         context 'and service.yaml data is invalid' do
-          let(:operation) { ->(*) { Failure(:invalid_data) } }
+          let(:operation) { ->(*) { Failure({ version: ['is missing'], key: ['is missing'] }) } }
 
           it { expect(subject).to have_http_status(:unprocessable_entity) }
-          it { expect(subject.last).to eq(['Invalid data in service.yaml file']) }
+          it { expect(subject.last).to eq(['{"version":["is missing"],"key":["is missing"]}']) }
         end
       end
 
       context 'and organisation in demo plan has more than 30 services' do
         let(:services) { 34.times.map { |id| Service.new(id: id, name: "test_#{id}") } }
 
-        it { expect(subject).to have_http_status(:unprocessable_entity) }
+        it { expect(subject).to have_http_status(:forbidden) }
         it { expect(subject.last).to eq(["Organisation has max value of services on 'demo' plan"]) }
       end
 
@@ -59,8 +59,8 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
     context 'and auth token is invalid' do
       let(:authenticate_operation) { ->(*) { Failure(:failure_authenticate) } }
 
-      it { expect(subject).to have_http_status(:unprocessable_entity) }
-      it { expect(subject.last).to eq(['Authenticate failure']) }
+      it { expect(subject).to have_http_status(:unauthorized) }
+      it { expect(subject.last).to eq(['Authenticate failure, please check your INVENTARIUM_TOKEN EVN value']) }
     end
   end
 

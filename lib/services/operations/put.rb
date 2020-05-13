@@ -6,12 +6,12 @@ module Services
       include Import[
         mapper: 'services.mappers.service_information',
         repo: 'repositories.service',
-        audit_repo: 'repositories.organisation_audit_item'
+        audit_repo: 'repositories.organisation_audit_item',
+        schema: 'services.schemas.service_yaml'
       ]
 
       def call(organisation:, params:)
-        # TODO: implement validation logic here too
-        payload = mapper.call(params)
+        payload = yield schema.call(mapper.call(params)).to_either
         payload[:organisation_id] = organisation.id
 
         service = yield persist(organisation, payload)
