@@ -1,5 +1,6 @@
 .row
   .col
+    h3 Not ready services
     .services
       - not_completed_services.each do |service|
         .row.service
@@ -9,5 +10,6 @@
             = readinessbar(service)
 
   .col
+    h3 Last updates
     .card
       .card-body
