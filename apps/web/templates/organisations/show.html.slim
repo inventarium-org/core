@@ -1,21 +1,33 @@
-.row
-  .col
-    h3 Not ready services
-    .services
-      - not_completed_services.each do |service|
-        .row.service
-          .col.service-base
-            = link_to_service(service.key)
-          .col.service-readiness.align-self-center
-            = readinessbar(service)
+- if services.empty?
+  .row
+    .card
+      .card-body.empty-services
+        | You don't have any services in the organisation. Check #{link_to 'integration guides', "/#{organisation.slug}/integrations"} for start using inventarium.
 
-  .col
-    h3 Last updates
-    .services
-      - last_changes.each do |change|
-        .row.service
-          .col.service-base
-            = link_to_service(change.service_key)
-          .col.service-readiness.align-self-center
-            = RelativeTime.in_words(change.created_at)
+- else
+  .row
+    .col
+      h3 Not ready services
+      .services
+        - if not_completed_services.empty?
+          .row.service
+            | Good work, you don't need to update anything!
+
+        - else
+          - not_completed_services.each do |service|
+            .row.service
+              .col.service-base
+                = link_to_service(service.key)
+              .col.service-readiness.align-self-center
+                = readinessbar(service)
+
+    .col
+      h3 Last updates
+      .services
+        - last_changes.each do |change|
+          .row.service
+            .col.service-base
+              = link_to_service(change.service_key)
+            .col.service-readiness.align-self-center
+              = RelativeTime.in_words(change.created_at)
 
