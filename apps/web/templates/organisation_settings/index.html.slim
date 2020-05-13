@@ -1,4 +1,4 @@
-h2 
+h2
   | #{organisation.name} settings
 
 .card.settings
@@ -20,4 +20,6 @@ h2
                   td = link_to org_member.account.auth_identities.first.login, "https://github.com/#{org_member.account.auth_identities.first.login}"
                   td = org_member.account.email
                   td = org_member.role
-                  td = link_to 'Remove from organisation', '#'
+                  td
+                    - if org_member.role == 'owner'
+                      = link_to 'Remove from organisation', '#'
