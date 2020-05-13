@@ -15,6 +15,7 @@ namespace '/:slug' do
 
   resources :services, only: %i[index show] do
     resources :readiness, only: %i[index], controller: 'service_readinesses'
+    resources :audit, only: %i[index], controller: 'service_audit'
   end
 
   get '/quality-attributes', to: 'organisation_quality_attributes#index', as: :organisation_quality_attributes

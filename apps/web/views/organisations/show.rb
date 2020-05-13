@@ -13,7 +13,7 @@ module Web
         end
 
         def not_completed_services
-          services.select { |s| !s.readiness.all_checks_completed? }
+          services.reject { |s| s.readiness.all_checks_completed? }
         end
 
         def breadcrumb

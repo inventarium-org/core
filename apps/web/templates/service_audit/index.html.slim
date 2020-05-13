@@ -1,0 +1,13 @@
+= render partial: 'shared/service_header'
+
+.row
+  .col
+    h3 Last updates
+    .services
+      - last_changes.each do |change|
+        .row.service
+          .col.service-base
+            = RelativeTime.in_words(change.created_at)
+          .col.service-readiness.align-self-center
+            = change.payload
+

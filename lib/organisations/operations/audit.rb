@@ -7,7 +7,7 @@ module Organisations
         repo: 'repositories.organisation_audit_item'
       ]
 
-      def call(organisation_id: , key: nil, limit: nil)
+      def call(organisation_id:, key: nil, limit: nil)
         Success(
           repo.list(organisation_id, key: key, limit: limit)
         )

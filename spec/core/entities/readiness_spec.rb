@@ -95,6 +95,5 @@ RSpec.describe Readiness, type: :entity do
 
       it { expect(subject).to be false }
     end
-    
   end
 end

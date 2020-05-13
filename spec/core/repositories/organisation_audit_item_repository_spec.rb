@@ -25,7 +25,7 @@ RSpec.describe OrganisationAuditItemRepository, type: :repository do
         expect(result.count).to eq(4)
         expect(result).to all(be_a(OrganisationAuditItem))
         expect(result.map(&:organisation_id)).to all(eq(organisation.id))
-        expect(result.map(&:service_key).uniq).to eq(['other-audit', 'test-audit'])
+        expect(result.map(&:service_key).uniq).to eq(%w[other-audit test-audit])
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe OrganisationAuditItemRepository, type: :repository do
         expect(result.count).to eq(2)
         expect(result).to all(be_a(OrganisationAuditItem))
         expect(result.map(&:organisation_id)).to all(eq(organisation.id))
-        expect(result.map(&:service_key).uniq).to eq(['other-audit', 'test-audit'])
+        expect(result.map(&:service_key).uniq).to eq(%w[other-audit test-audit])
       end
     end
 

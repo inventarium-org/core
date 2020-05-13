@@ -11,6 +11,6 @@ class OrganisationAuditItemRepository < Hanami::Repository
     relation = relation.where(service_key: key) if key
     relation = relation.limit(limit) if limit
 
-    relation.order { created_at.desc}.map_to(OrganisationAuditItem).to_a
+    relation.order { created_at.desc }.map_to(OrganisationAuditItem).to_a
   end
 end
