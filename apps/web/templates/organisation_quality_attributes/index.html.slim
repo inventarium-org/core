@@ -34,9 +34,10 @@ h2
                 = link_to_service(service)
                 br
         - if empty_list.any?
-          tr.table-danger
+          tr
             th scope="row" Untraceable
             td colspan="4"
               - empty_list.each do |service|
                 = link_to_service(service)
+                br
 
