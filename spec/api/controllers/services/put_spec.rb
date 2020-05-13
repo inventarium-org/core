@@ -21,7 +21,7 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
         ->(*) { Success(Organisation.new(id: 123, name: 'inventarium_test', plan: 'demo', services: services)) }
       end
 
-      context 'and organisation in demo plan has less than 30 services' do
+      context 'and organisation in demo plan has less than 10 services' do
         let(:services) { 4.times.map { |id| Service.new(id: id, name: "test_#{id}") } }
 
         context 'and service.yaml data is valid' do
@@ -39,16 +39,16 @@ RSpec.describe Api::Controllers::Services::Put, type: :action do
         end
       end
 
-      context 'and organisation in demo plan has more than 30 services' do
-        let(:services) { 34.times.map { |id| Service.new(id: id, name: "test_#{id}") } }
+      context 'and organisation in demo plan has more than 10 services' do
+        let(:services) { 14.times.map { |id| Service.new(id: id, name: "test_#{id}") } }
 
         it { expect(subject).to have_http_status(:forbidden) }
         it { expect(subject.last).to eq(["Organisation has max value of services on 'demo' plan"]) }
       end
 
-      context 'and organisation in demo plan has less than 30 services uniq' do
+      context 'and organisation in demo plan has less than 10 services uniq' do
         let(:services) do
-          29.times.map { |i| Service.new(id: i, name: "test_#{i}") } + [Service.new(id: 100, name: 'billing-service')]
+          9.times.map { |i| Service.new(id: i, name: "test_#{i}") } + [Service.new(id: 100, name: 'billing-service')]
         end
 
         it { expect(subject).to be_success }

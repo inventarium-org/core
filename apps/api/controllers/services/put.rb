@@ -50,7 +50,7 @@ module Api
           when 'demo'
             existed_services = organisation.services.map(&:name)
 
-            if existed_services.push(service_key).uniq.count > 30
+            if existed_services.push(service_key).uniq.count > 10
               Failure(:demo_plan_max_service)
             else
               Success(organisation)
