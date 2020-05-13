@@ -46,7 +46,7 @@ module Services
         {
           healthcheck: !!production_env.healthcheck_url,
           logs: !!production_env.logs_url,
-          error_traker: !!production_env.error_traker_url,
+          error_traker: !!production_env.error_tracker_url,
           monitoring: !!production_env.monitoring.any?
         }
       end

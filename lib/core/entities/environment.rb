@@ -17,7 +17,7 @@ class Environment < Hanami::Entity
     attribute :url, Types::String
     attribute :healthcheck_url, Types::String
     attribute :logs_url, Types::String
-    attribute :error_traker_url, Types::String
+    attribute :error_tracker_url, Types::String
     attribute :monitoring, Types::Hash
 
     attribute :deleted, Types::Bool

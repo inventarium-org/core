@@ -20,7 +20,7 @@ RSpec.describe Services::Mappers::ReadinessStatus, type: :mapper do
           {
             name: 'production',
             healthcheck_url: 'inventarium.io',
-            error_traker_url: 'inventarium.io',
+            error_tracker_url: 'inventarium.io',
             logs_url: 'inventarium.io',
             monitoring: { new_relic: 'test' }
           }

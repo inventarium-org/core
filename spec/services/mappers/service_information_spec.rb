@@ -42,7 +42,7 @@ RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
                                   url: 'https://billing.company.com',
                                   healthcheck_url: 'https://billing.company.com/health',
                                   logs_url: 'https://elk.company.net/billing',
-                                  error_traker_url: 'https://rollbar.com/company/billing',
+                                  error_tracker_url: 'https://rollbar.com/company/billing',
                                   monitoring: {
                                     grafana: 'https://grafana.company.net/billing',
                                     new_relic: 'https://newrelic.com/company/billing'
@@ -54,7 +54,7 @@ RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
                                   url: 'https://billing.stage-company.com',
                                   healthcheck_url: 'https://billing.stage-company.com/health',
                                   logs_url: 'https://elk.stage-company.net/billing',
-                                  error_traker_url: 'https://rollbar.com/company/billing',
+                                  error_tracker_url: 'https://rollbar.com/company/billing',
                                   monitoring: {
                                     grafana: 'https://grafana.stage-company.net/billing'
                                   }

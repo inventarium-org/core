@@ -10,7 +10,7 @@ Fabricator(:environment) do
   url 'https://orders.company.com'
   healthcheck_url 'https://orders.company.com/health'
   logs_url 'https://elk.company.net/orders'
-  error_traker_url 'https://rollbar.com/company/orders'
+  error_tracker_url 'https://rollbar.com/company/orders'
 
   monitoring do
     {
