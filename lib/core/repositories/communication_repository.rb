@@ -5,14 +5,14 @@ class CommunicationRepository < Hanami::Repository
     belongs_to :service
   end
 
-  # TODO: specs for command
-  def batch_create(service_id, batch)
-    data = Array(batch).map { |p| { **p, service_id: service_id } }
-    command(upsert: :communications, result: :many).call(data)
-  end
+  # def batch_create(service_id, batch)
+  #   data = Array(batch).map { |p| { **p, service_id: service_id } }
+  #   command(upsert: :communications, result: :many).call(data)
+  # end
 
   # TODO: specs for command
   def create_update_delete(service, list)
+    # TODO: use upsert here instead N+1
     list.each { |payload| create_or_upate(service, payload) }
 
     for_delete = service.communications.reject do |existed_com|
