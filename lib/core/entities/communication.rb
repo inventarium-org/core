@@ -3,7 +3,7 @@
 class Service < Hanami::Entity
 end
 
-class Communications < Hanami::Entity
+class Communication < Hanami::Entity
   attributes do
     attribute :id, Types::Int
 

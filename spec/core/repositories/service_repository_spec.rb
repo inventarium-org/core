@@ -3,6 +3,7 @@
 RSpec.describe ServiceRepository, type: :repository do
   let(:repo) { described_class.new }
   let(:env_repo) { EnvironmentRepository.new }
+  let(:communication_repo) { CommunicationRepository.new }
 
   let(:organisation) { Fabricate(:organisation, name: 'service repository test', slug: 'service-repo') }
 
@@ -131,6 +132,29 @@ RSpec.describe ServiceRepository, type: :repository do
             healthcheck_url: 'https://billing.demo-company.com/health',
             tags: ['only for testing']
           }
+        ],
+
+        communications: [
+          {
+            type: 'http',
+            target: 'order-service',
+            criticality: 'critical'
+          },
+          {
+            type: 'event-producer',
+            target: 'kafka',
+            criticality: 'critical',
+            resources: %w[
+              orders-topic
+              notification-topic
+            ],
+            custom_data: {
+              events: %w[
+                test-event
+                other-event
+              ]
+            }
+          }
         ]
       }
     end
@@ -144,6 +168,8 @@ RSpec.describe ServiceRepository, type: :repository do
         Fabricate(:environment, service_id: service.id, name: 'qa')
         Fabricate(:environment, service_id: service.id, name: 'production')
         Fabricate(:environment, service_id: service.id, name: 'stage')
+
+        Fabricate(:communication, service_id: service.id, type: 'event-producer', target: 'kafka')
       end
 
       it { expect { subject }.to change { repo.all.count }.by(0) }
@@ -155,9 +181,12 @@ RSpec.describe ServiceRepository, type: :repository do
         expect(subject.organisation_id).to eq(organisation.id)
       end
 
-      it 'updates or create new environments' do
+      # I need this complicated spec only for making one DB call and fast check for everything
+      it 'updates or create new environments and communications' do
         expect(env_repo.all.count).to be(3)
         service = subject
+
+        # ============ Communications ====================
 
         envs = env_repo.all
         expect(envs.count).to be(4)
@@ -174,6 +203,21 @@ RSpec.describe ServiceRepository, type: :repository do
 
         qa_env = envs.find { |e| e.name == 'qa' }
         expect(qa_env.deleted).to eq(true)
+
+        # ============ Communications ====================
+
+        communications = communication_repo.all
+
+        expect(communications.count).to be(2)
+        expect(communications.map(&:type)).to eq(%w[event-producer http])
+        expect(communications.map(&:service_id)).to all(eq(service.id))
+
+        http = communications.find { |e| e.type == 'http' }
+        expect(http.target).to eq('order-service')
+
+        kafka = communications.find { |e| e.type == 'event-producer' }
+        expect(kafka.target).to eq('kafka')
+        expect(kafka.resources.to_a).to eq(%w[orders-topic notification-topic])
       end
     end
 
@@ -186,17 +230,7 @@ RSpec.describe ServiceRepository, type: :repository do
         expect(subject.organisation_id).to eq(organisation.id)
       end
 
-      context 'and environments present' do
-        it 'creates new env objects related to service object' do
-          service = subject
-
-          envs = env_repo.all
-          expect(envs.count).to eq(3)
-          expect(envs.map(&:service_id)).to all(eq(service.id))
-        end
-      end
-
-      context 'and environments are empty' do
+      context 'and environments + communications are empty' do
         let(:payload) do
           {
             organisation_id: organisation.id,
@@ -212,6 +246,148 @@ RSpec.describe ServiceRepository, type: :repository do
           expect(subject.key).to eq('billing-service')
 
           expect(env_repo.all).to eq []
+          expect(communication_repo.all).to eq []
+        end
+      end
+
+      context 'and environments are empty' do
+        let(:payload) do
+          {
+            organisation_id: organisation.id,
+            version: 'v0',
+            key: 'billing-service',
+            name: 'Billing Service for testing',
+            description: 'Billing and accounting service',
+
+            communications: [
+              {
+                type: 'event-producer',
+                target: 'kafka',
+                criticality: 'critical',
+                resources: %w[
+                  orders-topic
+                  notification-topic
+                ],
+                custom_data: {
+                  events: %w[
+                    test-event
+                    other-event
+                  ]
+                }
+              }
+            ]
+          }
+        end
+
+        it 'creates new env objects related to service object' do
+          expect(subject).to be_a(Service)
+          expect(subject.key).to eq('billing-service')
+
+          expect(env_repo.all).to eq []
+
+          communications = communication_repo.all
+          expect(communications.count).to eq(1)
+          expect(communications).to all(be_a(Communication))
+          expect(communications.map(&:service_id).uniq.count).to eq(1)
+        end
+      end
+
+      context 'and communications are empty' do
+        let(:payload) do
+          {
+            organisation_id: organisation.id,
+            version: 'v0',
+            key: 'billing-service',
+            name: 'Billing Service for testing',
+            description: 'Billing and accounting service',
+
+            environments: [
+              {
+                name: 'production',
+                description: 'Real production env for service',
+                url: 'https://billing.company.com',
+                healthcheck_url: 'https://billing.company.com/health',
+                logs_url: 'https://elk.company.net/billing',
+                error_tracker_url: 'https://rollbar.com/company/billing',
+                monitoring: {
+                  grafana: 'https://grafana.company.net/billing',
+                  new_relic: 'https://newrelic.com/company/billing'
+                }
+              }
+            ]
+          }
+        end
+
+        it 'creates new env objects related to service object' do
+          expect(subject).to be_a(Service)
+          expect(subject.key).to eq('billing-service')
+
+          envs = env_repo.all
+          expect(envs.count).to eq(1)
+          expect(envs).to all(be_a(Environment))
+          expect(envs.map(&:service_id).uniq.count).to eq(1)
+
+          expect(communication_repo.all).to eq []
+        end
+      end
+
+      context 'and communications and environments are not empty' do
+        let(:payload) do
+          {
+            organisation_id: organisation.id,
+            version: 'v0',
+            key: 'billing-service',
+            name: 'Billing Service for testing',
+            description: 'Billing and accounting service',
+
+            environments: [
+              {
+                name: 'production',
+                description: 'Real production env for service',
+                url: 'https://billing.company.com',
+                healthcheck_url: 'https://billing.company.com/health',
+                logs_url: 'https://elk.company.net/billing',
+                error_tracker_url: 'https://rollbar.com/company/billing',
+                monitoring: {
+                  grafana: 'https://grafana.company.net/billing',
+                  new_relic: 'https://newrelic.com/company/billing'
+                }
+              }
+            ],
+
+            communications: [
+              {
+                type: 'event-producer',
+                target: 'kafka',
+                criticality: 'critical',
+                resources: %w[
+                  orders-topic
+                  notification-topic
+                ],
+                custom_data: {
+                  events: %w[
+                    test-event
+                    other-event
+                  ]
+                }
+              }
+            ]
+          }
+        end
+
+        it 'creates new env objects related to service object' do
+          expect(subject).to be_a(Service)
+          expect(subject.key).to eq('billing-service')
+
+          envs = env_repo.all
+          expect(envs.count).to eq(1)
+          expect(envs).to all(be_a(Environment))
+          expect(envs.map(&:service_id).uniq.count).to eq(1)
+
+          communications = communication_repo.all
+          expect(communications.count).to eq(1)
+          expect(communications).to all(be_a(Communication))
+          expect(communications.map(&:service_id).uniq.count).to eq(1)
         end
       end
     end

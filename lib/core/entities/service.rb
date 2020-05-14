@@ -6,11 +6,15 @@ end
 class Environment < Hanami::Entity
 end
 
+class Communication < Hanami::Entity
+end
+
 class Service < Hanami::Entity
   attributes do
     attribute :id, Types::Int
 
     attribute :environments, Types::Collection(Environment)
+    attribute :communications, Types::Collection(Communication)
     attribute :readiness, Types::Entity(Readiness)
 
     attribute :organisation_id, Types::Int

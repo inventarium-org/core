@@ -5,7 +5,7 @@ require 'json'
 module Services
   module Mappers
     class ServiceInformation
-      def call(params) # rubocop:disable Metrics/AbcSize
+      def call(params) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         return {} if params.empty?
 
         payload = symbolize_keys(params)
@@ -33,7 +33,8 @@ module Services
           docs_maintenance: payload.dig(:docs, :maintenance),
           docs_domain: payload.dig(:docs, :domain),
 
-          environments: payload[:environments].to_a.map { |name, data| { name: name.to_s, **data } }
+          environments: payload[:environments].to_a.map { |name, data| { name: name.to_s, **data } },
+          communications: Array(payload[:communications])
         }
       end
 

@@ -55,3 +55,29 @@ environments:
 
 operations:
   ci_build_url: https://circleci.com/compamy/billing
+
+communications:
+    # type is reqired, can be (http | rpc | graphql | event-producer | event-consumer)
+  - type: http
+    # reqired, can be anything like (service key | kafka | rabbitmq | etc)
+    target: order-service
+    # optional, can be (critical | uncritical)
+    criticality: critical
+
+    # type is reqired, can be (http | rpc | graphql | event-producer | event-consumer)
+  - type: event-producer
+    # reqired, can be anything like (service key | kafka | rabbitmq | etc)
+    target: kafka
+    # optional, can be (critical | uncritical)
+    criticality: critical
+    # optional list, can be (topic name | queue name | rpc resource | rest resource | gqlschema name)
+    resources:
+      - orders-topic
+      - notification-topic
+    # optional
+    custom_data:
+      # can be anything
+      events:
+        - test-event
+        - other-event
+      # version: 2

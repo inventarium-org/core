@@ -68,6 +68,28 @@ RSpec.describe Services::Mappers::ServiceInformation, type: :mapper do
                                   healthcheck_url: 'https://billing.demo-company.com/health',
                                   tags: ['only for testing']
                                 }
+                              ],
+                              communications: [
+                                {
+                                  type: 'http',
+                                  target: 'order-service',
+                                  criticality: 'critical'
+                                },
+                                {
+                                  type: 'event-producer',
+                                  target: 'kafka',
+                                  criticality: 'critical',
+                                  resources: %w[
+                                    orders-topic
+                                    notification-topic
+                                  ],
+                                  custom_data: {
+                                    events: %w[
+                                      test-event
+                                      other-event
+                                    ]
+                                  }
+                                }
                               ]
                             })
     end
