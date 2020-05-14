@@ -8,7 +8,7 @@ class CommunicationRepository < Hanami::Repository
   relations :organisations
 
   def all_for_organisation(organisation_id)
-    root.join(services).where(services[:organisation_id].qualified => organisation_id).map_to(Communication).to_a
+    aggregate(:service).join(services).where(services[:organisation_id].qualified => organisation_id).map_to(Communication).to_a
   end
 
   # def batch_create(service_id, batch)

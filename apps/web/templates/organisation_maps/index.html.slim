@@ -5,6 +5,10 @@ h2
   .card-body
     | Diagram will be here
 
+    #map
+
     - communications.each do |communication|
       .raw
         = communication.to_h
+
+= javascript 'g6.min', 'map_of_services'
