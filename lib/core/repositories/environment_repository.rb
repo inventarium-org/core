@@ -23,7 +23,7 @@ class EnvironmentRepository < Hanami::Repository
     existed_env = existed_envs.find { |e| e.name == env_payload[:name] }
 
     if existed_env
-      update(existed_env.id, env_payload)
+      update(existed_env.id, deleted: false, **env_payload)
     else
       create(service_id: service_id, **env_payload)
     end

@@ -165,11 +165,11 @@ RSpec.describe ServiceRepository, type: :repository do
       end
 
       before do
-        Fabricate(:environment, service_id: service.id, name: 'qa')
-        Fabricate(:environment, service_id: service.id, name: 'production')
         Fabricate(:environment, service_id: service.id, name: 'stage')
+        Fabricate(:environment, service_id: service.id, name: 'qa')
+        Fabricate(:environment, service_id: service.id, name: 'production', deleted: true)
 
-        Fabricate(:communication, service_id: service.id, type: 'event-producer', target: 'kafka')
+        Fabricate(:communication, service_id: service.id, type: 'event-producer', target: 'kafka', deleted: true)
       end
 
       it { expect { subject }.to change { repo.all.count }.by(0) }
@@ -190,7 +190,7 @@ RSpec.describe ServiceRepository, type: :repository do
 
         envs = env_repo.all
         expect(envs.count).to be(4)
-        expect(envs.map(&:name)).to eq(%w[qa production stage demo])
+        expect(envs.map(&:name)).to eq(%w[stage qa production demo])
         expect(envs.map(&:service_id)).to all(eq(service.id))
 
         prod_env = envs.find { |e| e.name == 'production' }
@@ -211,6 +211,7 @@ RSpec.describe ServiceRepository, type: :repository do
         expect(communications.count).to be(2)
         expect(communications.map(&:type)).to eq(%w[event-producer http])
         expect(communications.map(&:service_id)).to all(eq(service.id))
+        expect(communications.map(&:deleted)).to all(eq(false))
 
         http = communications.find { |e| e.type == 'http' }
         expect(http.target).to eq('order-service')

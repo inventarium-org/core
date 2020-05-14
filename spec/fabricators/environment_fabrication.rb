@@ -12,6 +12,8 @@ Fabricator(:environment) do
   logs_url 'https://elk.company.net/orders'
   error_tracker_url 'https://rollbar.com/company/orders'
 
+  deleted false
+
   monitoring do
     {
       grafana: 'https://grafana.company.net/orders',

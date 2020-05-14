@@ -29,7 +29,7 @@ class CommunicationRepository < Hanami::Repository
     end
 
     if existed_communication
-      update(existed_communication.id, communication_payload)
+      update(existed_communication.id, deleted: false, **communication_payload)
     else
       create(service_id: service.id, **communication_payload)
     end
