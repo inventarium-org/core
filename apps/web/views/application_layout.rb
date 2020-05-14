@@ -17,6 +17,8 @@ module Web
 
       def quality_attributes_active_class; end
 
+      def map_of_services_active_class; end
+
       def integratins_active_class; end
 
       def settings_active_class; end
