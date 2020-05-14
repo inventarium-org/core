@@ -4,3 +4,7 @@ h2
 .card
   .card-body
     | Diagram will be here
+
+    - communications.each do |communication|
+      .raw
+        = communication.to_h

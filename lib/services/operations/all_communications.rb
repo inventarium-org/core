@@ -8,7 +8,7 @@ module Services
       ]
 
       def call(organisation_id:)
-        Success([])
+        Success(repo.all_for_organisation(organisation_id))
       end
     end
   end

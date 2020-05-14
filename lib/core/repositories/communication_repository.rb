@@ -5,6 +5,12 @@ class CommunicationRepository < Hanami::Repository
     belongs_to :service
   end
 
+  relations :organisations
+
+  def all_for_organisation(organisation_id)
+    root.join(services).where(services[:organisation_id].qualified => organisation_id).map_to(Communication).to_a
+  end
+
   # def batch_create(service_id, batch)
   #   data = Array(batch).map { |p| { **p, service_id: service_id } }
   #   command(upsert: :communications, result: :many).call(data)
