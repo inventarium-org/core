@@ -2,7 +2,7 @@
 
 module Services
   module Schemas
-    ServiceYaml = Dry::Validation.JSON do
+    ServiceYaml = Dry::Validation.JSON do # rubocop:disable Metrics/BlockLength
       required(:version).filled(:str?)
       required(:name).filled(:str?)
       required(:key).filled(:str?)
@@ -36,6 +36,15 @@ module Services
         optional(:monitoring).required(:hash?)
 
         optional(:tags).maybe(:array?)
+      end
+
+      optional(:communications).each do
+        required(:type).filled(:str?)
+        required(:target).filled(:str?)
+
+        optional(:criticality).maybe(:str?)
+        optional(:resources).maybe(:array?)
+        optional(:custom_data).required(:hash?)
       end
     end
   end

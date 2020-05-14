@@ -32,7 +32,6 @@ class ServiceRepository < Hanami::Repository
       service ? update(service.id, payload) : create(payload)
       service = find_for_organisation(organisation_id, payload[:key])
 
-      # potentially good idea to move it to env repo
       environment_repo.create_update_delete(service, Array(payload[:environments]))
       communication_repo.create_update_delete(service, Array(payload[:communications]))
 
