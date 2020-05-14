@@ -3,9 +3,10 @@
 class ServiceRepository < Hanami::Repository
   associations do
     has_many :environments
-    has_one :readiness
-
+    has_many :communications
     has_many :organisation_audit_items
+
+    has_one :readiness
 
     belongs_to :organisation
   end
