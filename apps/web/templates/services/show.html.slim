@@ -35,6 +35,28 @@
       .col
         .empty
 
+- if service.communications.any?
+  br
+  h2 Communications
+
+  - service.communications.each do |communication|
+    .card
+      .card-body
+        .row
+          .col-4
+            = service_information('Type', communication.type)
+            = service_information('Target', communication.target)
+
+            - if communication.criticality
+              = service_information('Criticality', communication.criticality)
+
+          .col-5
+            - if communication.resources.any?
+              = service_information('Resources', communication.resources.join(', '))
+            - if communication.custom_data.any?
+              = service_information('Custom information', communication.custom_data)
+    br
+
 
 - if service.environments.any?
   br
