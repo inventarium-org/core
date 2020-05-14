@@ -16,6 +16,35 @@ module Web
             end
           end
         end
+
+        def json_graph(communications)
+          graph = {
+            nodes: [],
+            edges: []
+          }
+
+          communications.each do |communication|
+            graph[:edges] << {
+              source: communication.service.key,
+              target: communication.target,
+              label: communication.type
+            }
+
+            graph[:nodes] << {
+              id: communication.target,
+              label: communication.target,
+            }
+
+            graph[:nodes] << {
+              id: communication.service.key,
+              label: communication.service.key,
+            }
+          end
+
+          graph[:nodes] = graph[:nodes].uniq
+          graph[:edges] = graph[:edges].uniq
+          graph
+        end
       end
     end
   end

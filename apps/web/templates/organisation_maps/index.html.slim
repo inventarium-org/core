@@ -5,10 +5,18 @@ h2
   .card-body
     | Diagram will be here
 
-    #map
+    #map attr-graph=json_graph(communications).to_json
 
     - communications.each do |communication|
       .raw
         = communication.to_h
 
+    br
+    br
+
 = javascript 'g6.min', 'map_of_services'
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function() {
+    buildGraph(#{json_graph(communications).to_json})
+  });
