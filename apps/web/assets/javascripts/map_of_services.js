@@ -35,7 +35,11 @@ function buildGraph(data) {
           formatText(model) {
             // The content of the edge tooltip
             const text =
-              'Resources: ' +
+              '<br />Source: ' +
+              model.source +
+              '<br />Target: ' +
+              model.target +
+              '<br />Resources: ' +
               model.resources +
               '<br />Criticality: ' +
               model.criticality +
