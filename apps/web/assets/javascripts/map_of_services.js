@@ -23,10 +23,12 @@ function buildGraph(data) {
   const graph = new G6.Graph({
     container: "map",
     width: 900,
-    height: 500,
+    height: 700,
 
     modes: {
-      default: ['drag-node'],
+      default: [
+        'drag-node', 'zoom-canvas'
+      ],
     },
 
     layout: {
