@@ -30,9 +30,12 @@ function buildGraph(data) {
     },
 
     layout: {
-      type: 'force',
+      type: 'dagre',
+      rankdir: 'BT',
+      align: 'DL',
+      nodesep: 50,
+      ranksep: 80,
       preventOverlap: true,
-      linkDistance: 100, // The link distance is 100
     },
 
     defaultNode: {
