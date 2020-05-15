@@ -19,15 +19,17 @@ function buildGraph(data) {
   //     }
   //   ]
   // };
+  var width = document.getElementById('map').scrollWidth;
+  var height = document.getElementById('map').scrollHeight || 700;
 
   const graph = new G6.Graph({
-    container: "map",
-    width: 900,
-    height: 700,
+    container: document.getElementById('map'),
+    width: width,
+    height: height,
 
     modes: {
       default: [
-        'drag-node', 'zoom-canvas'
+        'drag-node', 'drag-canvas', 'zoom-canvas'
       ],
     },
 
