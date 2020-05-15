@@ -242,7 +242,7 @@ module Web
         frame-ancestors 'self';
         base-uri 'self';
         default-src 'none';
-        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        script-src 'self' 'unsafe-eval' 'unsafe-inline' https://gw.alipayobjects.com;
         connect-src 'self';
         img-src 'self' https: data:;
         style-src 'self' 'unsafe-inline' https:;

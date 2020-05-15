@@ -5,7 +5,8 @@ h2
   .card-body
     #map attr-graph=json_graph(communications).to_json
 
-= javascript 'g6.min', 'map_of_services'
+script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.4.7/dist/g6.min.js"
+= javascript 'map_of_services'
 
 javascript:
   document.addEventListener('DOMContentLoaded', function() {
