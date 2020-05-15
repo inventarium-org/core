@@ -27,7 +27,10 @@ module Web
             graph[:edges] << {
               source: communication.service.key,
               target: communication.target,
-              label: communication.type
+              label: communication.type,
+              resources: communication.resources,
+              criticality: communication.criticality,
+              custom_data: communication.custom_data
             }
 
             graph[:nodes] << {

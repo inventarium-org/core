@@ -29,7 +29,21 @@ function buildGraph(data) {
 
     modes: {
       default: [
-        'drag-node', 'drag-canvas', 'zoom-canvas'
+        'drag-node', 'drag-canvas', 'zoom-canvas',
+        {
+          type: 'edge-tooltip', // Edge tooltip
+          formatText(model) {
+            // The content of the edge tooltip
+            const text =
+              'Resources: ' +
+              model.resources +
+              '<br />Criticality: ' +
+              model.criticality +
+              '<br/> Custom information: ' +
+              JSON.stringify(model.custom_data, null, 2);
+            return text;
+          },
+        },
       ],
     },
 
