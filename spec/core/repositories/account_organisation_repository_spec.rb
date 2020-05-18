@@ -70,8 +70,11 @@ RSpec.describe AccountOrganisationRepository, type: :repository do
 
       before { Fabricate(:auth_identity, login: 'davydovanton') }
 
-      it { expect(subject).to be_a(AccountOrganisation) }
-      it { expect { subject }.to change { repo.all.count }.by(1) }
+      it do
+        expect { subject }.to change { repo.all.count }.by(1)
+
+        expect(subject).to be_a(AccountOrganisation)
+      end
     end
 
     context 'when account exists with same email' do
@@ -79,8 +82,10 @@ RSpec.describe AccountOrganisationRepository, type: :repository do
 
       before { Fabricate(:account, email: 'anton@test.com') }
 
-      it { expect(subject).to be_a(AccountOrganisation) }
-      it { expect { subject }.to change { repo.all.count }.by(1) }
+      it do
+        expect { subject }.to change { repo.all.count }.by(1)
+        expect(subject).to be_a(AccountOrganisation)
+      end
     end
 
     context 'when account does not exist with same github or email' do

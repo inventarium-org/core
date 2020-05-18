@@ -172,9 +172,9 @@ RSpec.describe ServiceRepository, type: :repository do
         Fabricate(:communication, service_id: service.id, type: 'event-producer', target: 'kafka', deleted: true)
       end
 
-      it { expect { subject }.to change { repo.all.count }.by(0) }
-
       it do
+        expect { subject }.to change { repo.all.count }.by(0)
+
         expect(subject).to be_a(Service)
         expect(subject.description).to eq('Billing and accounting service')
         expect(subject.languages).to eq(%w[ruby js])
@@ -223,9 +223,9 @@ RSpec.describe ServiceRepository, type: :repository do
     end
 
     context 'when service does not exist in db' do
-      it { expect { subject }.to change { repo.all.count }.by(1) }
-
       it do
+        expect { subject }.to change { repo.all.count }.by(1)
+
         expect(subject).to be_a(Service)
         expect(subject.key).to eq('billing-service')
         expect(subject.organisation_id).to eq(organisation.id)
@@ -396,8 +396,11 @@ RSpec.describe ServiceRepository, type: :repository do
     context 'when data without any changes' do
       before { subject }
 
-      it { expect(subject).to be_a(Service) }
-      it { expect { subject }.to change { repo.all.count }.by(0) }
+      it do
+        expect { subject }.to change { repo.all.count }.by(0)
+
+        expect(subject).to be_a(Service)
+      end
     end
 
     context 'when data is absolutly empty' do
