@@ -12,5 +12,4 @@
       .row.organisation
         .col.organisation-base
           .row
-            /= link_to organisation.name, routes.organisation_dashboard_path(organisation.slug), class: 'organisation-title'
             = link_to organisation.name, "/#{organisation.slug}", class: 'organisation-title'
