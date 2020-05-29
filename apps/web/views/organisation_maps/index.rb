@@ -35,12 +35,12 @@ module Web
 
             graph[:nodes] << {
               id: communication.target,
-              label: communication.target,
+              label: communication.target
             }
 
             graph[:nodes] << {
               id: communication.service.key,
-              label: communication.service.key,
+              label: communication.service.key
             }
           end
 

@@ -7,6 +7,8 @@ class Organisation < Hanami::Entity
 end
 
 class AccountOrganisation < Hanami::Entity
+  OWNER_ROLE = 'owner'
+
   attributes do
     attribute :id, Types::Int
 
@@ -20,5 +22,9 @@ class AccountOrganisation < Hanami::Entity
 
     attribute :created_at, Types::Time
     attribute :updated_at, Types::Time
+  end
+
+  def owner?
+    role == OWNER_ROLE
   end
 end

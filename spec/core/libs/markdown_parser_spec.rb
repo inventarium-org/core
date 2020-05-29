@@ -64,7 +64,6 @@
 #   context 'when text contain checkbox tag' do
 #     let(:text) { '- [x] checkkbox' }
 #
-#     # rubocop:disable Layout/LineLength
 #     it 'replaces checkbox by html tag' do
 #       expect(subject).to eq %(<ul>\n  <li><input type="checkbox" checked disabled><label>checkkbox</label></li>\n</ul>\n)
 #     end

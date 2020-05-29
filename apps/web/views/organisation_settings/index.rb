@@ -29,6 +29,10 @@ module Web
             submit 'Invite user', class: 'btn btn-success'
           end
         end
+
+        def organisation_member
+          organisation_accounts.select { |member| member.account_id == current_account.id }.first
+        end
       end
     end
   end
