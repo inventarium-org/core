@@ -7,6 +7,12 @@
           a.organisation-title href=routes.new_organisation_path
             i.nc-icon.nc-simple-add
             | Create new organisation
+    /.row.organisation
+      .col.organisation-base
+        .row
+          a.organisation-title href=routes.new_organisation_path
+            i.nc-icon.nc-app
+            | Join to the demo organisation
   - else
     - organisations.each do |organisation|
       .row.organisation
