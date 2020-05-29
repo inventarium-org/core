@@ -11,6 +11,8 @@ root to: 'dashboard#index'
 #       I need to add validation for protected words for organisation names
 resources :organisations, only: %i[new create]
 
+post '/demo_organisation_invites', to: 'demo_organisation_invites#create', as: :demo_invite
+
 namespace '/:slug' do
   get '/', to: 'organisations#show', as: :organisation_dashboard
 
