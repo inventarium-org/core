@@ -13,7 +13,7 @@ module Web
         ]
 
         def call(params)
-          result = invite_operation.call(account_id: params[:invite][:account_id])
+          result = invite_operation.call(account_id: current_account.id)
 
           case result
           when Success

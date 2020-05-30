@@ -7,7 +7,7 @@ RSpec.describe Web::Controllers::DemoOrganisationInvites::Create, type: :action 
 
   let(:account) { Account.new(id: 1) }
   let(:params) do
-    { slug: 'inventarium', 'rack.session' => session, invite: { account_id: 1 } }
+    { slug: 'inventarium', 'rack.session' => session }
   end
 
   let(:action) { described_class.new(invite_operation: invite_operation) }
@@ -54,7 +54,6 @@ RSpec.describe Web::Controllers::DemoOrganisationInvites::Create, type: :action 
     let(:session) { { account: account } }
 
     let(:new_account) { Fabricate(:account) }
-    let(:params) { { slug: 'inventarium', 'rack.session' => session, invite: { account_id: new_account.id } } }
 
     before { Fabricate(:organisation, id: 6) }
 
