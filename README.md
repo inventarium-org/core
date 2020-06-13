@@ -20,26 +20,6 @@ $ bundle exec rspec
 $ bundle exec haanmi s
 ```
 
-## CLI commands
-
-```
-$ bundle
-$ nmp i
-```
-
-## 
-
-```
-$ HANAMI_ENV=test bundle exec hanami db create
-$ HANAMI_ENV=test bundle exec hanami db migrate
-
-$ bundle exec hanami db create
-$ bundle exec hanami db migrate
-
-$ bundle exec rspec
-$ bundle exec haanmi s
-```
-
 ## Contact
 
 If you want to get in touch with us, send an email: mail@davydovanton.com
