@@ -21,7 +21,7 @@ gem 'dry-system', '~> 0.9.0'
 gem 'dry-system-hanami', github: 'davydovanton/dry-system-hanami'
 
 # markdown
-gem 'kramdown', '2.3.0'
+gem 'kramdown', '2.3.1'
 gem 'rinku'
 gem 'rouge', '1.11.1'
 
