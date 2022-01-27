@@ -51,7 +51,7 @@ gem 'dry-monads', '~> 1.1.0'
 
 # background
 gem 'hiredis'
-gem 'sidekiq', ' ~> 5.2'
+gem 'sidekiq', '~> 6.4'
 gem 'sidekiq-scheduler'
 
 # notifications
